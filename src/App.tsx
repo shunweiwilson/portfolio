@@ -411,10 +411,10 @@ function Explore() {
   };
 
   return (
-    <section id="more" className="py-24 px-6 bg-white border-t border-[#111111] scroll-mt-[68px]">
+    <section id="more" className="py-10 px-6 bg-white border-t border-[#111111] scroll-mt-[68px]">
       <div className="max-w-[1600px] mx-auto">
         <FadeUp>
-          <div className="flex flex-col md:flex-row md:justify-between md:items-center gap-6 mb-12">
+          <div className="flex flex-col md:flex-row md:justify-between md:items-center gap-4 mb-6">
             <h2 className="text-[clamp(2.5rem,5vw,4.5rem)] font-normal tracking-[-0.03em] leading-[1.2em]">
               Explore beyond
             </h2>
@@ -443,19 +443,19 @@ function Explore() {
           {/* Carousel Track */}
           <div 
             ref={scrollRef}
-            className="flex overflow-x-auto snap-x snap-mandatory gap-12 pb-4 hide-scrollbar" 
+            className="flex overflow-x-auto snap-x snap-mandatory gap-12 pb-2 hide-scrollbar" 
           >
             {/* Display pre-computed slide chunks */}
             {slideChunks.map((slideItems, slideIndex) => (
                 <div key={slideIndex} className="w-[85vw] md:w-[90%] lg:w-[92%] shrink-0 snap-start">
-                  <div className="grid grid-cols-1 lg:grid-cols-2 gap-x-8 md:gap-x-12 gap-y-12 md:gap-y-16 items-start">
+                  <div className="grid grid-cols-1 lg:grid-cols-2 gap-x-8 md:gap-x-12 gap-y-6 md:gap-y-6 items-start">
                     {slideItems.map((item, idx) => (
                       <a key={idx} href="#contact" className="block group cursor-pointer">
-                        <hr className="border-[#111111] w-full mb-4 md:mb-6" />
-                        <div className="grid grid-cols-1 sm:grid-cols-12 gap-x-6 gap-y-6 sm:gap-y-0 items-start">
+                        <hr className="border-[#111111] w-full mb-3" />
+                        <div className="grid grid-cols-1 sm:grid-cols-12 gap-x-6 gap-y-4 sm:gap-y-0 items-start">
                           
                           {/* Text Block */}
-                          <div className="sm:col-span-5 flex flex-col gap-4">
+                          <div className="sm:col-span-5 flex flex-col gap-2">
                             <p className="text-base md:text-[1.05rem] font-normal leading-[1.25em] tracking-normal pr-2">
                               <span className="inline bg-gradient-to-r from-yellow-300 to-yellow-300 bg-no-repeat bg-[position:0_95%] bg-[length:0%_30%] group-hover:bg-[length:100%_30%] transition-[background-size] duration-500 ease-out">
                                 {item.title}
