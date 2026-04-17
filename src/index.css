@@ -1,0 +1,159 @@
+@import "tailwindcss";
+
+@font-face {
+  font-family: halyard-display;
+  src: url(https://use.typekit.net/af/11692e/0000000000000000775abe52/31/l?subset_id=2&fvd=n3&v=3) format("woff2"),
+       url(https://use.typekit.net/af/11692e/0000000000000000775abe52/31/d?subset_id=2&fvd=n3&v=3) format("woff"),
+       url(https://use.typekit.net/af/11692e/0000000000000000775abe52/31/a?subset_id=2&fvd=n3&v=3) format("opentype");
+  font-weight: 300;
+  font-style: normal;
+  font-stretch: normal;
+  font-display: auto;
+}
+
+@font-face {
+  font-family: pragmatica-web;
+  src: url(https://use.typekit.net/af/90f3c6/00000000000000007758da31/31/l?subset_id=2&fvd=n2&v=3) format("woff2"),
+       url(https://use.typekit.net/af/90f3c6/00000000000000007758da31/31/d?subset_id=2&fvd=n2&v=3) format("woff"),
+       url(https://use.typekit.net/af/90f3c6/00000000000000007758da31/31/a?subset_id=2&fvd=n2&v=3) format("opentype");
+  font-weight: 200;
+  font-style: normal;
+  font-stretch: normal;
+  font-display: auto;
+}
+
+@font-face {
+  font-family: pragmatica-web;
+  src: url(https://use.typekit.net/af/7a06e0/00000000000000007758da33/31/l?subset_id=2&fvd=n3&v=3) format("woff2"),
+       url(https://use.typekit.net/af/7a06e0/00000000000000007758da33/31/d?subset_id=2&fvd=n3&v=3) format("woff"),
+       url(https://use.typekit.net/af/7a06e0/00000000000000007758da33/31/a?subset_id=2&fvd=n3&v=3) format("opentype");
+  font-weight: 300;
+  font-style: normal;
+  font-stretch: normal;
+  font-display: auto;
+}
+
+@font-face {
+  font-family: pragmatica-web;
+  src: url(https://use.typekit.net/af/b7e21b/00000000000000007758da2f/31/l?subset_id=2&fvd=n7&v=3) format("woff2"),
+       url(https://use.typekit.net/af/b7e21b/00000000000000007758da2f/31/d?subset_id=2&fvd=n7&v=3) format("woff"),
+       url(https://use.typekit.net/af/b7e21b/00000000000000007758da2f/31/a?subset_id=2&fvd=n7&v=3) format("opentype");
+  font-weight: 700;
+  font-style: normal;
+  font-stretch: normal;
+  font-display: auto;
+}
+
+:root {
+  --heading-font-font-family: "Helvetica Neue", Arial, sans-serif;
+  --heading-font-font-weight: 400;
+  --heading-font-line-height: 1.2em;
+  --heading-font-letter-spacing: -.03em;
+  --heading-font-text-transform: none;
+  
+  --heading-1-size: 6.2rem;
+  --heading-2-size: 4.5rem;
+  --heading-3-size: 3rem;
+  
+  --body-font-font-family: "Helvetica Neue", Arial, sans-serif;
+  --body-font-font-weight: 400;
+  --body-font-line-height: 1.3em;
+  --body-font-letter-spacing: 0em;
+  --body-font-text-transform: none;
+}
+
+@layer base {
+  html {
+    font-size: 16px;
+    scroll-behavior: smooth;
+  }
+  
+  body {
+    font-family: var(--body-font-font-family);
+    font-weight: var(--body-font-font-weight);
+    line-height: var(--body-font-line-height);
+    letter-spacing: var(--body-font-letter-spacing);
+    text-transform: var(--body-font-text-transform);
+    color: #000;
+    background-color: #fff;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--heading-font-font-family);
+    font-weight: var(--heading-font-font-weight);
+    line-height: var(--heading-font-line-height);
+    letter-spacing: var(--heading-font-letter-spacing);
+    text-transform: var(--heading-font-text-transform);
+    margin: 0;
+  }
+
+  h1 {
+    font-size: var(--heading-1-size);
+  }
+
+  h2 {
+    font-size: var(--heading-2-size);
+  }
+
+  h3 {
+    font-size: var(--heading-3-size);
+  }
+  
+  h4 {
+    font-size: clamp(1.5rem, 3vw, 2rem);
+  }
+
+  p {
+    margin: 0;
+  }
+}
+
+@layer utilities {
+  .hide-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  .hide-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  
+  .link-underline {
+    position: relative;
+    text-decoration: none;
+  }
+  .link-underline::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    transform: scaleX(0);
+    height: 1px;
+    bottom: 0;
+    left: 0;
+    background-color: currentColor;
+    transform-origin: bottom left;
+    transition: transform 0.25s ease-out;
+  }
+  .link-underline:hover::after {
+    transform: scaleX(1);
+  }
+}
+
+hr {
+  border: none;
+  border-top: 1px solid currentColor;
+  margin: 2rem 0;
+}
+
+@keyframes marquee {
+  0% { transform: translateX(0%); }
+  100% { transform: translateX(-50%); }
+}
+
+.animate-marquee {
+  animation: marquee 25s linear infinite;
+}
+.animate-marquee:hover {
+  animation-play-state: paused;
+}
