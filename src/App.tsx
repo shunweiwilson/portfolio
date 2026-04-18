@@ -234,32 +234,31 @@ function Projects() {
             className="flex overflow-x-auto snap-x snap-mandatory gap-6 pb-8 items-start hide-scrollbar" 
           >
             {projectsData.map((project) => (
-              <a 
+              <div 
                 key={project.id} 
-                href="#contact" 
-                className="group w-[85vw] md:w-[60vw] lg:w-[60vw] snap-start flex-shrink-0 flex flex-col cursor-pointer"
+                className="group w-[85vw] md:w-[60vw] lg:w-[60vw] snap-start flex-shrink-0 flex flex-col"
               >
-                <div className="block overflow-hidden w-full h-[300px] sm:h-[400px] md:h-[450px] lg:h-[500px] mb-6 rounded-sm">
+                <a href="#contact" className="block overflow-hidden w-full h-[300px] sm:h-[400px] md:h-[450px] lg:h-[500px] mb-6 rounded-sm">
                   <img 
                     src={project.img} 
                     alt={project.title} 
                     className="w-full h-full object-cover transform group-hover:scale-[1.03] transition-transform duration-700 ease-out" 
                   />
-                </div>
+                </a>
                 <div className="w-full md:w-3/4">
                   <h3 className="text-[clamp(1.8rem,4vw,3rem)] font-normal tracking-[-0.03em] leading-[1.2em]">
-                    <span className="inline bg-gradient-to-r from-yellow-300 to-yellow-300 bg-no-repeat bg-[position:0_95%] bg-[length:0%_30%] group-hover:bg-[length:100%_30%] transition-[background-size] duration-500 ease-out">
+                    <a href="#contact" className="inline bg-gradient-to-r from-yellow-300 to-yellow-300 bg-no-repeat bg-[position:0_95%] bg-[length:0%_30%] group-hover:bg-[length:100%_30%] transition-[background-size] duration-500 ease-out">
                       {project.title}
-                    </span>
+                    </a>
                   </h3>
                   {project.desc && (
-                    <p className="text-base md:text-base text-[#111111] leading-[1.3em] mt-4">
+                    <p className="text-lg md:text-xl text-[#111111] leading-[1.3em] mt-4">
                       {project.desc}
                     </p>
                   )}
                   <p className="text-[#888888] mt-4 text-sm md:text-base leading-[1.3em]">{project.location}</p>
                 </div>
-              </a>
+              </div>
             ))}
           </div>
         </FadeUp>
@@ -399,10 +398,12 @@ const slideChunks = Array.from({ length: Math.ceil(explores.length / 6) }).map((
 
 function Explore() {
   const scrollRef = useRef<HTMLDivElement>(null);
+  const [hoveredTitle, setHoveredTitle] = useState<string | null>(null);
 
   const handleScroll = (direction: 'left' | 'right') => {
     if (scrollRef.current) {
-      const scrollAmount = scrollRef.current.clientWidth;
+      // Calculate scroll based on the specific element width to snap perfectly
+      const scrollAmount = scrollRef.current.firstElementChild?.clientWidth || scrollRef.current.clientWidth;
       scrollRef.current.scrollBy({ 
         left: direction === 'left' ? -scrollAmount : scrollAmount, 
         behavior: 'smooth' 
@@ -411,10 +412,10 @@ function Explore() {
   };
 
   return (
-    <section id="more" className="py-10 px-6 bg-white border-t border-[#111111] scroll-mt-[68px]">
+    <section id="more" className="py-8 lg:py-10 px-6 bg-white border-t border-[#111111] scroll-mt-[68px]">
       <div className="max-w-[1600px] mx-auto">
         <FadeUp>
-          <div className="flex flex-col md:flex-row md:justify-between md:items-center gap-4 mb-6">
+          <div className="flex flex-col md:flex-row md:justify-between md:items-center gap-6 mb-12">
             <h2 className="text-[clamp(2.5rem,5vw,4.5rem)] font-normal tracking-[-0.03em] leading-[1.2em]">
               Explore beyond
             </h2>
@@ -440,39 +441,51 @@ function Explore() {
         </FadeUp>
         
         <FadeUp delay={100} className="relative">
-          {/* Carousel Track */}
+          {/* Carousel Track with negating margins/padding to prevent zoom cut-off */}
           <div 
             ref={scrollRef}
-            className="flex overflow-x-auto snap-x snap-mandatory gap-12 pb-2 hide-scrollbar" 
+            className="flex overflow-x-auto snap-x snap-mandatory gap-6 lg:gap-10 pt-6 pb-12 -mt-6 -mb-12 hide-scrollbar" 
           >
             {/* Display pre-computed slide chunks */}
             {slideChunks.map((slideItems, slideIndex) => (
-                <div key={slideIndex} className="w-[85vw] md:w-[90%] lg:w-[92%] shrink-0 snap-start">
-                  <div className="grid grid-cols-1 lg:grid-cols-2 gap-x-8 md:gap-x-12 gap-y-6 md:gap-y-6 items-start">
+                <div key={slideIndex} className="w-[85vw] md:w-[90vw] lg:w-[88vw] shrink-0 snap-start">
+                  {/* 88vw width on large screens to guarantee a clear hint of the next slide */}
+                  <div className="grid grid-cols-1 lg:grid-cols-2 gap-x-8 md:gap-x-12 gap-y-6 lg:gap-y-6 items-start">
                     {slideItems.map((item, idx) => (
-                      <a key={idx} href="#contact" className="block group cursor-pointer">
-                        <hr className="border-[#111111] w-full mb-3" />
-                        <div className="grid grid-cols-1 sm:grid-cols-12 gap-x-6 gap-y-4 sm:gap-y-0 items-start">
+                      <div 
+                        key={idx} 
+                        className={`block group transition-all duration-500 ease-[cubic-bezier(0.25,1,0.5,1)] origin-left ${
+                          hoveredTitle === item.title 
+                            ? 'scale-[1.05] opacity-100 z-10' 
+                            : hoveredTitle 
+                              ? 'opacity-30 scale-100 z-0' 
+                              : 'opacity-100 scale-100 z-0'
+                        }`}
+                        onMouseEnter={() => setHoveredTitle(item.title)}
+                        onMouseLeave={() => setHoveredTitle(null)}
+                      >
+                        <hr className="border-[#111111] w-full mb-6 transition-opacity duration-500" />
+                        <div className="grid grid-cols-1 sm:grid-cols-12 gap-x-4 lg:gap-x-6 gap-y-4 sm:gap-y-0 items-start">
                           
-                          {/* Text Block */}
-                          <div className="sm:col-span-5 flex flex-col gap-2">
-                            <p className="text-base md:text-[1.05rem] font-normal leading-[1.25em] tracking-normal pr-2">
-                              <span className="inline bg-gradient-to-r from-yellow-300 to-yellow-300 bg-no-repeat bg-[position:0_95%] bg-[length:0%_30%] group-hover:bg-[length:100%_30%] transition-[background-size] duration-500 ease-out">
+                          {/* Text Block - Adjusted to col-span-7 so images are comfortably smaller vertically */}
+                          <div className="sm:col-span-7 flex flex-col gap-6">
+                            <p className="text-lg md:text-xl font-normal leading-[1.25em] tracking-normal pr-2">
+                              <a href="#contact" className="inline bg-gradient-to-r from-yellow-300 to-yellow-300 bg-no-repeat bg-[position:0_95%] bg-[length:0%_30%] group-hover:bg-[length:100%_30%] transition-[background-size] duration-500 ease-out">
                                 {item.title}
-                              </span>
+                              </a>
                             </p>
-                            <p className="text-sm md:text-[0.9rem] text-[#333333] leading-[1.3em] pr-2">{item.desc}</p>
+                            <p className="text-sm md:text-base text-[#333333] leading-[1.3em] pr-2">{item.desc}</p>
                           </div>
                           
-                          {/* Image Block */}
-                          <div className="sm:col-span-7">
-                            <div className="w-full aspect-[16/9] overflow-hidden rounded-sm bg-[#f2f2f2]">
+                          {/* Image Block - Adjusted to col-span-5 to preserve aspect ratio while saving height */}
+                          <div className="sm:col-span-5">
+                            <a href="#contact" className="block w-full aspect-[16/9] overflow-hidden rounded-sm bg-[#f2f2f2]">
                               <img src={item.img} className="w-full h-full object-cover transform group-hover:scale-[1.03] transition-transform duration-700 ease-out" alt={item.title} />
-                            </div>
+                            </a>
                           </div>
                           
                         </div>
-                      </a>
+                      </div>
                     ))}
                   </div>
                 </div>
@@ -516,7 +529,7 @@ function Footer() {
           <div className="grid grid-cols-1 md:grid-cols-12 gap-y-16 gap-x-8 md:items-start">
             
             {/* Nested wrapper for Info and Text so they match each other's height */}
-            <div className="md:col-span-8 grid grid-cols-1 md:grid-cols-8 gap-y-16 gap-x-8 items-stretch">
+            <div className="md:col-span-9 grid grid-cols-1 md:grid-cols-9 gap-y-16 gap-x-8 items-stretch">
               {/* About Info */}
               <div className="md:col-span-3 flex flex-col justify-between">
                 <div>
@@ -532,7 +545,7 @@ function Footer() {
               </div>
 
               {/* About Text */}
-              <div className="md:col-span-5 md:col-start-4 lg:col-start-4 xl:col-start-4">
+              <div className="md:col-span-6 md:col-start-4 lg:col-start-4 xl:col-start-4">
                 <div className="text-[#aaaaaa] text-lg font-normal leading-[1.4em] tracking-normal space-y-8">
                   <p>
                     Wilson Wu is a design leader working at the intersection of hardware, software, and story. He creates positive impact for startups, in-house teams, agencies, and freelance projects across the world.
