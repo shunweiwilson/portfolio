@@ -140,19 +140,15 @@ function Hero() {
         <div className="mt-8 md:mt-12">
           <div className="grid grid-cols-1 md:grid-cols-12 gap-8 items-start">
             <div className="md:col-span-12">
-              <FadeUp delay={100}>
-                <h3 className="text-[clamp(1.8rem,4vw,3rem)] font-normal tracking-[-0.03em] leading-[1.2em] max-w-4xl">
-                  Instead of being a skyscraper, I always consider myself a bridge, which connects, communicates, and conduces.
-                </h3>
-              </FadeUp>
+              <h3 className="text-[clamp(1.8rem,4vw,3rem)] font-normal tracking-[-0.03em] leading-[1.2em] max-w-4xl">
+                Instead of being a skyscraper, I always consider myself a bridge, which connects, communicates, and conduces.
+              </h3>
             </div>
             <div className="md:col-span-12">
-              <FadeUp delay={200}>
-                <p className="text-lg md:text-xl text-[#333333] leading-[1.3em]">
-                  Wilson Wu, Multi-discipline Product Designer.<br/>
-                  Crafting meaningful hardware and software experiences, currently @YouTube, Google<LoadingDots />
-                </p>
-              </FadeUp>
+              <p className="text-lg md:text-xl text-[#333333] leading-[1.3em]">
+                Wilson Wu, Multi-discipline Product Designer.<br/>
+                Crafting meaningful hardware and software experiences, currently @YouTube, Google<LoadingDots />
+              </p>
             </div>
           </div>
         </div>
@@ -166,28 +162,28 @@ const projectsData = [
     id: 1,
     title: "YouTube Living Room",
     desc: "Design innovation for the largest screen at home. To make YouTube the world’s best TV experience.",
-    location: "User Experience Design, Media and Community",
+    chips: ["User Experience Design", "Media", "Community", "Platform", "TV"],
     img: "https://github.com/shunweiwilson/image-storage/blob/main/YTLR_Hero_2.gif?raw=true"
   },
   {
     id: 2,
     title: "Verily Retinal Camera",
     desc: "Prevent blindness by re-imagine retinal screening services",
-    location: "Hardware+Software Integrated Design, Healthcare ",
+    chips: ["Hardware+Software UX", "Founding Designer", "FDA Listed", "AI", "Healthcare"],
     img: "https://github.com/shunweiwilson/image-storage/blob/main/VRC_hero.png?raw=true"
   },
   {
     id: 3,
     title: "Quo STDs AI",
     desc: "How can we levrage AI agent to make healthcare better for humans?",
-    location: "User Experience Design, Healthcare and Artificial Intelligence",
+    chips: ["UX Design", "Founding Designer", "AI", "Healthcare"],
     img: "https://github.com/shunweiwilson/image-storage/blob/main/Quo_hero_1.jpg?raw=true"
   },
   {
     id: 4,
     title: "Eldernext Muscle Training Wearables",
     desc: "Prevent the elders from the vicious circle of Sarcopenia.",
-    location: "Hardware+Software Integrated Design, Fitness",
+    chips: ["Hardware+Software UX", "Wearables", "Fitness"],
     img: "https://github.com/shunweiwilson/image-storage/blob/main/Eldernext_Hero_3.jpg?raw=true"
   }
 ];
@@ -259,11 +255,19 @@ function Projects() {
                     </a>
                   </h3>
                   {project.desc && (
-                    <p className="text-lg md:text-xl text-[#111111] leading-[1.3em] mt-4">
+                    <p className="text-lg md:text-xl text-[#111111] leading-[1.3em] mt-4 mb-2">
                       {project.desc}
                     </p>
                   )}
-                  <p className="text-[#888888] mt-4 text-sm md:text-base leading-[1.3em]">{project.location}</p>
+                  {project.chips && project.chips.length > 0 && (
+                    <div className="flex flex-wrap gap-2 mt-4">
+                      {project.chips.map((chip, i) => (
+                        <span key={i} className="px-3 py-[0.15rem] text-[0.75rem] md:text-sm font-medium border border-[#bbbbbb] text-[#666666] tracking-wide rounded-full group-hover:border-[#111111] group-hover:text-[#111111] transition-colors duration-500">
+                          {chip}
+                        </span>
+                      ))}
+                    </div>
+                  )}
                 </div>
               </div>
             ))}
@@ -279,122 +283,181 @@ const explores = [
     title: "AI-powered personalized baby sleep-coaching devices solution",
     desc: (
       <>
-        <span className="font-semibold">Lumi by Pampers</span><br />
-        Google+P&amp;G<br />
-        Baby Monitor &amp; AI sleep Coaching
+        <span className="font-semibold">Lumi by Pampers</span><br />Google+P&amp;G<br />Baby Monitor &amp; AI Sleep Coaching
       </>
     ),
+    chips: ["HW+SW UX", "AI", "Mobile", "Consumer"],
     img: "https://github.com/shunweiwilson/image-storage/blob/main/Lumi_Hero.png?raw=true",
   },
   {
     title: "First-ever FDA approved clinical-grade watch to monitor atrial fibrillation in the US",
     desc: (
       <>
-        <span className="font-semibold">Verily</span> <br />
-        Study Watch
+        <span className="font-semibold">Verily</span><br />Study Watch
       </>
     ),
+    chips: ["HW+SW UX", "Wearables", "Mobile", "Healthcare"],
     img: "https://github.com/shunweiwilson/image-storage/blob/main/VW_hero.png?raw=true",
   },
   {
     title: "Fold four centuries of Ming dynasty heritage into modern urban living.",
     desc: (
       <>
-        <span className="font-semibold">M-ing</span><br />
-        Foldable Ming Style Armchair
+        <span className="font-semibold">M-ing</span><br />Foldable Ming Style Armchair
       </>
     ),
+    chips: ["Industrial Design", "Furniture"],
     img: "https://github.com/shunweiwilson/image-storage/blob/main/Ming_hero.png?raw=true",
   },
   {
     title: "Accurate, fast, easy-to-use network planning over a web browser.",
     desc: (
       <>
-        <span className="font-semibold">Google</span><br />
-        Network Planner<br />
-        Web-based Network Planning Tool
+        <span className="font-semibold">Google</span><br />Network Planner<br />Web-based Network Planning Tool
       </>
     ),
+    chips: ["UX Design", "Web"],
     img: "https://github.com/shunweiwilson/image-storage/blob/main/google_networkplanner_hero_1.png?raw=true",
   },
   {
     title: "The next generation of cyber security",
     desc: (
       <>
-        <span className="font-semibold">Trend Micro</span><br />
-        Official Website Visual Refreshment
+        <span className="font-semibold">Trend Micro</span><br />Official Website Visual Refreshment
       </>
     ),
+    chips: ["UX Design", "Visual Design", "Web"],
     img: "https://github.com/shunweiwilson/image-storage/blob/main/TMCOM_Hero.jpg?raw=true",
   },
   {
     title: "Use system-modeling to address complex challenges.",
     desc: (
       <>
-        <span className="font-semibold">Eli Lily</span><br />
-        Automated Insulin Delivery System
+        <span className="font-semibold">Eli Lily</span><br />Automated Insulin Delivery System
       </>
     ),
+    chips: ["System Design", "Design Strategy"],
     img: "https://github.com/shunweiwilson/image-storage/blob/main/lilly_hero_1.png?raw=true",
   },
   {
     title: "Speed up the process of UX developing",
     desc: (
       <>
-        <span className="font-semibold">Trend Micro</span><br />
-        Mac OS User Interface Design system
+        <span className="font-semibold">Trend Micro</span><br />Mac OS User Interface Design system
       </>
     ),
+    chips: ["UX Design", "Design System", "MacOS"],
     img: "https://github.com/shunweiwilson/image-storage/blob/main/TMUI_hero.png?raw=true",
   },
   {
     title: "Engineering a safer drive through precision eye-tracking research",
     desc: (
       <>
-        <span className="font-bold">SCID UX Lab</span><br />
-        Automobile Augmented Reality Research
+        <span className="font-bold">SCID UX Lab</span><br />Automobile Augmented Reality Research
       </>
     ),
+    chips: ["Research", "Eye-tracking", "AR"],
     img: "https://github.com/shunweiwilson/image-storage/blob/main/Eye_track_hero.png?raw=true",
   },
   {
     title: "Unleash the next generation of niche fashion through community-driven crowdfunding.",
     desc: (
       <>
-        <span className="font-bold">Debut</span><br />
-        Crowdfunding platform for niche fashion
+        <span className="font-bold">Debut</span><br />Crowdfunding platform for niche fashion
       </>
     ),
+    chips: ["UX Design", "Art Direction", "Mobile", "Web"],
     img: "https://raw.githubusercontent.com/shunweiwilson/image-storage/refs/heads/main/Debut_hero.jpg",
   },
   {
     title: "Curate a boundless virtual exhibition that connects young designers with industry recruiters.",
     desc: (
       <>
-        <span className="font-bold">The Stage</span><br />
-        Virtual Designer Exhibition/Event
+        <span className="font-bold">The Stage</span><br />Virtual Designer Exhibition/Event
       </>
     ),
+    chips: ["UX Design", "VR/AR"],
     img: "https://github.com/shunweiwilson/image-storage/blob/main/Stage_Hero.png?raw=true",
   },
   {
     title: "Empowering older adults to navigate the noise of the digital information bubble",
     desc: (
       <>
-        <span className="font-bold">Fye</span> <br /> Fact check AI-agent
+        <span className="font-bold">Fye</span><br />Fact Check AI-Agent
       </>
     ),
+    chips: ["UX Design", "Research", "AI"],
     img: "https://github.com/shunweiwilson/image-storage/blob/main/Fye_hero.jpg?raw=true",
   },
   {
     title: "Alleviate the academic drop-off of long summers with a continuous, balanced schedule.",
     desc: (
       <>
-        <span className="font-bold">The New School of San Francisco</span><br />
-        Equity School Calendar and Remote Learning
+        <span className="font-bold">The New School of San Francisco</span><br />Equity School Calendar and Remote Learning
       </>
     ),
+    chips: ["Service Design", "Research", "Education"],
     img: "https://github.com/shunweiwilson/image-storage/blob/main/NSSF_hero.jpg?raw=true",
+  },
+  {
+    title: "Designing the lens through which we will remember our first lunar vacations",
+    desc: (
+      <>
+        <span className="font-bold">Capture 2025</span><br />Rental Camera System on Moon
+      </>
+    ),
+    chips: ["Industrial Design", "Speculative Design"],
+    img: "https://github.com/shunweiwilson/image-storage/blob/main/Capture_hero.jpg?raw=true",
+  },
+  {
+    title: "“收乾\": The art of distilling chaotic thoughts into harmonious design",
+    desc: (
+      <>
+        <span className="font-bold">Shou-gan “收乾” 2015</span><br />SCID Design Exhibition Art Direction
+      </>
+    ),
+    chips: ["Art Direction", "Exhibition Design", "Curation"],
+    img: "https://raw.githubusercontent.com/shunweiwilson/image-storage/refs/heads/main/SG_hero_1.avif",
+  },
+  {
+    title: "Bridging the gap between domestic aesthetics and emergency preparedness.",
+    desc: (
+      <>
+        <span className="font-bold">FOLD</span><br />Fire Extinguisher
+      </>
+    ),
+    chips: ["Industrial Design", "Home"],
+    img: "https://github.com/shunweiwilson/image-storage/blob/main/Fold_hero.jpg?raw=true",
+  },
+  {
+    title: "It’s my pleasure",
+    desc: (
+      <>
+        <span className="font-bold">Pleasure</span><br />Art Sculpture
+      </>
+    ),
+    chips: ["Experimental Art", "Design"],
+    img: "https://github.com/shunweiwilson/image-storage/blob/main/Pleasure_hero_01.jpg?raw=true",
+  },
+  {
+    title: "Rethinking the wheel by studying the survival strategies of the insect world",
+    desc: (
+      <>
+        <span className="font-bold">6, Locomotion</span><br />Experimental Mobility
+      </>
+    ),
+    chips: ["Experimental Art", "Design"],
+    img: "https://github.com/shunweiwilson/image-storage/blob/main/6_hero_3.png?raw=true",
+  },
+  {
+    title: "Every little makes a mickle",
+    desc: (
+      <>
+        <span className="font-bold">Mickle</span><br />Lighting
+      </>
+    ),
+    chips: ["Experimental Art", "Design"],
+    img: "https://github.com/shunweiwilson/image-storage/blob/main/Mickle_hero.jpg?raw=true",
   }
 ];
 
@@ -481,7 +544,18 @@ function Explore() {
                                 {item.title}
                               </a>
                             </p>
-                            <p className="text-sm md:text-base text-[#333333] leading-[1.3em] pr-2">{item.desc}</p>
+                            <div className="flex flex-col gap-3 md:gap-4 items-start">
+                              <p className="text-sm md:text-base text-[#333333] leading-[1.3em] pr-2">{item.desc}</p>
+                              {item.chips && item.chips.length > 0 && (
+                                <div className="flex flex-wrap gap-2">
+                                  {item.chips.map((chip, i) => (
+                                    <span key={i} className="px-3 py-[0.15rem] text-[0.75rem] md:text-sm font-medium border border-[#bbbbbb] text-[#666666] tracking-wide rounded-full group-hover:border-[#111111] group-hover:text-[#111111] transition-colors duration-500">
+                                      {chip}
+                                    </span>
+                                  ))}
+                                </div>
+                              )}
+                            </div>
                           </div>
                           
                           {/* Image Block - Adjusted to col-span-5 to preserve aspect ratio while saving height */}
