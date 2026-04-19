@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Menu, X, ChevronLeft, ChevronRight, ArrowRight } from 'lucide-react';
+import { Menu, X, ArrowLeft, ArrowRight } from 'lucide-react';
 
 // --- Shared Reusable Components ---
 
@@ -118,14 +118,21 @@ function Hero() {
   return (
     <section id="home" className="pt-[68px] pb-24 px-6">
       <div className="max-w-[1600px] mx-auto">
-        {/* Constrained Image Block */}
+        {/* Constrained Video/Image Block */}
         <FadeUp>
-          <div className="w-full h-[55vh] md:h-[65vh] lg:h-[70vh]">
-            <img 
-              src="https://github.com/shunweiwilson/image-storage/blob/main/Wilson_Discuss_Hero.png?raw=true" 
-              alt="Wilson discussing design" 
-              className="w-full h-full object-cover rounded-sm" 
-            />
+          <div className="w-full h-[55vh] md:h-[65vh] lg:h-[80vh]">
+            <video 
+              autoPlay 
+              loop 
+              muted 
+              playsInline
+              poster="https://github.com/shunweiwilson/image-storage/blob/main/Wilson_Discuss_Hero.png?raw=true"
+              className="w-full h-full object-cover rounded-sm"
+            >
+              {/* Add your video URL below in the src attribute */}
+              <source src="https://video.wixstatic.com/video/807af0_43303b0c5dca454bb00cc7e28d919d48/1080p/mp4/file.mp4" type="video/mp4" />
+              Your browser does not support the video tag.
+            </video>
           </div>
         </FadeUp>
         
@@ -202,26 +209,26 @@ function Projects() {
     <section id="portfolio" className="py-24 px-6 border-t border-[#111111] scroll-mt-[68px]">
       <div className="max-w-[1600px] mx-auto">
         <FadeUp>
-          <div className="flex flex-col md:flex-row md:justify-between md:items-center gap-6 mb-12">
+          <div className="flex flex-row items-center gap-1 md:gap-2 mb-12">
             <h2 className="text-[clamp(2.5rem,5vw,4.5rem)] font-normal tracking-[-0.03em] leading-[1.2em]">
               Featured projects
             </h2>
             
             {/* Navigation Arrows */}
-            <div className="flex gap-4">
+            <div className="flex shrink-0 text-[clamp(2.5rem,5vw,4.5rem)] pt-[0.1em]">
               <button 
                 onClick={() => handleScroll('left')}
-                className="w-12 h-12 flex items-center justify-center border border-[#111111] rounded-full hover:bg-[#111111] hover:text-white transition-colors focus:outline-none shrink-0" 
+                className="flex items-center justify-center hover:opacity-40 cursor-pointer transition-opacity focus:outline-none shrink-0" 
                 aria-label="Previous"
               >
-                <ChevronLeft strokeWidth={1.5} />
+                <ArrowLeft strokeWidth={1.5} size="1em" />
               </button>
               <button 
                 onClick={() => handleScroll('right')}
-                className="w-12 h-12 flex items-center justify-center border border-[#111111] rounded-full hover:bg-[#111111] hover:text-white transition-colors focus:outline-none shrink-0" 
+                className="flex items-center justify-center hover:opacity-40 cursor-pointer transition-opacity focus:outline-none shrink-0" 
                 aria-label="Next"
               >
-                <ChevronRight strokeWidth={1.5} />
+                <ArrowRight strokeWidth={1.5} size="1em" />
               </button>
             </div>
           </div>
@@ -415,26 +422,26 @@ function Explore() {
     <section id="more" className="py-8 lg:py-10 px-6 bg-white border-t border-[#111111] scroll-mt-[68px]">
       <div className="max-w-[1600px] mx-auto">
         <FadeUp>
-          <div className="flex flex-col md:flex-row md:justify-between md:items-center gap-6 mb-12">
+          <div className="flex flex-row items-center gap-1 md:gap-2 mb-12">
             <h2 className="text-[clamp(2.5rem,5vw,4.5rem)] font-normal tracking-[-0.03em] leading-[1.2em]">
               Explore beyond
             </h2>
             
             {/* Navigation Arrows */}
-            <div className="flex gap-4">
+            <div className="flex shrink-0 text-[clamp(2.5rem,5vw,4.5rem)] pt-[0.1em]">
               <button 
                 onClick={() => handleScroll('left')}
-                className="w-12 h-12 flex items-center justify-center border border-[#111111] rounded-full hover:bg-[#111111] hover:text-white transition-colors focus:outline-none shrink-0" 
+                className="flex items-center justify-center hover:opacity-40 cursor-pointer transition-opacity focus:outline-none shrink-0" 
                 aria-label="Previous"
               >
-                <ChevronLeft strokeWidth={1.5} />
+                <ArrowLeft strokeWidth={1.5} size="1em" />
               </button>
               <button 
                 onClick={() => handleScroll('right')}
-                className="w-12 h-12 flex items-center justify-center border border-[#111111] rounded-full hover:bg-[#111111] hover:text-white transition-colors focus:outline-none shrink-0" 
+                className="flex items-center justify-center hover:opacity-40 cursor-pointer transition-opacity focus:outline-none shrink-0" 
                 aria-label="Next"
               >
-                <ChevronRight strokeWidth={1.5} />
+                <ArrowRight strokeWidth={1.5} size="1em" />
               </button>
             </div>
           </div>
@@ -531,13 +538,13 @@ function Footer() {
             {/* Nested wrapper for Info and Text so they match each other's height */}
             <div className="md:col-span-9 grid grid-cols-1 md:grid-cols-9 gap-y-16 gap-x-8 items-stretch">
               {/* About Info */}
-              <div className="md:col-span-3 flex flex-col justify-between">
+              <div className="md:col-span-4 lg:col-span-3 flex flex-col justify-between">
                 <div>
                   <h2 className="text-[clamp(2.5rem,5vw,4.5rem)] font-normal tracking-[-0.03em] leading-[1.2em]">About</h2>
                 </div>
                 <div className="mt-12 md:mt-0">
                   <p className="text-[#aaaaaa] text-lg leading-[1.3em] flex flex-col items-start gap-1">
-                    <a href="mailto:shunweiwilson@gmail.com" className="link-underline hover:text-white transition-colors w-fit">shunweiwilson@gmail.com</a>
+                    <a href="mailto:shunweiwilson@gmail.com" className="link-underline hover:text-white transition-colors w-fit break-all sm:break-normal">shunweiwilson@gmail.com</a>
                     <a href="https://www.linkedin.com/in/shunweiwilson/" target="_blank" rel="noopener noreferrer" className="link-underline hover:text-white transition-colors w-fit">LinkedIn</a>
                     <a href="https://www.google.com/maps/place/San+Francisco+Bay+Area,+CA/" target="_blank" rel="noopener noreferrer" className="link-underline hover:text-white transition-colors w-fit">San Francisco, CA</a>
                   </p>
@@ -545,7 +552,7 @@ function Footer() {
               </div>
 
               {/* About Text */}
-              <div className="md:col-span-6 md:col-start-4 lg:col-start-4 xl:col-start-4">
+              <div className="md:col-span-5 md:col-start-5 lg:col-span-6 lg:col-start-4">
                 <div className="text-[#aaaaaa] text-lg font-normal leading-[1.4em] tracking-normal space-y-8">
                   <p>
                     Wilson Wu is a design leader working at the intersection of hardware, software, and story. He creates positive impact for startups, in-house teams, agencies, and freelance projects across the world.
@@ -624,7 +631,7 @@ function Footer() {
       <div className="w-full overflow-hidden border-t border-[#333333] py-4 mt-4 flex">
         <div className="flex whitespace-nowrap animate-marquee text-[#aaaaaa] text-base w-max">
           <span className="pr-12">Thanks for opening my eyes to new stages of opportunity and strength. I am grateful for your guidance, support and kindness. Albert Wu • Anuprita Ranade • Ashley Kao • Austin Lin • Blake Terry • Bryna Tsai • Erik Lack • Federico Villa • Gina Hsu • Hugh Dubberly • Infinity*8 • JC Yeh • Joe Hines • Jonathan Grossman • Kev Chang • Kristine Yuen • Larika Mallier • Lulu Yang • Mahesh Kantheti • Manta Wu • MDes C5 • Megan Chang • Mumin Yu • Nathan Chiu • Patty Tseng • Pei Chen • Po-han Lin • Purva Takkar • Quen Ho • Sanuree Gomes • Sarah Ludwig • Seana Chang • Shannon Fong • Shivankit Sethi • Team Nü • Ting-yi Huang • Will Bates • Will Wu • Ying Ying Liu • Young-wei Huang</span>
-      
+          <span className="pr-12">Thanks for opening my eyes to new stages of opportunity and strength. I am grateful for your guidance, support and kindness. Albert Wu • Anuprita Ranade • Ashley Kao • Austin Lin • Blake Terry • Bryna Tsai • Erik Lack • Federico Villa • Gina Hsu • Hugh Dubberly • Infinity*8 • JC Yeh • Joe Hines • Jonathan Grossman • Kev Chang • Kristine Yuen • Larika Mallier • Lulu Yang • Mahesh Kantheti • Manta Wu • MDes C5 • Megan Chang • Mumin Yu • Nathan Chiu • Patty Tseng • Pei Chen • Po-han Lin • Purva Takkar • Quen Ho • Sanuree Gomes • Sarah Ludwig • Seana Chang • Shannon Fong • Shivankit Sethi • Team Nü • Ting-yi Huang • Will Bates • Will Wu • Ying Ying Liu • Young-wei Huang</span>
         </div>
       </div>
     </footer>
@@ -635,8 +642,8 @@ function Footer() {
 
 export default function App() {
   return (
-    // Top-level wrapper applying the Helvetica typography constraints
-    <div className="font-['Helvetica_Neue',Arial,sans-serif] text-[#111111] bg-white antialiased overflow-x-hidden selection:bg-[#111111] selection:text-white">
+    // Top-level wrapper applying system typography constraints
+    <div className="font-['Helvetica_Neue',-apple-system,BlinkMacSystemFont,'Segoe_UI',Roboto,sans-serif] text-[#111111] bg-white antialiased overflow-x-hidden selection:bg-[#111111] selection:text-white">
       <Header />
       <main className="min-h-screen">
         <Hero />
