@@ -518,7 +518,7 @@ function Explore() {
         
         <FadeUp delay={100} className="relative">
           {/* Virtual Masonry Flex Columns Container */}
-          <div className="flex w-full gap-8 items-start">
+          <div className="flex w-full gap-6 items-start">
             {columnBuckets.map((bucket, colIdx) => (
               <div key={colIdx} className="flex-1 flex flex-col w-full min-w-0">
                 {bucket.map((item) => {
