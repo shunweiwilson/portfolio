@@ -66,7 +66,7 @@ function Header() {
         <div className="max-w-[1600px] mx-auto w-full flex items-center justify-between">
           <a href="/" className="text-xl tracking-tight z-50 relative font-normal flex items-center gap-2">
             <span className="w-5 h-5 bg-yellow-400 rounded-full inline-block"></span>
-            Wilson Shunwei Wu
+            Wilson Wu
           </a>
           
           {/* Desktop Menu */}
@@ -95,7 +95,7 @@ function Header() {
       >
         <a href="#portfolio" onClick={() => setIsMenuOpen(false)} className="text-[clamp(2.5rem,5vw,4.5rem)] tracking-[-0.03em] link-underline transition-opacity w-fit">Featured</a>
         <a href="#more" onClick={() => setIsMenuOpen(false)} className="text-[clamp(2.5rem,5vw,4.5rem)] tracking-[-0.03em] link-underline transition-opacity w-fit">Beyond</a>
-        <a href="#about" onClick={() => setIsMenuOpen(false)} className="text-[clamp(2.5rem,5vw,4.5rem)] tracking-[-0.03em] link-underline transition-opacity font-medium w-fit">About</a>
+        <a href="#about" onClick={() => setIsMenuOpen(false)} className="text-[clamp(2.5rem,5vw,4.5rem)] tracking-[-0.03em] link-underline transition-opacity w-fit">About</a>
       </div>
     </>
   );
@@ -161,7 +161,7 @@ const projectsData = [
   {
     id: 1,
     title: "YouTube Living Room",
-    desc: "Design innovation for the largest screen at home. To make YouTube the world’s best TV experience.",
+    desc: "Design innovation for the largest screen at home",
     chips: ["User Experience Design", "Media", "Community", "Platform", "TV"],
     img: "https://github.com/shunweiwilson/image-storage/blob/main/YTLR_Hero_2.gif?raw=true"
   },
@@ -174,7 +174,7 @@ const projectsData = [
   },
   {
     id: 3,
-    title: "Quo STDs AI",
+    title: "Quo: Anonymous STD AI Consultant",
     desc: "How can we levrage AI agent to make healthcare better for humans?",
     chips: ["UX Design", "Founding Designer", "AI", "Healthcare"],
     img: "https://github.com/shunweiwilson/image-storage/blob/main/Quo_hero_1.jpg?raw=true"
@@ -463,6 +463,7 @@ const extractPlaintext = (node: React.ReactNode): string => {
 
 function Explore({ onProjectClick }: { onProjectClick: (data: PasswordPromptData) => void }) {
   const [hoveredTitle, setHoveredTitle] = useState<string | null>(null);
+  const [visibleCount, setVisibleCount] = useState(4);
   const [cols, setCols] = useState(() => {
     if (typeof window !== 'undefined') {
       const width = window.innerWidth;
@@ -496,13 +497,16 @@ function Explore({ onProjectClick }: { onProjectClick: (data: PasswordPromptData
   }, []);
 
   // Create strictly separated buckets so items can NEVER reflow to the wrong column
+  const isDesktop = cols >= 3;
+  const displayedExplores = isDesktop ? explores : explores.slice(0, visibleCount);
+
   const columnBuckets = Array.from({ length: cols }, () => [] as (typeof explores[0] & { rankIndex: number })[]);
-  explores.forEach((item, index) => {
+  displayedExplores.forEach((item, index) => {
     columnBuckets[index % cols].push({ ...item, rankIndex: index });
   });
 
   return (
-    <section id="more" className="pt-12 pb-24 px-6 bg-white border-t border-[#111111] scroll-mt-[68px]">
+    <section id="more" className="pt-12 pb-12 px-6 bg-white border-t border-[#111111] scroll-mt-[68px]" data-debug-pt="More Wrapper TopPad" data-debug-pb="More Wrapper BtmPad">
       <div className="max-w-[1600px] mx-auto">
         <FadeUp>
           <div className="flex flex-row items-center mb-[48px]">
@@ -557,7 +561,7 @@ function Explore({ onProjectClick }: { onProjectClick: (data: PasswordPromptData
               return (
                 <div 
                   key={item.title} 
-                  className="explore-item break-inside-avoid block mb-[48px]"
+                  className="explore-item break-inside-avoid block mb-[36px]"
                   data-idx={item.rankIndex}
                   onMouseEnter={() => setHoveredTitle(item.title)}
                   onMouseLeave={() => setHoveredTitle(null)}
@@ -602,6 +606,17 @@ function Explore({ onProjectClick }: { onProjectClick: (data: PasswordPromptData
               </div>
             ))}
           </div>
+
+          {!isDesktop && visibleCount < explores.length && (
+            <div className="flex justify-center mt-4">
+              <button 
+                onClick={() => setVisibleCount(prev => prev + 4)}
+                className="h-12 px-8 flex items-center justify-center border border-[#111111] rounded-full text-sm font-medium hover:bg-[#111111] hover:text-white transition-colors"
+              >
+                Show more
+              </button>
+            </div>
+          )}
         </FadeUp>
       </div>
     </section>
@@ -1171,36 +1186,14 @@ export default function App() {
               </button>
             )}
 
-            {(() => {
-              const copyIndex = passwordPromptData ? (passwordPromptData.rankIndex % 6) : 0;
-              const modalTitles = [
-                "Oops, It's Locked!",
-                "Top Secret",
-                "Under Wraps",
-                "I'm Dying to Show You!",
-                "Peek-a-Boo!",
-                "Members Only"
-              ];
-              const parts = [
-                ["I'm incredibly proud of ", ", but my clients would totally ground me if I left it out in the open. Got the password? Come on in!"],
-                ["A lot of exclusive knowledge into ", ", so I keep it safely tucked away under lock and key. Enter the password to see what I've been brewing!"],
-                ["I’d absolutely love to pull the curtain back on ", ", but those pesky NDAs are no joke! If you have the clearance code, the stage is yours."],
-                ["Seriously, I really want you to see the work behind ", ", but it has to stay under wraps for now. Drop the secret code below to take a peek!"],
-                ["The details for ", " are currently playing hide-and-seek behind this password screen. If you know the magic word, you're \"It!\""],
-                ["", " is currently just for the inner circle, but I'm always looking to expand the club. Type the password below if you have it!"]
-              ];
-
-              return (
-                <>
-                  <h3 className="text-[clamp(1.3rem,2.5vw,1.8rem)] font-normal tracking-[-0.03em] leading-[1.2em] mb-3">
-                    {modalTitles[copyIndex]}
-                  </h3>
-                  <p className="text-sm md:text-base text-[#333333] leading-[1.4em] mb-6">
-                    {parts[copyIndex][0]}<span className="font-semibold text-[#111111]">"{passwordPromptData ? (passwordPromptData.useTitleForModal ? passwordPromptData.title : extractPlaintext(passwordPromptData.desc)) : ''}"</span>{parts[copyIndex][1]}
-                  </p>
-                </>
-              );
-            })()}
+            <>
+              <h3 className="text-[clamp(1.3rem,2.5vw,1.8rem)] font-normal tracking-[-0.03em] leading-[1.2em] mb-3">
+                Private Project
+              </h3>
+              <p className="text-sm md:text-base text-[#333333] leading-[1.4em] mb-6">
+                The in-depth process for <span className="font-semibold text-[#111111]">"{passwordPromptData ? (passwordPromptData.useTitleForModal ? passwordPromptData.title : extractPlaintext(passwordPromptData.desc)) : ''}"</span> is currently held privately. If you've been given a password, I invite you to enter it below to see the work.
+              </p>
+            </>
             
             <form onSubmit={(e) => { e.preventDefault(); setPasswordPromptData(null); }} className="relative flex items-center mb-4">
               <input 
