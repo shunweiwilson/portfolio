@@ -116,7 +116,7 @@ function LoadingDots() {
 
 function Hero() {
   return (
-    <section id="home" className="pt-[68px] pb-12 px-6">
+    <section id="home" className="pt-[68px] pb-24 px-6">
       <div className="max-w-[1600px] mx-auto">
         {/* Constrained Video/Image Block */}
         <FadeUp>
@@ -197,63 +197,32 @@ export interface PasswordPromptData {
 }
 
 function Projects({ onProjectClick }: { onProjectClick: (data: PasswordPromptData) => void }) {
-  const scrollRef = useRef<HTMLDivElement>(null);
-
-  const handleScroll = (direction: 'left' | 'right') => {
-    if (scrollRef.current) {
-      const scrollAmount = window.innerWidth < 768 ? window.innerWidth * 0.85 : window.innerWidth * 0.45;
-      scrollRef.current.scrollBy({ 
-        left: direction === 'left' ? -scrollAmount : scrollAmount, 
-        behavior: 'smooth' 
-      });
-    }
-  };
-
   return (
-    <section id="portfolio" className="py-12 px-6 border-t border-[#111111] scroll-mt-[68px]" data-debug-pt="Portfolio Wrapper TopPad" data-debug-pb="Portfolio Wrapper BtmPad">
+    <section id="portfolio" className="pt-12 pb-24 px-6 border-t border-[#111111] scroll-mt-[68px]" data-debug-pt="Portfolio Wrapper TopPad" data-debug-pb="Portfolio Wrapper BtmPad">
       <div className="max-w-[1600px] mx-auto">
         <FadeUp>
-          <div className="flex flex-row items-center gap-1 md:gap-2 mb-12" data-debug-mb="Header Bottom Margin" data-debug-gap="Title-to-Arrows Flex Gap">
+          <div className="flex flex-row items-center mb-12" data-debug-mb="Header Bottom Margin">
             <h2 className="text-[clamp(2.5rem,5vw,4.5rem)] font-normal tracking-[-0.03em] leading-[1.2em]">
               Featured projects
             </h2>
-            
-            {/* Navigation Arrows */}
-            <div className="flex shrink-0 text-[clamp(2.5rem,5vw,4.5rem)] pt-[0.1em]">
-              <button 
-                onClick={() => handleScroll('left')}
-                className="flex items-center justify-center hover:opacity-40 cursor-pointer transition-opacity focus:outline-none shrink-0" 
-                aria-label="Previous"
-              >
-                <ArrowLeft strokeWidth={1.5} size="1em" />
-              </button>
-              <button 
-                onClick={() => handleScroll('right')}
-                className="flex items-center justify-center hover:opacity-40 cursor-pointer transition-opacity focus:outline-none shrink-0" 
-                aria-label="Next"
-              >
-                <ArrowRight strokeWidth={1.5} size="1em" />
-              </button>
-            </div>
           </div>
         </FadeUp>
         
         <FadeUp delay={100} className="relative">
-          {/* Carousel Track */}
+          {/* 2x2 Grid Track */}
           <div 
-            ref={scrollRef}
-            className="flex overflow-x-auto snap-x snap-mandatory gap-6 pb-8 items-start hide-scrollbar"
-            data-debug-gap="Carousel Inner Gap" 
+            className="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-12 lg:gap-y-16 items-start"
+            data-debug-gap="Grid Inner Gap" 
           >
             {projectsData.map((project, idx) => (
               <div 
                 key={project.id} 
-                className="group w-[85vw] md:w-[60vw] lg:w-[60vw] snap-start flex-shrink-0 flex flex-col"
+                className="group flex flex-col"
               >
                 <a 
                   href="#" 
                   onClick={(e) => { e.preventDefault(); onProjectClick({ title: project.title, desc: project.desc, img: project.img, rankIndex: idx, useTitleForModal: true }); }} 
-                  className="block overflow-hidden w-full h-[300px] sm:h-[400px] md:h-[450px] lg:h-[500px] mb-6 rounded-[16px] border border-[#111111]" 
+                  className="block overflow-hidden w-full aspect-[4/3] sm:aspect-[16/10] md:aspect-[4/3] xl:aspect-[16/10] mb-6 rounded-[16px] border border-[#111111]" 
                   data-debug-mb="Image to Title Margin"
                 >
                   <img 
@@ -278,7 +247,7 @@ function Projects({ onProjectClick }: { onProjectClick: (data: PasswordPromptDat
                     </p>
                   )}
                   {project.chips && project.chips.length > 0 && (
-                    <div className="flex flex-wrap items-center gap-2 mt-4" data-debug-mt="Description to Chips Margin" data-debug-gap="Chips Internal Layout Gap">
+                    <div className="flex flex-wrap items-center gap-1 mt-4" data-debug-mt="Description to Chips Margin" data-debug-gap="Chips Internal Layout Gap">
                       <span className="shrink-0 w-6 h-6 flex items-center justify-center text-[10px] sm:text-[11px] font-medium bg-[#111111] text-white rounded-full">
                         {String(idx + 1).padStart(2, '0')}
                       </span>
@@ -553,7 +522,7 @@ function Explore({ onProjectClick }: { onProjectClick: (data: PasswordPromptData
                   const variant = item.rankIndex % 3;
               
               const TagsBlock = (
-                <div className="flex flex-wrap items-center gap-2 mb-4">
+                <div className="flex flex-wrap items-center gap-1 mb-4">
                   <span className="shrink-0 w-6 h-6 flex items-center justify-center text-[10px] sm:text-[11px] font-medium bg-[#111111] text-white rounded-full">
                     {String(item.rankIndex + 1).padStart(2, '0')}
                   </span>
