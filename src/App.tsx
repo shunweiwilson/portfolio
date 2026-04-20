@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Menu, X, ArrowLeft, ArrowRight } from 'lucide-react';
-import { SpeedInsights } from "@vercel/speed-insights/react";
 
 // --- Shared Reusable Components ---
 
@@ -161,7 +160,7 @@ function Hero() {
 const projectsData = [
   {
     id: 1,
-    title: "YouTube Living Room",
+    title: "Living Room: YouTube on TV",
     desc: "Design innovation for the largest screen at home",
     chips: ["User Experience Design", "Media", "Community", "Platform", "TV"],
     img: "https://github.com/shunweiwilson/image-storage/blob/main/YTLR_Hero_2.gif?raw=true"
