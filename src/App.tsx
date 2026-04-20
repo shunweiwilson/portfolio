@@ -188,7 +188,15 @@ const projectsData = [
   }
 ];
 
-function Projects() {
+export interface PasswordPromptData {
+  title: string;
+  desc: React.ReactNode;
+  img?: string;
+  rankIndex: number;
+  useTitleForModal?: boolean;
+}
+
+function Projects({ onProjectClick }: { onProjectClick: (data: PasswordPromptData) => void }) {
   const scrollRef = useRef<HTMLDivElement>(null);
 
   const handleScroll = (direction: 'left' | 'right') => {
@@ -242,7 +250,12 @@ function Projects() {
                 key={project.id} 
                 className="group w-[85vw] md:w-[60vw] lg:w-[60vw] snap-start flex-shrink-0 flex flex-col"
               >
-                <a href="#contact" className="block overflow-hidden w-full h-[300px] sm:h-[400px] md:h-[450px] lg:h-[500px] mb-6 rounded-[16px] border border-[#111111]" data-debug-mb="Image to Title Margin">
+                <a 
+                  href="#" 
+                  onClick={(e) => { e.preventDefault(); onProjectClick({ title: project.title, desc: project.desc, img: project.img, rankIndex: idx, useTitleForModal: true }); }} 
+                  className="block overflow-hidden w-full h-[300px] sm:h-[400px] md:h-[450px] lg:h-[500px] mb-6 rounded-[16px] border border-[#111111]" 
+                  data-debug-mb="Image to Title Margin"
+                >
                   <img 
                     src={project.img} 
                     alt={project.title} 
@@ -251,7 +264,11 @@ function Projects() {
                 </a>
                 <div className="w-full">
                   <h3 className="text-[clamp(1.8rem,4vw,3rem)] font-normal tracking-[-0.03em] leading-[1.2em]">
-                    <a href="#contact" className="inline bg-gradient-to-r from-yellow-300 to-yellow-300 bg-no-repeat bg-[position:0_95%] bg-[length:0%_30%] group-hover:bg-[length:100%_30%] transition-[background-size] duration-500 ease-out">
+                    <a 
+                      href="#" 
+                      onClick={(e) => { e.preventDefault(); onProjectClick({ title: project.title, desc: project.desc, img: project.img, rankIndex: idx, useTitleForModal: true }); }} 
+                      className="inline bg-gradient-to-r from-yellow-300 to-yellow-300 bg-no-repeat bg-[position:0_95%] bg-[length:0%_30%] group-hover:bg-[length:100%_30%] transition-[background-size] duration-500 ease-out"
+                    >
                       {project.title}
                     </a>
                   </h3>
@@ -465,7 +482,17 @@ const explores = [
   }
 ];
 
-function Explore() {
+const extractPlaintext = (node: React.ReactNode): string => {
+  if (typeof node === 'string' || typeof node === 'number') return String(node);
+  if (Array.isArray(node)) return node.map(extractPlaintext).join('');
+  if (React.isValidElement(node)) {
+    if (node.type === 'br') return ' ';
+    return extractPlaintext((node.props as any).children);
+  }
+  return '';
+};
+
+function Explore({ onProjectClick }: { onProjectClick: (data: PasswordPromptData) => void }) {
   const [hoveredTitle, setHoveredTitle] = useState<string | null>(null);
   const [cols, setCols] = useState(() => {
     if (typeof window !== 'undefined') {
@@ -540,7 +567,7 @@ function Explore() {
 
               const TitleBlock = (
                 <h3 className="text-[clamp(1.3rem,2vw,1.6rem)] font-normal tracking-[-0.03em] leading-[1.2em] mb-3">
-                  <a href="#contact" className="inline bg-gradient-to-r from-yellow-300 to-yellow-300 bg-no-repeat bg-[position:0_95%] bg-[length:0%_30%] group-hover:bg-[length:100%_30%] transition-[background-size] duration-500 ease-out">
+                  <a href="#" onClick={(e) => { e.preventDefault(); onProjectClick({ title: item.title, desc: item.desc, img: item.img, rankIndex: item.rankIndex }); }} className="inline bg-gradient-to-r from-yellow-300 to-yellow-300 bg-no-repeat bg-[position:0_95%] bg-[length:0%_30%] group-hover:bg-[length:100%_30%] transition-[background-size] duration-500 ease-out">
                     {item.title}
                   </a>
                 </h3>
@@ -553,7 +580,7 @@ function Explore() {
               );
 
               const ImageBlock = item.img ? (
-                <a href="#contact" className="block w-full overflow-hidden mb-4 rounded-[16px] border border-[#111111] bg-[#f2f2f2]">
+                <a href="#" onClick={(e) => { e.preventDefault(); onProjectClick({ title: item.title, desc: item.desc, img: item.img, rankIndex: item.rankIndex }); }} className="block w-full overflow-hidden mb-4 rounded-[16px] border border-[#111111] bg-[#f2f2f2]">
                   <img src={item.img} className="w-full h-auto object-cover transform group-hover:scale-[1.03] transition-transform duration-700 ease-out" alt={item.title} />
                 </a>
               ) : null;
@@ -1072,6 +1099,7 @@ const RulerOverlay = () => {
 export default function App() {
   const [isDebug, setIsDebug] = useState(false);
   const [isMeasuring, setIsMeasuring] = useState(false);
+  const [passwordPromptData, setPasswordPromptData] = useState<PasswordPromptData | null>(null);
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -1112,8 +1140,8 @@ export default function App() {
       <Header />
       <main className="min-h-screen">
         <Hero />
-        <Projects />
-        <Explore />
+        <Projects onProjectClick={setPasswordPromptData} />
+        <Explore onProjectClick={setPasswordPromptData} />
       </main>
       <Footer onSecretClick={() => {
         setIsDebug(prev => {
@@ -1133,6 +1161,102 @@ export default function App() {
             {isMeasuring ? 'Exit Ruler ✕' : '📐 Ruler Tool'}
           </button>
         )}
+      </div>
+
+      {/* Fake Password Modal */}
+      <div 
+        className={`fixed inset-0 z-[100] flex items-center justify-center p-4 transition-all duration-300 ${
+          passwordPromptData ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'
+        }`}
+      >
+        {/* Overlay backdrop */}
+        <div 
+          className="absolute inset-0 bg-[#111111]/40 backdrop-blur-sm" 
+          onClick={() => setPasswordPromptData(null)}
+        ></div>
+        
+        {/* Modal content */}
+        <div className={`relative bg-white border border-[#111111] rounded-[16px] w-full max-w-[420px] shadow-2xl transform transition-transform duration-300 overflow-hidden flex flex-col ${passwordPromptData ? 'translate-y-0 scale-100' : 'translate-y-8 scale-95'}`}>
+          
+          {passwordPromptData?.img && (
+            <div className="w-full aspect-[16/9] border-b border-[#111111] relative overflow-hidden bg-[#f2f2f2]">
+              <img src={passwordPromptData.img} alt={passwordPromptData.title} className="w-full h-full object-cover" />
+              <button 
+                onClick={() => setPasswordPromptData(null)} 
+                className="absolute top-4 right-4 bg-white/80 backdrop-blur-md rounded-full p-2 text-[#111111] hover:bg-white transition-colors focus:outline-none border border-[#111111]"
+                aria-label="Close"
+              >
+                <X size={20} strokeWidth={2} />
+              </button>
+            </div>
+          )}
+
+          <div className="p-6 sm:p-8">
+            {!passwordPromptData?.img && (
+              <button 
+                onClick={() => setPasswordPromptData(null)} 
+                className="absolute top-5 right-5 text-[#aaaaaa] hover:text-[#111111] transition-colors focus:outline-none"
+                aria-label="Close"
+              >
+                <X size={24} strokeWidth={1.5} />
+              </button>
+            )}
+
+            {(() => {
+              const copyIndex = passwordPromptData ? (passwordPromptData.rankIndex % 6) : 0;
+              const modalTitles = [
+                "Oops, It's Locked!",
+                "Top Secret",
+                "Under Wraps",
+                "I'm Dying to Show You!",
+                "Peek-a-Boo!",
+                "Members Only"
+              ];
+              const parts = [
+                ["I'm incredibly proud of ", ", but my clients would totally ground me if I left it out in the open. Got the password? Come on in!"],
+                ["A lot of exclusive knowledge into ", ", so I keep it safely tucked away under lock and key. Enter the password to see what I've been brewing!"],
+                ["I’d absolutely love to pull the curtain back on ", ", but those pesky NDAs are no joke! If you have the clearance code, the stage is yours."],
+                ["Seriously, I really want you to see the work behind ", ", but it has to stay under wraps for now. Drop the secret code below to take a peek!"],
+                ["The details for ", " are currently playing hide-and-seek behind this password screen. If you know the magic word, you're \"It!\""],
+                ["", " is currently just for the inner circle, but I'm always looking to expand the club. Type the password below if you have it!"]
+              ];
+
+              return (
+                <>
+                  <h3 className="text-[clamp(1.3rem,2.5vw,1.8rem)] font-normal tracking-[-0.03em] leading-[1.2em] mb-3">
+                    {modalTitles[copyIndex]}
+                  </h3>
+                  <p className="text-sm md:text-base text-[#333333] leading-[1.4em] mb-6">
+                    {parts[copyIndex][0]}<span className="font-semibold text-[#111111]">"{passwordPromptData ? (passwordPromptData.useTitleForModal ? passwordPromptData.title : extractPlaintext(passwordPromptData.desc)) : ''}"</span>{parts[copyIndex][1]}
+                  </p>
+                </>
+              );
+            })()}
+            
+            <form onSubmit={(e) => { e.preventDefault(); setPasswordPromptData(null); }} className="relative flex items-center mb-4">
+              <input 
+                type="password" 
+                placeholder="Enter the magic word..." 
+                className="w-full border border-[#111111] rounded-full bg-white pl-5 pr-12 py-3 text-sm md:text-base text-[#111111] focus:outline-none focus:ring-2 focus:ring-yellow-300 transition-all placeholder:text-[#aaaaaa]"
+              />
+              <button 
+                type="submit"
+                aria-label="Submit password"
+                className="absolute right-1.5 w-9 h-9 flex items-center justify-center bg-[#111111] text-white rounded-full hover:bg-[#333333] transition-transform hover:scale-105 active:scale-95 focus:outline-none focus:ring-2 focus:ring-yellow-300"
+              >
+                <ArrowRight size={16} strokeWidth={2} />
+              </button>
+            </form>
+
+            <a 
+              href="#contact" 
+              onClick={() => { setPasswordPromptData(null); }} 
+              className="w-full flex items-center justify-center bg-white text-[#111111] border border-[#111111] rounded-full py-3 px-5 font-medium uppercase tracking-wide text-xs sm:text-sm hover:bg-[#111111] hover:text-white transition-colors"
+            >
+              Don't have the password? Let's chat
+            </a>
+          </div>
+        </div>
       </div>
     </div>
   );
