@@ -284,16 +284,6 @@ function Projects() {
 
 const explores = [
   {
-    title: "AI-powered personalized baby sleep-coaching devices solution",
-    desc: (
-      <>
-        <span className="font-semibold">Lumi by Pampers</span><br />Google+P&amp;G<br />Baby Monitor &amp; AI Sleep Coaching
-      </>
-    ),
-    chips: ["HW+SW UX", "AI", "Mobile", "Consumer"],
-    img: "https://github.com/shunweiwilson/image-storage/blob/main/Lumi_Hero.png?raw=true",
-  },
-  {
     title: "First-ever FDA approved clinical-grade watch to monitor atrial fibrillation in the US",
     desc: (
       <>
@@ -302,36 +292,6 @@ const explores = [
     ),
     chips: ["HW+SW UX", "Wearables", "Mobile", "Healthcare"],
     img: "https://github.com/shunweiwilson/image-storage/blob/main/VW_hero.png?raw=true",
-  },
-  {
-    title: "Fold four centuries of Ming dynasty heritage into modern urban living",
-    desc: (
-      <>
-        <span className="font-semibold">M-ing</span><br />Foldable Ming Style Armchair
-      </>
-    ),
-    chips: ["Industrial Design", "Furniture"],
-    img: "https://github.com/shunweiwilson/image-storage/blob/main/Ming_hero.png?raw=true",
-  },
-  {
-    title: "Accurate, fast, easy-to-use network planning over a web browser",
-    desc: (
-      <>
-        <span className="font-semibold">Google</span><br />Network Planner<br />Web-based Network Planning Tool
-      </>
-    ),
-    chips: ["UX Design", "Web"],
-    img: "https://github.com/shunweiwilson/image-storage/blob/main/google_networkplanner_hero_1.png?raw=true",
-  },
-  {
-    title: "The next generation of cyber security",
-    desc: (
-      <>
-        <span className="font-semibold">Trend Micro</span><br />Official Website Visual Refreshment
-      </>
-    ),
-    chips: ["UX Design", "Visual Design", "Web"],
-    img: "https://github.com/shunweiwilson/image-storage/blob/main/TMCOM_Hero.jpg?raw=true",
   },
   {
     title: "Use system-modeling to address complex challenges",
@@ -344,14 +304,64 @@ const explores = [
     img: "https://github.com/shunweiwilson/image-storage/blob/main/lilly_hero_1.png?raw=true",
   },
   {
-    title: "Speed up the process of UX developing",
+    title: "AI-powered personalized baby sleep-coaching devices solution",
     desc: (
       <>
-        <span className="font-semibold">Trend Micro</span><br />Mac OS User Interface Design system
+        <span className="font-semibold">Lumi by Pampers</span><br />Google+P&amp;G<br />Baby Monitor &amp; AI Sleep Coaching
       </>
     ),
-    chips: ["UX Design", "Design System", "MacOS"],
-    img: "https://github.com/shunweiwilson/image-storage/blob/main/TMUI_hero.png?raw=true",
+    chips: ["HW+SW UX", "AI", "Mobile", "Consumer"],
+    img: "https://github.com/shunweiwilson/image-storage/blob/main/Lumi_Hero.png?raw=true",
+  },
+  {
+    title: "Accurate, fast, easy-to-use network planning over a web browser",
+    desc: (
+      <>
+        <span className="font-semibold">Google</span><br />Network Planner<br />Web-based Network Planning Tool
+      </>
+    ),
+    chips: ["UX Design", "Web"],
+    img: "https://github.com/shunweiwilson/image-storage/blob/main/google_networkplanner_hero_1.png?raw=true",
+  },
+  {
+    title: "Bridging the gap between domestic aesthetics and emergency preparedness",
+    desc: (
+      <>
+        <span className="font-bold">FOLD</span><br />Fire Extinguisher
+      </>
+    ),
+    chips: ["Industrial Design", "Home"],
+    img: "https://github.com/shunweiwilson/image-storage/blob/main/Fold_hero.jpg?raw=true",
+  },
+  {
+    title: "Designing the lens through which we will remember our first lunar vacations",
+    desc: (
+      <>
+        <span className="font-bold">Capture 2025</span><br />Rental Camera System on Moon
+      </>
+    ),
+    chips: ["Industrial Design", "Speculative Design"],
+    img: "https://github.com/shunweiwilson/image-storage/blob/main/Capture_hero.jpg?raw=true",
+  },
+  {
+    title: "Fold four centuries of Ming dynasty heritage into modern urban living",
+    desc: (
+      <>
+        <span className="font-semibold">M-ing</span><br />Foldable Ming Style Armchair
+      </>
+    ),
+    chips: ["Industrial Design", "Furniture"],
+    img: "https://github.com/shunweiwilson/image-storage/blob/main/Ming_hero.png?raw=true",
+  },
+  {
+    title: "The next generation of cyber security",
+    desc: (
+      <>
+        <span className="font-semibold">Trend Micro</span><br />Official Website Visual Refreshment
+      </>
+    ),
+    chips: ["UX Design", "Visual Design", "Web"],
+    img: "https://github.com/shunweiwilson/image-storage/blob/main/TMCOM_Hero.jpg?raw=true",
   },
   {
     title: "Engineering a safer drive through precision eye-tracking research",
@@ -374,14 +384,24 @@ const explores = [
     img: "https://raw.githubusercontent.com/shunweiwilson/image-storage/refs/heads/main/Debut_hero.jpg",
   },
   {
-    title: "Curate a boundless virtual design event that connects designers with industry",
+    title: "Alleviate the academic summers drop-off by redesign school schedule",
     desc: (
       <>
-        <span className="font-bold">The Stage</span><br />Virtual Designer Exhibition/Event
+        <span className="font-bold">The New School of San Francisco</span><br />Equity School Calendar and Remote Learning
       </>
     ),
-    chips: ["UX Design", "VR/AR"],
-    img: "https://github.com/shunweiwilson/image-storage/blob/main/Stage_Hero.png?raw=true",
+    chips: ["Service Design", "Research", "Education"],
+    img: "https://github.com/shunweiwilson/image-storage/blob/main/NSSF_hero.jpg?raw=true",
+  },
+  {
+    title: "Speed up the process of UX developing",
+    desc: (
+      <>
+        <span className="font-semibold">Trend Micro</span><br />Mac OS User Interface Design system
+      </>
+    ),
+    chips: ["UX Design", "Design System", "MacOS"],
+    img: "https://github.com/shunweiwilson/image-storage/blob/main/TMUI_hero.png?raw=true",
   },
   {
     title: "Empowering older adults to navigate the noise of the digital information bubble",
@@ -394,26 +414,6 @@ const explores = [
     img: "https://github.com/shunweiwilson/image-storage/blob/main/Fye_hero.jpg?raw=true",
   },
   {
-    title: "Alleviate the academic summers drop-off by redesign school schedule",
-    desc: (
-      <>
-        <span className="font-bold">The New School of San Francisco</span><br />Equity School Calendar and Remote Learning
-      </>
-    ),
-    chips: ["Service Design", "Research", "Education"],
-    img: "https://github.com/shunweiwilson/image-storage/blob/main/NSSF_hero.jpg?raw=true",
-  },
-  {
-    title: "Designing the lens through which we will remember our first lunar vacations",
-    desc: (
-      <>
-        <span className="font-bold">Capture 2025</span><br />Rental Camera System on Moon
-      </>
-    ),
-    chips: ["Industrial Design", "Speculative Design"],
-    img: "https://github.com/shunweiwilson/image-storage/blob/main/Capture_hero.jpg?raw=true",
-  },
-  {
     title: "“收乾\": The art of distilling chaotic thoughts into harmonious design",
     desc: (
       <>
@@ -424,24 +424,14 @@ const explores = [
     img: "https://raw.githubusercontent.com/shunweiwilson/image-storage/refs/heads/main/SG_hero_1.avif",
   },
   {
-    title: "Bridging the gap between domestic aesthetics and emergency preparedness",
+    title: "Curate a boundless virtual design event that connects designers with industry",
     desc: (
       <>
-        <span className="font-bold">FOLD</span><br />Fire Extinguisher
+        <span className="font-bold">The Stage</span><br />Virtual Designer Exhibition/Event
       </>
     ),
-    chips: ["Industrial Design", "Home"],
-    img: "https://github.com/shunweiwilson/image-storage/blob/main/Fold_hero.jpg?raw=true",
-  },
-  {
-    title: "It’s my pleasure",
-    desc: (
-      <>
-        <span className="font-bold">Pleasure</span><br />Art Sculpture
-      </>
-    ),
-    chips: ["Experimental Art", "Design"],
-    img: "https://github.com/shunweiwilson/image-storage/blob/main/Pleasure_hero_01.jpg?raw=true",
+    chips: ["UX Design", "VR/AR"],
+    img: "https://github.com/shunweiwilson/image-storage/blob/main/Stage_Hero.png?raw=true",
   },
   {
     title: "Rethinking the wheel by studying the survival strategies of the insect world",
@@ -452,6 +442,16 @@ const explores = [
     ),
     chips: ["Experimental Art", "Design"],
     img: "https://github.com/shunweiwilson/image-storage/blob/main/6_hero_3.png?raw=true",
+  },
+  {
+    title: "It’s my pleasure",
+    desc: (
+      <>
+        <span className="font-bold">Pleasure</span><br />Art Sculpture
+      </>
+    ),
+    chips: ["Experimental Art", "Design"],
+    img: "https://github.com/shunweiwilson/image-storage/blob/main/Pleasure_hero_01.jpg?raw=true",
   },
   {
     title: "Every little makes a mickle",
@@ -467,57 +467,43 @@ const explores = [
 
 function Explore() {
   const [hoveredTitle, setHoveredTitle] = useState<string | null>(null);
-  const [visualIndices, setVisualIndices] = useState<Record<number, number>>({});
+  const [cols, setCols] = useState(() => {
+    if (typeof window !== 'undefined') {
+      const width = window.innerWidth;
+      if (width >= 1280) return 4;
+      if (width >= 1024) return 3;
+      if (width >= 640) return 2;
+    }
+    return 1;
+  });
 
   useEffect(() => {
-    let timeoutId: ReturnType<typeof setTimeout>;
+    const updateCols = () => {
+      const width = window.innerWidth;
+      if (width >= 1280) setCols(4);
+      else if (width >= 1024) setCols(3);
+      else if (width >= 640) setCols(2);
+      else setCols(1);
+    };
     
-    // We use a small delay on load/resize to ensure masonry flow has finished
-    const calculateIndices = () => {
+    let timeoutId: ReturnType<typeof setTimeout>;
+    const handleResize = () => {
       clearTimeout(timeoutId);
-      timeoutId = setTimeout(() => {
-        const items = Array.from(document.querySelectorAll('.explore-item')) as HTMLElement[];
-        const rects = items.map((el, i) => {
-          const canonicalIdxStr = el.getAttribute('data-idx');
-          const canonicalIdx = canonicalIdxStr ? parseInt(canonicalIdxStr, 10) : i;
-          return {
-            index: canonicalIdx,
-            rect: el.getBoundingClientRect()
-          }
-        });
-        
-        // Sort items by Y first, then by X. 
-        // We group Ys if they are within a 200px tolerance because masonry items stagger.
-        rects.sort((a, b) => {
-          if (Math.abs(a.rect.top - b.rect.top) < 200) {
-            return a.rect.left - b.rect.left;
-          }
-          return a.rect.top - b.rect.top;
-        });
-        
-        const newIndices: Record<number, number> = {};
-        rects.forEach((item, visualIndex) => {
-          newIndices[item.index] = visualIndex + 1;
-        });
-        setVisualIndices(newIndices);
-      }, 300);
+      timeoutId = setTimeout(updateCols, 100);
     };
 
-    calculateIndices();
-    window.addEventListener('resize', calculateIndices);
-    
-    // Also re-trigger if lazily loaded images change layout:
-    const images = document.querySelectorAll('.explore-item img');
-    images.forEach(img => {
-      img.addEventListener('load', calculateIndices);
-    });
-
+    window.addEventListener('resize', handleResize);
     return () => {
       clearTimeout(timeoutId);
-      window.removeEventListener('resize', calculateIndices);
-      images.forEach(img => img.removeEventListener('load', calculateIndices));
+      window.removeEventListener('resize', handleResize);
     };
   }, []);
+
+  // Create strictly separated buckets so items can NEVER reflow to the wrong column
+  const columnBuckets = Array.from({ length: cols }, () => [] as (typeof explores[0] & { rankIndex: number })[]);
+  explores.forEach((item, index) => {
+    columnBuckets[index % cols].push({ ...item, rankIndex: index });
+  });
 
   return (
     <section id="more" className="pt-12 pb-24 px-6 bg-white border-t border-[#111111] scroll-mt-[68px]">
@@ -531,15 +517,18 @@ function Explore() {
         </FadeUp>
         
         <FadeUp delay={100} className="relative">
-          {/* Masonry Columns Container */}
-          <div className="columns-1 sm:columns-2 lg:columns-3 xl:columns-4 gap-8">
-            {explores.map((item, idx) => {
-              const variant = idx % 3;
+          {/* Virtual Masonry Flex Columns Container */}
+          <div className="flex w-full gap-8 items-start">
+            {columnBuckets.map((bucket, colIdx) => (
+              <div key={colIdx} className="flex-1 flex flex-col w-full min-w-0">
+                {bucket.map((item) => {
+                  // Variant locked to its original native rank to keep perfect permutation!
+                  const variant = item.rankIndex % 3;
               
               const TagsBlock = (
                 <div className="flex flex-wrap items-center gap-2 mb-4">
-                  <span className="shrink-0 w-6 h-6 flex items-center justify-center text-[10px] sm:text-[11px] font-medium bg-[#111111] text-white rounded-full transition-opacity duration-300" style={{opacity: visualIndices[idx] ? 1 : 0}}>
-                    {String(visualIndices[idx] || idx + 1).padStart(2, '0')}
+                  <span className="shrink-0 w-6 h-6 flex items-center justify-center text-[10px] sm:text-[11px] font-medium bg-[#111111] text-white rounded-full">
+                    {String(item.rankIndex + 1).padStart(2, '0')}
                   </span>
                   {item.chips && item.chips.map((chip, i) => (
                     <span key={i} className="px-2.5 py-[0.1rem] text-[9px] sm:text-[10px] uppercase font-medium border border-[#111111] text-[#111111] rounded-full shrink-0 tracking-wide">
@@ -571,9 +560,9 @@ function Explore() {
 
               return (
                 <div 
-                  key={idx} 
+                  key={item.title} 
                   className="explore-item break-inside-avoid block mb-[48px]"
-                  data-idx={idx}
+                  data-idx={item.rankIndex}
                   onMouseEnter={() => setHoveredTitle(item.title)}
                   onMouseLeave={() => setHoveredTitle(null)}
                 >
@@ -614,6 +603,8 @@ function Explore() {
                 </div>
               );
             })}
+              </div>
+            ))}
           </div>
         </FadeUp>
       </div>
