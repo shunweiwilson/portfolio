@@ -116,7 +116,7 @@ function LoadingDots() {
 
 function Hero() {
   return (
-    <section id="home" className="pt-[68px] pb-24 px-6">
+    <section id="home" className="pt-[68px] pb-12 px-6">
       <div className="max-w-[1600px] mx-auto">
         {/* Constrained Video/Image Block */}
         <FadeUp>
@@ -138,7 +138,7 @@ function Hero() {
         
         {/* Text Block */}
         <div className="mt-8 md:mt-12">
-          <div className="grid grid-cols-1 md:grid-cols-12 gap-8 items-start">
+          <div className="grid grid-cols-1 md:grid-cols-12 gap-4 items-start">
             <div className="md:col-span-12">
               <h3 className="text-[clamp(1.8rem,4vw,3rem)] font-normal tracking-[-0.03em] leading-[1.2em] max-w-4xl">
                 Instead of being a skyscraper, I always consider myself a bridge, which connects, communicates, and conduces.
@@ -202,10 +202,10 @@ function Projects() {
   };
 
   return (
-    <section id="portfolio" className="py-24 px-6 border-t border-[#111111] scroll-mt-[68px]">
+    <section id="portfolio" className="py-12 px-6 border-t border-[#111111] scroll-mt-[68px]" data-debug-pt="Portfolio Wrapper TopPad" data-debug-pb="Portfolio Wrapper BtmPad">
       <div className="max-w-[1600px] mx-auto">
         <FadeUp>
-          <div className="flex flex-row items-center gap-1 md:gap-2 mb-12">
+          <div className="flex flex-row items-center gap-1 md:gap-2 mb-12" data-debug-mb="Header Bottom Margin" data-debug-gap="Title-to-Arrows Flex Gap">
             <h2 className="text-[clamp(2.5rem,5vw,4.5rem)] font-normal tracking-[-0.03em] leading-[1.2em]">
               Featured projects
             </h2>
@@ -234,14 +234,15 @@ function Projects() {
           {/* Carousel Track */}
           <div 
             ref={scrollRef}
-            className="flex overflow-x-auto snap-x snap-mandatory gap-6 pb-8 items-start hide-scrollbar" 
+            className="flex overflow-x-auto snap-x snap-mandatory gap-6 pb-8 items-start hide-scrollbar"
+            data-debug-gap="Carousel Inner Gap" 
           >
             {projectsData.map((project) => (
               <div 
                 key={project.id} 
                 className="group w-[85vw] md:w-[60vw] lg:w-[60vw] snap-start flex-shrink-0 flex flex-col"
               >
-                <a href="#contact" className="block overflow-hidden w-full h-[300px] sm:h-[400px] md:h-[450px] lg:h-[500px] mb-6 rounded-sm">
+                <a href="#contact" className="block overflow-hidden w-full h-[300px] sm:h-[400px] md:h-[450px] lg:h-[500px] mb-6 rounded-sm" data-debug-mb="Image to Title Margin">
                   <img 
                     src={project.img} 
                     alt={project.title} 
@@ -255,12 +256,12 @@ function Projects() {
                     </a>
                   </h3>
                   {project.desc && (
-                    <p className="text-lg md:text-xl text-[#111111] leading-[1.3em] mt-4 mb-2">
+                    <p className="text-lg md:text-xl text-[#111111] leading-[1.3em] mt-4 mb-2" data-debug-mt="Title to Description Margin">
                       {project.desc}
                     </p>
                   )}
                   {project.chips && project.chips.length > 0 && (
-                    <div className="flex flex-wrap gap-2 mt-4">
+                    <div className="flex flex-wrap gap-2 mt-4" data-debug-mt="Description to Chips Margin" data-debug-gap="Chips Internal Layout Gap">
                       {project.chips.map((chip, i) => (
                         <span key={i} className="px-3 py-[0.15rem] text-[0.75rem] md:text-sm font-medium border border-[#bbbbbb] text-[#666666] tracking-wide rounded-full group-hover:border-[#111111] group-hover:text-[#111111] transition-colors duration-500">
                           {chip}
@@ -300,7 +301,7 @@ const explores = [
     img: "https://github.com/shunweiwilson/image-storage/blob/main/VW_hero.png?raw=true",
   },
   {
-    title: "Fold four centuries of Ming dynasty heritage into modern urban living.",
+    title: "Fold four centuries of Ming dynasty heritage into modern urban living",
     desc: (
       <>
         <span className="font-semibold">M-ing</span><br />Foldable Ming Style Armchair
@@ -310,7 +311,7 @@ const explores = [
     img: "https://github.com/shunweiwilson/image-storage/blob/main/Ming_hero.png?raw=true",
   },
   {
-    title: "Accurate, fast, easy-to-use network planning over a web browser.",
+    title: "Accurate, fast, easy-to-use network planning over a web browser",
     desc: (
       <>
         <span className="font-semibold">Google</span><br />Network Planner<br />Web-based Network Planning Tool
@@ -330,7 +331,7 @@ const explores = [
     img: "https://github.com/shunweiwilson/image-storage/blob/main/TMCOM_Hero.jpg?raw=true",
   },
   {
-    title: "Use system-modeling to address complex challenges.",
+    title: "Use system-modeling to address complex challenges",
     desc: (
       <>
         <span className="font-semibold">Eli Lily</span><br />Automated Insulin Delivery System
@@ -360,7 +361,7 @@ const explores = [
     img: "https://github.com/shunweiwilson/image-storage/blob/main/Eye_track_hero.png?raw=true",
   },
   {
-    title: "Unleash the next generation of niche fashion through community-driven crowdfunding.",
+    title: "Unleash the next generation of niche fashion through community-driven crowdfunding",
     desc: (
       <>
         <span className="font-bold">Debut</span><br />Crowdfunding platform for niche fashion
@@ -370,7 +371,7 @@ const explores = [
     img: "https://raw.githubusercontent.com/shunweiwilson/image-storage/refs/heads/main/Debut_hero.jpg",
   },
   {
-    title: "Curate a boundless virtual exhibition that connects young designers with industry recruiters.",
+    title: "Curate a boundless virtual design event that connects designers with industry",
     desc: (
       <>
         <span className="font-bold">The Stage</span><br />Virtual Designer Exhibition/Event
@@ -390,7 +391,7 @@ const explores = [
     img: "https://github.com/shunweiwilson/image-storage/blob/main/Fye_hero.jpg?raw=true",
   },
   {
-    title: "Alleviate the academic drop-off of long summers with a continuous, balanced schedule.",
+    title: "Alleviate the academic summers drop-off by redesign school schedule",
     desc: (
       <>
         <span className="font-bold">The New School of San Francisco</span><br />Equity School Calendar and Remote Learning
@@ -420,7 +421,7 @@ const explores = [
     img: "https://raw.githubusercontent.com/shunweiwilson/image-storage/refs/heads/main/SG_hero_1.avif",
   },
   {
-    title: "Bridging the gap between domestic aesthetics and emergency preparedness.",
+    title: "Bridging the gap between domestic aesthetics and emergency preparedness",
     desc: (
       <>
         <span className="font-bold">FOLD</span><br />Fire Extinguisher
@@ -482,10 +483,10 @@ function Explore() {
   };
 
   return (
-    <section id="more" className="py-8 lg:py-10 px-6 bg-white border-t border-[#111111] scroll-mt-[68px]">
+    <section id="more" className="pt-12 pb-24 px-6 bg-white border-t border-[#111111] scroll-mt-[68px]">
       <div className="max-w-[1600px] mx-auto">
         <FadeUp>
-          <div className="flex flex-row items-center gap-1 md:gap-2 mb-12">
+          <div className="flex flex-row items-center gap-1 md:gap-2 mb-4">
             <h2 className="text-[clamp(2.5rem,5vw,4.5rem)] font-normal tracking-[-0.03em] leading-[1.2em]">
               Explore beyond
             </h2>
@@ -514,57 +515,66 @@ function Explore() {
           {/* Carousel Track with negating margins/padding to prevent zoom cut-off */}
           <div 
             ref={scrollRef}
-            className="flex overflow-x-auto snap-x snap-mandatory gap-6 lg:gap-10 pt-6 pb-12 -mt-6 -mb-12 hide-scrollbar" 
+            className="flex overflow-x-auto snap-x snap-mandatory gap-4 pt-6 pb-4 -mt-6 hide-scrollbar" 
+            data-debug-gap="More div Flex Gap"
+            data-debug-pb="More div Flex BtmPad"
           >
             {/* Display pre-computed slide chunks */}
             {slideChunks.map((slideItems, slideIndex) => (
                 <div key={slideIndex} className="w-[85vw] md:w-[90vw] lg:w-[88vw] shrink-0 snap-start">
                   {/* 88vw width on large screens to guarantee a clear hint of the next slide */}
-                  <div className="grid grid-cols-1 lg:grid-cols-2 gap-x-8 md:gap-x-12 gap-y-6 lg:gap-y-6 items-start">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6 items-start" data-debug-gap="More div Grid Gap">
                     {slideItems.map((item, idx) => (
-                      <div 
-                        key={idx} 
-                        className={`block group transition-all duration-500 ease-[cubic-bezier(0.25,1,0.5,1)] origin-left ${
-                          hoveredTitle === item.title 
-                            ? 'scale-[1.05] opacity-100 z-10' 
-                            : hoveredTitle 
-                              ? 'opacity-30 scale-100 z-0' 
-                              : 'opacity-100 scale-100 z-0'
-                        }`}
-                        onMouseEnter={() => setHoveredTitle(item.title)}
-                        onMouseLeave={() => setHoveredTitle(null)}
-                      >
-                        <hr className="border-[#111111] w-full mb-6 transition-opacity duration-500" />
-                        <div className="grid grid-cols-1 sm:grid-cols-12 gap-x-4 lg:gap-x-6 gap-y-4 sm:gap-y-0 items-start">
-                          
-                          {/* Text Block - Adjusted to col-span-7 so images are comfortably smaller vertically */}
-                          <div className="sm:col-span-7 flex flex-col gap-6">
-                            <p className="text-lg md:text-xl font-normal leading-[1.25em] tracking-normal pr-2">
-                              <a href="#contact" className="inline bg-gradient-to-r from-yellow-300 to-yellow-300 bg-no-repeat bg-[position:0_95%] bg-[length:0%_30%] group-hover:bg-[length:100%_30%] transition-[background-size] duration-500 ease-out">
-                                {item.title}
-                              </a>
-                            </p>
-                            <div className="flex flex-col gap-3 md:gap-4 items-start">
-                              <p className="text-sm md:text-base text-[#333333] leading-[1.3em] pr-2">{item.desc}</p>
-                              {item.chips && item.chips.length > 0 && (
-                                <div className="flex flex-wrap gap-2">
-                                  {item.chips.map((chip, i) => (
-                                    <span key={i} className="px-3 py-[0.15rem] text-[0.75rem] md:text-sm font-medium border border-[#bbbbbb] text-[#666666] tracking-wide rounded-full group-hover:border-[#111111] group-hover:text-[#111111] transition-colors duration-500">
-                                      {chip}
-                                    </span>
-                                  ))}
-                                </div>
-                              )}
+                      <div key={idx} className="block relative">
+                        {/* 
+                          CRITICAL FIX: <hr> is hoisted outside the scaling container! 
+                          Because it's a direct child of the items-start grid, its vertical Y-coord is strictly uniform 
+                          across all elements in the row. It will NEVER shift, bulge, or bounce on hover anymore!
+                        */}
+                        <hr className="border-[#111111] w-full mt-4 mb-4" data-debug-mt="More hr TopMargin" data-debug-mb="More hr BtmMargin" />
+                        
+                        <div 
+                          className={`group transition-all duration-500 ease-[cubic-bezier(0.25,1,0.5,1)] origin-top-left ${
+                            hoveredTitle === item.title 
+                              ? 'scale-[1.05] opacity-100 z-10 relative' 
+                              : hoveredTitle 
+                                ? 'opacity-30 scale-100 z-0' 
+                                : 'opacity-100 scale-100 z-0'
+                          }`}
+                          onMouseEnter={() => setHoveredTitle(item.title)}
+                          onMouseLeave={() => setHoveredTitle(null)}
+                        >
+                          <div className="grid grid-cols-1 sm:grid-cols-12 gap-x-4 lg:gap-x-6 gap-y-4 sm:gap-y-0 items-start">
+                            
+                            {/* Text Block - Adjusted to col-span-7 so images are comfortably smaller vertically */}
+                            <div className="sm:col-span-7 flex flex-col gap-4" data-debug-gap="More div Flex Gap">
+                              <p className="text-lg md:text-xl font-normal leading-[1.25em] tracking-normal pr-2">
+                                <a href="#contact" className="inline bg-gradient-to-r from-yellow-300 to-yellow-300 bg-no-repeat bg-[position:0_95%] bg-[length:0%_30%] group-hover:bg-[length:100%_30%] transition-[background-size] duration-500 ease-out">
+                                  {item.title}
+                                </a>
+                              </p>
+                              <div className="flex flex-col gap-4 items-start" data-debug-gap="More div Flex Gap">
+                                <p className="text-sm md:text-base text-[#333333] leading-[1.3em] pr-2">{item.desc}</p>
+                                {item.chips && item.chips.length > 0 && (
+                                  <div className="flex flex-wrap gap-2">
+                                    {item.chips.map((chip, i) => (
+                                      <span key={i} className="px-3 py-[0.15rem] text-[0.75rem] md:text-sm font-medium border border-[#bbbbbb] text-[#666666] tracking-wide rounded-full group-hover:border-[#111111] group-hover:text-[#111111] transition-colors duration-500">
+                                        {chip}
+                                      </span>
+                                    ))}
+                                  </div>
+                                )}
+                              </div>
                             </div>
+                            
+                            {/* Image Block - Adjusted to col-span-5 to preserve aspect ratio while saving height */}
+                            <div className="sm:col-span-5">
+                              <a href="#contact" className="block w-full aspect-[16/9] overflow-hidden rounded-sm bg-[#f2f2f2]">
+                                <img src={item.img} className="w-full h-full object-cover transform group-hover:scale-[1.03] transition-transform duration-700 ease-out" alt={item.title} />
+                              </a>
+                            </div>
+                            
                           </div>
-                          
-                          {/* Image Block - Adjusted to col-span-5 to preserve aspect ratio while saving height */}
-                          <div className="sm:col-span-5">
-                            <a href="#contact" className="block w-full aspect-[16/9] overflow-hidden rounded-sm bg-[#f2f2f2]">
-                              <img src={item.img} className="w-full h-full object-cover transform group-hover:scale-[1.03] transition-transform duration-700 ease-out" alt={item.title} />
-                            </a>
-                          </div>
-                          
                         </div>
                       </div>
                     ))}
@@ -602,9 +612,9 @@ const clientData = [
   ] }
 ];
 
-function Footer() {
+function Footer({ onSecretClick }: { onSecretClick: () => void }) {
   return (
-    <footer id="about" className="bg-[#111111] text-white py-24 px-6 scroll-mt-[68px]">
+    <footer id="about" className="bg-[#111111] text-white pt-24 pb-12 px-6 scroll-mt-[68px]">
       <div className="max-w-[1600px] mx-auto">
         <FadeUp>
           <div className="grid grid-cols-1 md:grid-cols-12 gap-y-16 gap-x-8 md:items-start">
@@ -688,7 +698,7 @@ function Footer() {
 
         {/* Big Footer Logo */}
         <FadeUp delay={200}>
-          <div id="contact" className="mt-20 pt-20 border-t border-[#333333] mb-20 flex justify-start scroll-mt-24">
+          <div id="contact" className="mt-12 pt-12 border-t border-[#333333] mb-24 flex justify-start scroll-mt-24">
             <h2 className="text-[clamp(3.5rem,8vw,7rem)] font-normal tracking-[-0.04em] text-white leading-[1.1em] text-left max-w-5xl">
               If you are interested in learning more, let's connect and talk.
             </h2>
@@ -697,7 +707,7 @@ function Footer() {
         
         {/* Credits */}
         <div className="text-[#aaaaaa] text-base mb-0">
-          <a href="mailto:shunweiwilson@gmail.com" className="link-underline hover:text-white transition-colors">shunweiwilson@gmail.com</a> | <a href="https://www.linkedin.com/in/shunweiwilson/" target="_blank" rel="noopener noreferrer" className="link-underline hover:text-white transition-colors">LinkedIn</a> | Appreciate your patience, as most of my projects are confidential | Now we roll special thanks below
+          <a href="mailto:shunweiwilson@gmail.com" className="link-underline hover:text-white transition-colors">shunweiwilson@gmail.com</a> | <a href="https://www.linkedin.com/in/shunweiwilson/" target="_blank" rel="noopener noreferrer" className="link-underline hover:text-white transition-colors">LinkedIn</a> | Appreciate your <span onClick={onSecretClick} className="cursor-default">patience</span>, as most of my projects are confidential | Now we roll special thanks below
         </div>
       </div>
 
@@ -712,19 +722,394 @@ function Footer() {
   );
 }
 
+// --- Debug Overlay Component ---
+const DebugOverlay = () => {
+  const [info, setInfo] = useState<{
+    w: number, h: number, x: number, y: number, 
+    tag: string, classes: string, name: string,
+    spacing: { pt: string, pb: string, mt: string, mb: string, gap: string }
+  } | null>(null);
+
+  useEffect(() => {
+    const handleMouseMove = (e: MouseEvent) => {
+      const target = e.target as HTMLElement;
+      if (!target || target.closest('.debug-ui-ignore')) return;
+      
+      const rect = target.getBoundingClientRect();
+      const comp = window.getComputedStyle(target);
+      
+      let classStr = '';
+      if (typeof target.className === 'string') {
+        const cleaned = target.className.replace('debug-mode', '').trim();
+        classStr = cleaned.split(' ').slice(0, 4).join(' ') + (cleaned.split(' ').length > 4 ? '...' : '');
+      }
+
+      // Generate context name
+      const parentSection = target.closest('section, footer, nav');
+      const sectionName = parentSection ? 
+          (parentSection.id.charAt(0).toUpperCase() + parentSection.id.slice(1)) 
+          : 'Page';
+      const tagContext = target.tagName.toLowerCase();
+      
+      let contextName = `${sectionName} ${tagContext}`;
+      if (target.tagName === 'SECTION' || target.tagName === 'FOOTER' || target.tagName === 'NAV') contextName = `${sectionName} Wrapper`;
+      if (typeof target.className === 'string' && target.className.includes('grid')) contextName += ' Grid';
+      if (typeof target.className === 'string' && target.className.includes('flex')) contextName += ' Flex';
+
+      setInfo({
+        w: Math.round(rect.width),
+        h: Math.round(rect.height),
+        x: e.clientX,
+        y: e.clientY,
+        tag: target.tagName.toLowerCase(),
+        classes: classStr,
+        name: contextName,
+        spacing: {
+          pt: comp.paddingTop !== '0px' ? comp.paddingTop : '',
+          pb: comp.paddingBottom !== '0px' ? comp.paddingBottom : '',
+          mt: comp.marginTop !== '0px' ? comp.marginTop : '',
+          mb: comp.marginBottom !== '0px' ? comp.marginBottom : '',
+          gap: comp.gap !== 'normal' && comp.gap !== '0px 0px' && comp.gap !== '0px' ? comp.gap : ''
+        }
+      });
+      
+      // Temporarily add a data attribute to highlight the specific element
+      document.querySelectorAll('[data-debug-hover="true"]').forEach(el => el.removeAttribute('data-debug-hover'));
+      target.setAttribute('data-debug-hover', 'true');
+    };
+
+    window.addEventListener('mousemove', handleMouseMove);
+    return () => {
+      window.removeEventListener('mousemove', handleMouseMove);
+      document.querySelectorAll('[data-debug-hover="true"]').forEach(el => el.removeAttribute('data-debug-hover'));
+    };
+  }, []);
+
+  if (!info) return null;
+
+  return (
+    <div 
+      className="debug-ui-ignore fixed z-[1000] pointer-events-none bg-[#111111]/95 backdrop-blur-sm border border-[#333333] text-white text-[11px] font-mono px-3 py-2.5 rounded-md shadow-2xl transition-none flex flex-col gap-1 w-[180px]"
+      style={{ left: Math.min(info.x + 15, window.innerWidth - 190), top: Math.min(info.y + 15, window.innerHeight - 150) }}
+    >
+      <div className="text-[10px] bg-[#333] text-[#ddd] px-1.5 py-0.5 rounded-[3px] mb-1 truncate">
+        {info.name}
+      </div>
+      <div className="flex justify-between items-center mb-1 border-b border-[#333333] pb-1">
+        <span className="font-bold text-[#ff0080]">&lt;{info.tag}&gt;</span>
+        <span className="text-[10px]">
+          <span className="text-[#888888]">W</span><span className="text-white">{info.w}</span>
+          <span className="text-[#00bfff] ml-1">H</span><span className="font-bold text-white">{info.h}</span>
+        </span>
+      </div>
+      
+      {(info.spacing.mt || info.spacing.mb || info.spacing.pt || info.spacing.pb || info.spacing.gap) ? (
+        <div className="flex flex-col gap-[2px] text-[10px] mt-1 bg-[#000000]/50 p-1.5 rounded-sm">
+          {info.spacing.mt && <div className="text-[#ffb86c] flex justify-between"><span>Margin Top:</span> <span>↑ {info.spacing.mt}</span></div>}
+          {info.spacing.pt && <div className="text-[#8be9fd] flex justify-between"><span>Padding Top:</span> <span>⇡ {info.spacing.pt}</span></div>}
+          
+          {info.spacing.gap && <div className="text-[#50fa7b] flex justify-between font-bold"><span>Inner Gap:</span> <span>⟷ {info.spacing.gap}</span></div>}
+          
+          {info.spacing.pb && <div className="text-[#8be9fd] flex justify-between"><span>Padding Btm:</span> <span>⇣ {info.spacing.pb}</span></div>}
+          {info.spacing.mb && <div className="text-[#ffb86c] flex justify-between"><span>Margin Btm:</span> <span>↓ {info.spacing.mb}</span></div>}
+        </div>
+      ) : (
+        <div className="text-[#555555] text-[9px] italic mt-1">No major spacing detected</div>
+      )}
+
+      {info.classes && (
+        <div className="text-[#888888] text-[9px] truncate mt-1 pt-1 border-t border-[#222222]">{info.classes}</div>
+      )}
+    </div>
+  );
+};
+
+// Internal component so each marker can maintain its own copied state
+const StaticMarker = ({ m, i }: { m: {type: string, val: string, x: number, y: number, name: string}, i: number }) => {
+  const [copied, setCopied] = useState(false);
+
+  const handleCopy = () => {
+    // Format: "Name of the gap" - "number"px
+    const textToCopy = `"${m.name}" - "${parseFloat(m.val)}"px`;
+    navigator.clipboard.writeText(textToCopy).then(() => {
+      setCopied(true);
+      setTimeout(() => setCopied(false), 1500);
+    });
+  };
+
+  const isPadding = m.type === 'pt' || m.type === 'pb';
+  const isGap = m.type === 'gap';
+  const bgClass = isGap ? 'bg-[#50fa7b] text-[#111111] border-[#3ecf62]' 
+               : isPadding ? 'bg-[#8be9fd] text-[#111111] border-[#69c7db]' 
+               : 'bg-[#ffb86c] text-[#111111] border-[#dc9d5a]';
+  const icon = m.type === 'gap' ? '⟷ ' : m.type === 'pt' ? '⇡ ' : m.type === 'pb' ? '⇣ ' : m.type === 'mt' ? '↑ ' : '↓ ';
+  
+  return (
+    <div 
+      style={{ left: m.x, top: m.y, transform: 'translate(-50%, -50%)' }} 
+      className={`absolute flex flex-row items-center opacity-90 hover:opacity-100 hover:z-[999] transition-opacity pointer-events-auto cursor-copy group`}
+      onClick={handleCopy}
+      title="Click to copy measurement"
+    >
+      <div className="bg-[#111111] text-white text-[8px] font-sans px-1.5 py-[1.5px] rounded-l-[3px] border border-r-0 border-[#333333] tracking-wide whitespace-nowrap shadow-md h-[18px] flex items-center group-hover:bg-[#222] transition-colors">
+        {copied ? 'Copied ✓' : m.name}
+      </div>
+      <div className={`text-[10px] font-bold font-mono px-2 py-[1px] rounded-r-[3px] border whitespace-nowrap shadow-md h-[18px] flex items-center ${copied ? 'bg-white text-black' : bgClass}`}>
+        {icon}{m.val}
+      </div>
+    </div>
+  );
+};
+
+// --- Static Redlines Overlay ---
+const StaticRedlines = () => {
+  const [markers, setMarkers] = useState<{name: string, type: string, val: string, x: number, y: number}[]>([]);
+
+  useEffect(() => {
+    const updateMarkers = () => {
+      const newMarkers: {name: string, type: string, val: string, x: number, y: number}[] = [];
+      const elements = document.querySelectorAll('.debug-mode *');
+      
+      elements.forEach(el => {
+        if (el.tagName === 'SVG' || el.tagName === 'PATH' || el.tagName === 'IMG' || el.closest('.debug-ui-ignore')) return;
+        
+        const rect = el.getBoundingClientRect();
+        // Only process visible, reasonably sized elements
+        if (rect.width === 0 || rect.height === 0) return;
+
+        const comp = window.getComputedStyle(el);
+        const scrollY = window.scrollY;
+        const scrollX = window.scrollX;
+
+        const gap = parseFloat(comp.gap) || 0;
+        const pt = parseFloat(comp.paddingTop) || 0;
+        const pb = parseFloat(comp.paddingBottom) || 0;
+        const mt = parseFloat(comp.marginTop) || 0;
+        const mb = parseFloat(comp.marginBottom) || 0;
+
+        const elX = rect.left + scrollX;
+        const elY = rect.top + scrollY;
+
+        // Generate a friendly name based on context
+        const parentSection = el.closest('section, footer, nav');
+        const sectionName = parentSection ? 
+            (parentSection.id.charAt(0).toUpperCase() + parentSection.id.slice(1)) 
+            : 'Page';
+        const tagContext = el.tagName.toLowerCase();
+        
+        // Determine custom names
+        // e.g. <div data-debug-gap="Carousel Inner Gap"> -> maps to exact name and bypasses gap >= 24 check
+        const gapName = el.getAttribute('data-debug-gap');
+        const ptName = el.getAttribute('data-debug-pt');
+        const pbName = el.getAttribute('data-debug-pb');
+        const mtName = el.getAttribute('data-debug-mt');
+        const mbName = el.getAttribute('data-debug-mb');
+
+        const createName = (prop: string) => {
+           let n = `${sectionName} ${tagContext}`;
+           if (el.tagName === 'SECTION' || el.tagName === 'FOOTER' || el.tagName === 'NAV') n = `${sectionName} Wrapper`;
+           if (el.className && typeof el.className === 'string' && el.className.includes('grid')) n += ' Grid';
+           if (el.className && typeof el.className === 'string' && el.className.includes('flex')) n += ' Flex';
+           return n;
+        };
+
+        // Thresholds to prevent absolute visual chaos from every single 4px margin
+        // Bypassed if explicit name is attached
+        if (gap >= 24 || gapName) {
+          newMarkers.push({ name: gapName || `${createName('gap')}`, type: 'gap', val: comp.gap, x: elX + rect.width/2, y: elY + rect.height/2 });
+        }
+        if (pt >= 40 || ptName) {
+           newMarkers.push({ name: ptName || `${createName('pt')} TopPad`, type: 'pt', val: comp.paddingTop, x: elX + 40, y: elY + Math.min(pt/2, 24) });
+        }
+        if (pb >= 40 || pbName) {
+           newMarkers.push({ name: pbName || `${createName('pb')} BtmPad`, type: 'pb', val: comp.paddingBottom, x: elX + 40, y: elY + rect.height - Math.min(pb/2, 24) });
+        }
+        if ((mt >= 32 && el.tagName !== 'BODY') || mtName) {
+           newMarkers.push({ name: mtName || `${createName('mt')} TopMargin`, type: 'mt', val: comp.marginTop, x: elX + Math.min(rect.width/2, 100), y: elY - Math.min(mt/2, 24) });
+        }
+        if ((mb >= 32 && el.tagName !== 'BODY') || mbName) {
+           newMarkers.push({ name: mbName || `${createName('mb')} BtmMargin`, type: 'mb', val: comp.marginBottom, x: elX + Math.min(rect.width/2, 100), y: elY + rect.height + Math.min(mb/2, 24) });
+        }
+      });
+      setMarkers(newMarkers);
+    };
+
+    // Update slightly separated from framerate to protect performance
+    const interval = setInterval(updateMarkers, 600);
+    updateMarkers(); 
+    
+    // Explicitly update on scroll so the absolute positioning tracks movement
+    window.addEventListener('resize', updateMarkers);
+    
+    return () => {
+      clearInterval(interval);
+      window.removeEventListener('resize', updateMarkers);
+    };
+  }, []);
+
+  return (
+    <div className="absolute inset-0 z-[998] pointer-events-none overflow-hidden debug-ui-ignore">
+      {markers.map((m, i) => (
+        <StaticMarker key={i} m={m} i={i} />
+      ))}
+    </div>
+  );
+};
+
+// --- Ruler Overlay Component ---
+const RulerOverlay = () => {
+  const [start, setStart] = useState<{x: number, y: number} | null>(null);
+  const [end, setEnd] = useState<{x: number, y: number} | null>(null);
+  const [isDragging, setIsDragging] = useState(false);
+
+  const handleMouseDown = (e: React.MouseEvent) => {
+    // Only engage if they clicked the general overlay background, not on a specific debug tool
+    if ((e.target as HTMLElement).closest('.debug-ui-ignore-click')) return;
+    setStart({ x: e.clientX, y: e.clientY });
+    setEnd({ x: e.clientX, y: e.clientY });
+    setIsDragging(true);
+  };
+
+  const handleMouseMove = (e: React.MouseEvent) => {
+    if (isDragging) {
+      setEnd({ x: e.clientX, y: e.clientY });
+    }
+  };
+
+  const handleMouseUp = () => {
+    setIsDragging(false);
+  };
+
+  // Double click clears the ruler
+  const handleDoubleClick = () => {
+    setStart(null);
+    setEnd(null);
+    setIsDragging(false);
+  };
+
+  const dx = end && start ? Math.abs(end.x - start.x) : 0;
+  const dy = end && start ? Math.abs(end.y - start.y) : 0;
+  const dist = Math.round(Math.sqrt(dx * dx + dy * dy));
+
+  return (
+    <div 
+      className="fixed inset-0 z-[1002] cursor-crosshair debug-ui-ignore"
+      onMouseDown={handleMouseDown}
+      onMouseMove={handleMouseMove}
+      onMouseUp={handleMouseUp}
+      onDoubleClick={handleDoubleClick}
+      onContextMenu={(e) => { e.preventDefault(); handleDoubleClick(); }}
+      style={{ backgroundColor: isDragging ? 'rgba(0,0,0,0.05)' : 'transparent' }}
+    >
+      {/* Instructions appear when hovering but not actively measuring */}
+      {!start && !isDragging && (
+        <div className="absolute top-6 left-[50%] -translate-x-[50%] bg-[#111] text-white px-4 py-2 rounded-full text-xs font-mono shadow-xl pointer-events-none opacity-80 backdrop-blur-md">
+          📐 Ruler Tool: Click & drag to measure. Double-Click or Right-Click to clear.
+        </div>
+      )}
+
+      {start && end && (
+        <>
+          <svg className="w-full h-full pointer-events-none absolute inset-0">
+            {/* Visual Diagonal Line */}
+            <line x1={start.x} y1={start.y} x2={end.x} y2={end.y} stroke="#ff0080" strokeWidth="2" strokeDasharray="4 4" />
+            
+            {/* Triangle bounding guides */}
+            <line x1={start.x} y1={start.y} x2={end.x} y2={start.y} stroke="#00bfff" strokeWidth="1" strokeDasharray="2 2" opacity="0.6" />
+            <line x1={end.x} y1={start.y} x2={end.x} y2={end.y} stroke="#50fa7b" strokeWidth="1" strokeDasharray="2 2" opacity="0.6" />
+            
+            {/* Start point dot */}
+            <circle cx={start.x} cy={start.y} r="4" fill="#ff0080" />
+            {/* End point dot */}
+            <circle cx={end.x} cy={end.y} r="4" fill="#ff0080" />
+          </svg>
+          
+          <div 
+            className="absolute bg-[#111111]/95 backdrop-blur-sm border border-[#333333] text-white text-[11px] font-mono px-3 py-2 rounded-md shadow-2xl flex flex-col gap-1 pointer-events-none"
+            style={{
+              left: Math.min(end.x + 15, window.innerWidth - 120),
+              top: Math.min(end.y + 15, window.innerHeight - 80)
+            }}
+          >
+            <div className="font-bold text-[#ff0080]">Dist: {dist}px</div>
+            <div className="flex gap-3 pt-1 border-t border-[#333333]">
+              <span className="text-[#00bfff]">W: {dx}px</span>
+              <span className="text-[#50fa7b]">H: {dy}px</span>
+            </div>
+          </div>
+        </>
+      )}
+    </div>
+  );
+};
+
 // --- Main App Entry ---
 
 export default function App() {
+  const [isDebug, setIsDebug] = useState(false);
+  const [isMeasuring, setIsMeasuring] = useState(false);
+
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        setIsMeasuring(false);
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, []);
+
   return (
     // Top-level wrapper applying system typography constraints
-    <div className="font-['Helvetica_Neue',-apple-system,BlinkMacSystemFont,'Segoe_UI',Roboto,sans-serif] text-[#111111] bg-white antialiased overflow-x-hidden selection:bg-[#111111] selection:text-white">
+    <div className={`relative font-['Helvetica_Neue',-apple-system,BlinkMacSystemFont,'Segoe_UI',Roboto,sans-serif] text-[#111111] bg-white antialiased overflow-x-hidden selection:bg-[#111111] selection:text-white ${isDebug ? 'debug-mode' : ''}`}>
+      {isDebug && (
+        <>
+          <style dangerouslySetInnerHTML={{__html: `
+            .debug-mode * {
+              outline: 1px dashed rgba(255, 0, 128, 0.4) !important;
+            }
+            .debug-mode section, .debug-mode footer, .debug-mode nav {
+              outline: 2px solid rgba(0, 191, 255, 0.8) !important;
+              background: rgba(0, 191, 255, 0.05) !important;
+            }
+            .debug-mode [data-debug-hover="true"] {
+              outline: 2px solid #ff0080 !important;
+              background: rgba(255, 0, 128, 0.1) !important;
+              cursor: crosshair !important;
+            }
+          `}} />
+          <StaticRedlines />
+          {!isMeasuring && <DebugOverlay />}
+        </>
+      )}
+
+      {isMeasuring && <RulerOverlay />}
+      
       <Header />
       <main className="min-h-screen">
         <Hero />
         <Projects />
         <Explore />
       </main>
-      <Footer />
+      <Footer onSecretClick={() => {
+        setIsDebug(prev => {
+          if (prev) setIsMeasuring(false);
+          return !prev;
+        });
+      }} />
+
+      {/* Floating Debug Tools Container */}
+      <div className="debug-ui-ignore debug-ui-ignore-click fixed bottom-6 right-6 z-[999] flex gap-3">
+        {isDebug && (
+          <button 
+            onClick={() => setIsMeasuring(prev => !prev)}
+            className={`bg-[#222] hover:bg-[#333] text-white px-5 py-3 rounded-full font-mono text-sm tracking-wide shadow-2xl transition-all border ${isMeasuring ? 'border-[#ff0080] text-[#ff0080]' : 'border-transparent'}`}
+            style={{ backdropFilter: 'blur(10px)' }}
+          >
+            {isMeasuring ? 'Exit Ruler ✕' : '📐 Ruler Tool'}
+          </button>
+        )}
+      </div>
     </div>
   );
 }
