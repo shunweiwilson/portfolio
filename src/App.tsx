@@ -127,7 +127,7 @@ function Hero() {
               muted 
               playsInline
               poster="https://github.com/shunweiwilson/image-storage/blob/main/Wilson_Discuss_Hero.png?raw=true"
-              className="w-full h-full object-cover rounded-sm"
+              className="w-full h-full object-cover rounded-[16px] border border-[#111111]"
             >
               {/* Add your video URL below in the src attribute */}
               <source src="https://video.wixstatic.com/video/807af0_43303b0c5dca454bb00cc7e28d919d48/1080p/mp4/file.mp4" type="video/mp4" />
@@ -237,19 +237,19 @@ function Projects() {
             className="flex overflow-x-auto snap-x snap-mandatory gap-6 pb-8 items-start hide-scrollbar"
             data-debug-gap="Carousel Inner Gap" 
           >
-            {projectsData.map((project) => (
+            {projectsData.map((project, idx) => (
               <div 
                 key={project.id} 
                 className="group w-[85vw] md:w-[60vw] lg:w-[60vw] snap-start flex-shrink-0 flex flex-col"
               >
-                <a href="#contact" className="block overflow-hidden w-full h-[300px] sm:h-[400px] md:h-[450px] lg:h-[500px] mb-6 rounded-sm" data-debug-mb="Image to Title Margin">
+                <a href="#contact" className="block overflow-hidden w-full h-[300px] sm:h-[400px] md:h-[450px] lg:h-[500px] mb-6 rounded-[16px] border border-[#111111]" data-debug-mb="Image to Title Margin">
                   <img 
                     src={project.img} 
                     alt={project.title} 
                     className="w-full h-full object-cover transform group-hover:scale-[1.03] transition-transform duration-700 ease-out" 
                   />
                 </a>
-                <div className="w-full md:w-3/4">
+                <div className="w-full">
                   <h3 className="text-[clamp(1.8rem,4vw,3rem)] font-normal tracking-[-0.03em] leading-[1.2em]">
                     <a href="#contact" className="inline bg-gradient-to-r from-yellow-300 to-yellow-300 bg-no-repeat bg-[position:0_95%] bg-[length:0%_30%] group-hover:bg-[length:100%_30%] transition-[background-size] duration-500 ease-out">
                       {project.title}
@@ -261,9 +261,12 @@ function Projects() {
                     </p>
                   )}
                   {project.chips && project.chips.length > 0 && (
-                    <div className="flex flex-wrap gap-2 mt-4" data-debug-mt="Description to Chips Margin" data-debug-gap="Chips Internal Layout Gap">
+                    <div className="flex flex-wrap items-center gap-2 mt-4" data-debug-mt="Description to Chips Margin" data-debug-gap="Chips Internal Layout Gap">
+                      <span className="shrink-0 w-6 h-6 flex items-center justify-center text-[10px] sm:text-[11px] font-medium bg-[#111111] text-white rounded-full">
+                        {String(idx + 1).padStart(2, '0')}
+                      </span>
                       {project.chips.map((chip, i) => (
-                        <span key={i} className="px-3 py-[0.15rem] text-[0.75rem] md:text-sm font-medium border border-[#bbbbbb] text-[#666666] tracking-wide rounded-full group-hover:border-[#111111] group-hover:text-[#111111] transition-colors duration-500">
+                        <span key={i} className="px-2.5 py-[0.1rem] text-[9px] sm:text-[10px] uppercase font-medium border border-[#111111] text-[#111111] rounded-full shrink-0 tracking-wide">
                           {chip}
                         </span>
                       ))}
@@ -462,125 +465,155 @@ const explores = [
   }
 ];
 
-// Split explores into chunks of 6 items per slide (2x3 grid) once outside the render
-const slideChunks = Array.from({ length: Math.ceil(explores.length / 6) }).map((_, slideIndex) => {
-  return explores.slice(slideIndex * 6, slideIndex * 6 + 6);
-});
-
 function Explore() {
-  const scrollRef = useRef<HTMLDivElement>(null);
   const [hoveredTitle, setHoveredTitle] = useState<string | null>(null);
+  const [visualIndices, setVisualIndices] = useState<Record<number, number>>({});
 
-  const handleScroll = (direction: 'left' | 'right') => {
-    if (scrollRef.current) {
-      // Calculate scroll based on the specific element width to snap perfectly
-      const scrollAmount = scrollRef.current.firstElementChild?.clientWidth || scrollRef.current.clientWidth;
-      scrollRef.current.scrollBy({ 
-        left: direction === 'left' ? -scrollAmount : scrollAmount, 
-        behavior: 'smooth' 
-      });
-    }
-  };
+  useEffect(() => {
+    let timeoutId: ReturnType<typeof setTimeout>;
+    
+    // We use a small delay on load/resize to ensure masonry flow has finished
+    const calculateIndices = () => {
+      clearTimeout(timeoutId);
+      timeoutId = setTimeout(() => {
+        const items = Array.from(document.querySelectorAll('.explore-item')) as HTMLElement[];
+        const rects = items.map((el, i) => {
+          const canonicalIdxStr = el.getAttribute('data-idx');
+          const canonicalIdx = canonicalIdxStr ? parseInt(canonicalIdxStr, 10) : i;
+          return {
+            index: canonicalIdx,
+            rect: el.getBoundingClientRect()
+          }
+        });
+        
+        // Sort items by Y first, then by X. 
+        // We group Ys if they are within a 200px tolerance because masonry items stagger.
+        rects.sort((a, b) => {
+          if (Math.abs(a.rect.top - b.rect.top) < 200) {
+            return a.rect.left - b.rect.left;
+          }
+          return a.rect.top - b.rect.top;
+        });
+        
+        const newIndices: Record<number, number> = {};
+        rects.forEach((item, visualIndex) => {
+          newIndices[item.index] = visualIndex + 1;
+        });
+        setVisualIndices(newIndices);
+      }, 300);
+    };
+
+    calculateIndices();
+    window.addEventListener('resize', calculateIndices);
+    
+    // Also re-trigger if lazily loaded images change layout:
+    const images = document.querySelectorAll('.explore-item img');
+    images.forEach(img => {
+      img.addEventListener('load', calculateIndices);
+    });
+
+    return () => {
+      clearTimeout(timeoutId);
+      window.removeEventListener('resize', calculateIndices);
+      images.forEach(img => img.removeEventListener('load', calculateIndices));
+    };
+  }, []);
 
   return (
     <section id="more" className="pt-12 pb-24 px-6 bg-white border-t border-[#111111] scroll-mt-[68px]">
       <div className="max-w-[1600px] mx-auto">
         <FadeUp>
-          <div className="flex flex-row items-center gap-1 md:gap-2 mb-4">
+          <div className="flex flex-row items-center mb-[48px]">
             <h2 className="text-[clamp(2.5rem,5vw,4.5rem)] font-normal tracking-[-0.03em] leading-[1.2em]">
               Explore beyond
             </h2>
-            
-            {/* Navigation Arrows */}
-            <div className="flex shrink-0 text-[clamp(2.5rem,5vw,4.5rem)] pt-[0.1em]">
-              <button 
-                onClick={() => handleScroll('left')}
-                className="flex items-center justify-center hover:opacity-40 cursor-pointer transition-opacity focus:outline-none shrink-0" 
-                aria-label="Previous"
-              >
-                <ArrowLeft strokeWidth={1.5} size="1em" />
-              </button>
-              <button 
-                onClick={() => handleScroll('right')}
-                className="flex items-center justify-center hover:opacity-40 cursor-pointer transition-opacity focus:outline-none shrink-0" 
-                aria-label="Next"
-              >
-                <ArrowRight strokeWidth={1.5} size="1em" />
-              </button>
-            </div>
           </div>
         </FadeUp>
         
         <FadeUp delay={100} className="relative">
-          {/* Carousel Track with negating margins/padding to prevent zoom cut-off */}
-          <div 
-            ref={scrollRef}
-            className="flex overflow-x-auto snap-x snap-mandatory gap-4 pt-6 pb-4 -mt-6 hide-scrollbar" 
-            data-debug-gap="More div Flex Gap"
-            data-debug-pb="More div Flex BtmPad"
-          >
-            {/* Display pre-computed slide chunks */}
-            {slideChunks.map((slideItems, slideIndex) => (
-                <div key={slideIndex} className="w-[85vw] md:w-[90vw] lg:w-[88vw] shrink-0 snap-start">
-                  {/* 88vw width on large screens to guarantee a clear hint of the next slide */}
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6 items-start" data-debug-gap="More div Grid Gap">
-                    {slideItems.map((item, idx) => (
-                      <div key={idx} className="block relative">
-                        {/* 
-                          CRITICAL FIX: <hr> is hoisted outside the scaling container! 
-                          Because it's a direct child of the items-start grid, its vertical Y-coord is strictly uniform 
-                          across all elements in the row. It will NEVER shift, bulge, or bounce on hover anymore!
-                        */}
-                        <hr className="border-[#111111] w-full mt-4 mb-4" data-debug-mt="More hr TopMargin" data-debug-mb="More hr BtmMargin" />
-                        
-                        <div 
-                          className={`group transition-all duration-500 ease-[cubic-bezier(0.25,1,0.5,1)] origin-top-left ${
-                            hoveredTitle === item.title 
-                              ? 'scale-[1.05] opacity-100 z-10 relative' 
-                              : hoveredTitle 
-                                ? 'opacity-30 scale-100 z-0' 
-                                : 'opacity-100 scale-100 z-0'
-                          }`}
-                          onMouseEnter={() => setHoveredTitle(item.title)}
-                          onMouseLeave={() => setHoveredTitle(null)}
-                        >
-                          <div className="grid grid-cols-1 sm:grid-cols-12 gap-x-4 lg:gap-x-6 gap-y-4 sm:gap-y-0 items-start">
-                            
-                            {/* Text Block - Adjusted to col-span-7 so images are comfortably smaller vertically */}
-                            <div className="sm:col-span-7 flex flex-col gap-4" data-debug-gap="More div Flex Gap">
-                              <p className="text-lg md:text-xl font-normal leading-[1.25em] tracking-normal pr-2">
-                                <a href="#contact" className="inline bg-gradient-to-r from-yellow-300 to-yellow-300 bg-no-repeat bg-[position:0_95%] bg-[length:0%_30%] group-hover:bg-[length:100%_30%] transition-[background-size] duration-500 ease-out">
-                                  {item.title}
-                                </a>
-                              </p>
-                              <div className="flex flex-col gap-4 items-start" data-debug-gap="More div Flex Gap">
-                                <p className="text-sm md:text-base text-[#333333] leading-[1.3em] pr-2">{item.desc}</p>
-                                {item.chips && item.chips.length > 0 && (
-                                  <div className="flex flex-wrap gap-2">
-                                    {item.chips.map((chip, i) => (
-                                      <span key={i} className="px-3 py-[0.15rem] text-[0.75rem] md:text-sm font-medium border border-[#bbbbbb] text-[#666666] tracking-wide rounded-full group-hover:border-[#111111] group-hover:text-[#111111] transition-colors duration-500">
-                                        {chip}
-                                      </span>
-                                    ))}
-                                  </div>
-                                )}
-                              </div>
-                            </div>
-                            
-                            {/* Image Block - Adjusted to col-span-5 to preserve aspect ratio while saving height */}
-                            <div className="sm:col-span-5">
-                              <a href="#contact" className="block w-full aspect-[16/9] overflow-hidden rounded-sm bg-[#f2f2f2]">
-                                <img src={item.img} className="w-full h-full object-cover transform group-hover:scale-[1.03] transition-transform duration-700 ease-out" alt={item.title} />
-                              </a>
-                            </div>
-                            
-                          </div>
-                        </div>
-                      </div>
-                    ))}
+          {/* Masonry Columns Container */}
+          <div className="columns-1 sm:columns-2 lg:columns-3 xl:columns-4 gap-8">
+            {explores.map((item, idx) => {
+              const variant = idx % 3;
+              
+              const TagsBlock = (
+                <div className="flex flex-wrap items-center gap-2 mb-4">
+                  <span className="shrink-0 w-6 h-6 flex items-center justify-center text-[10px] sm:text-[11px] font-medium bg-[#111111] text-white rounded-full transition-opacity duration-300" style={{opacity: visualIndices[idx] ? 1 : 0}}>
+                    {String(visualIndices[idx] || idx + 1).padStart(2, '0')}
+                  </span>
+                  {item.chips && item.chips.map((chip, i) => (
+                    <span key={i} className="px-2.5 py-[0.1rem] text-[9px] sm:text-[10px] uppercase font-medium border border-[#111111] text-[#111111] rounded-full shrink-0 tracking-wide">
+                      {chip}
+                    </span>
+                  ))}
+                </div>
+              );
+
+              const TitleBlock = (
+                <h3 className="text-[clamp(1.3rem,2vw,1.6rem)] font-normal tracking-[-0.03em] leading-[1.2em] mb-3">
+                  <a href="#contact" className="inline bg-gradient-to-r from-yellow-300 to-yellow-300 bg-no-repeat bg-[position:0_95%] bg-[length:0%_30%] group-hover:bg-[length:100%_30%] transition-[background-size] duration-500 ease-out">
+                    {item.title}
+                  </a>
+                </h3>
+              );
+
+              const DescBlock = (
+                <p className="text-sm md:text-base text-[#333333] leading-[1.3em] mb-4">
+                  {item.desc}
+                </p>
+              );
+
+              const ImageBlock = item.img ? (
+                <a href="#contact" className="block w-full overflow-hidden mb-4 rounded-[16px] border border-[#111111] bg-[#f2f2f2]">
+                  <img src={item.img} className="w-full h-auto object-cover transform group-hover:scale-[1.03] transition-transform duration-700 ease-out" alt={item.title} />
+                </a>
+              ) : null;
+
+              return (
+                <div 
+                  key={idx} 
+                  className="explore-item break-inside-avoid block mb-[48px]"
+                  data-idx={idx}
+                  onMouseEnter={() => setHoveredTitle(item.title)}
+                  onMouseLeave={() => setHoveredTitle(null)}
+                >
+                  <div 
+                    className={`group transition-opacity duration-500 ease-[cubic-bezier(0.25,1,0.5,1)] ${
+                      hoveredTitle === item.title 
+                        ? 'opacity-100 z-10 relative' 
+                        : hoveredTitle 
+                          ? 'opacity-[45%] z-0' 
+                          : 'opacity-100 z-0'
+                    }`}
+                  >
+                    {variant === 0 && (
+                      <>
+                        {TagsBlock}
+                        {TitleBlock}
+                        {DescBlock}
+                        {ImageBlock}
+                      </>
+                    )}
+                    {variant === 1 && (
+                      <>
+                        {ImageBlock}
+                        {TagsBlock}
+                        {TitleBlock}
+                        {DescBlock}
+                      </>
+                    )}
+                    {variant === 2 && (
+                      <>
+                        {TagsBlock}
+                        {TitleBlock}
+                        {ImageBlock}
+                        {DescBlock}
+                      </>
+                    )}
                   </div>
                 </div>
-              ))}
+              );
+            })}
           </div>
         </FadeUp>
       </div>
@@ -658,7 +691,7 @@ function Footer({ onSecretClick }: { onSecretClick: () => void }) {
             </div>
 
             {/* Secondary Image */}
-            <div className="md:col-span-3 md:col-start-10 h-[50vh] md:h-[60vh] rounded-sm overflow-hidden">
+            <div className="md:col-span-3 md:col-start-10 h-[50vh] md:h-[60vh] rounded-[16px] border border-[#111111] overflow-hidden">
               <img 
                 src="https://github.com/shunweiwilson/image-storage/blob/main/Wilson_Hero_1.png?raw=true" 
                 className="w-full h-full object-cover" 
@@ -825,7 +858,7 @@ const DebugOverlay = () => {
 };
 
 // Internal component so each marker can maintain its own copied state
-const StaticMarker = ({ m, i }: { m: {type: string, val: string, x: number, y: number, name: string}, i: number }) => {
+const StaticMarker: React.FC<{ m: {type: string, val: string, x: number, y: number, name: string}, i: number }> = ({ m, i }) => {
   const [copied, setCopied] = useState(false);
 
   const handleCopy = () => {
