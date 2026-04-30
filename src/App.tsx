@@ -63,7 +63,7 @@ function Header() {
   return (
     <>
       <nav className="fixed top-0 left-0 w-full z-50 bg-white/95 backdrop-blur-sm px-6 py-5 transition-all duration-300">
-        <div className="max-w-[1600px] mx-auto w-full flex items-center justify-between">
+        <div className="max-w-[2560px] mx-auto w-full flex items-center justify-between 2xl:px-12">
           <a href="/" className="text-xl tracking-tight z-50 relative font-normal flex items-center gap-2">
             <span className="w-5 h-5 bg-yellow-400 rounded-full inline-block"></span>
             Wilson Wu
@@ -117,10 +117,10 @@ function LoadingDots() {
 function Hero() {
   return (
     <section id="home" className="pt-[68px] pb-24 px-6">
-      <div className="max-w-[1600px] mx-auto">
+      <div className="max-w-[2560px] mx-auto 2xl:px-12">
         {/* Constrained Video/Image Block */}
         <FadeUp>
-          <div className="w-full h-[55vh] md:h-[65vh] lg:h-[80vh]">
+          <div className="w-full h-[60vh] md:h-[70vh] lg:aspect-video lg:h-auto lg:max-h-[85vh]">
             <video 
               autoPlay 
               loop 
@@ -199,7 +199,7 @@ export interface PasswordPromptData {
 function Projects({ onProjectClick }: { onProjectClick: (data: PasswordPromptData) => void }) {
   return (
     <section id="portfolio" className="pt-12 pb-24 px-6 border-t border-[#111111] scroll-mt-[68px]" data-debug-pt="Portfolio Wrapper TopPad" data-debug-pb="Portfolio Wrapper BtmPad">
-      <div className="max-w-[1600px] mx-auto">
+      <div className="max-w-[2560px] mx-auto 2xl:px-12">
         <FadeUp>
           <div className="flex flex-row items-center mb-12" data-debug-mb="Header Bottom Margin">
             <h2 className="text-[clamp(2.5rem,5vw,4.5rem)] font-normal tracking-[-0.03em] leading-[1.2em]">
@@ -467,6 +467,9 @@ function Explore({ onProjectClick }: { onProjectClick: (data: PasswordPromptData
   const [cols, setCols] = useState(() => {
     if (typeof window !== 'undefined') {
       const width = window.innerWidth;
+      if (width >= 2560) return 6;
+      if (width >= 1920) return 5;
+      if (width >= 1536) return 4;
       if (width >= 1280) return 4;
       if (width >= 1024) return 3;
       if (width >= 640) return 2;
@@ -477,7 +480,10 @@ function Explore({ onProjectClick }: { onProjectClick: (data: PasswordPromptData
   useEffect(() => {
     const updateCols = () => {
       const width = window.innerWidth;
-      if (width >= 1280) setCols(4);
+      if (width >= 2560) setCols(6);
+      else if (width >= 1920) setCols(5);
+      else if (width >= 1536) setCols(4);
+      else if (width >= 1280) setCols(4);
       else if (width >= 1024) setCols(3);
       else if (width >= 640) setCols(2);
       else setCols(1);
@@ -507,7 +513,7 @@ function Explore({ onProjectClick }: { onProjectClick: (data: PasswordPromptData
 
   return (
     <section id="more" className="pt-12 pb-12 px-6 bg-white border-t border-[#111111] scroll-mt-[68px]" data-debug-pt="More Wrapper TopPad" data-debug-pb="More Wrapper BtmPad">
-      <div className="max-w-[1600px] mx-auto">
+      <div className="max-w-[2560px] mx-auto 2xl:px-12">
         <FadeUp>
           <div className="flex flex-row items-center mb-[48px]">
             <h2 className="text-[clamp(2.5rem,5vw,4.5rem)] font-normal tracking-[-0.03em] leading-[1.2em]">
@@ -650,7 +656,7 @@ const clientData = [
 function Footer({ onSecretClick }: { onSecretClick: () => void }) {
   return (
     <footer id="about" className="bg-[#111111] text-white pt-24 pb-12 px-6 scroll-mt-[68px]">
-      <div className="max-w-[1600px] mx-auto">
+      <div className="max-w-[2560px] mx-auto 2xl:px-12">
         <FadeUp>
           <div className="grid grid-cols-1 md:grid-cols-12 gap-y-16 gap-x-8 md:items-start">
             
