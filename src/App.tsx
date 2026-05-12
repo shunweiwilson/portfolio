@@ -443,7 +443,7 @@ const explores = [
     title: "Every little makes a mickle",
     desc: (
       <>
-        <span className="font-bold">Mickle</span><br />Lighting
+        <span className="font-bold">Mickle</span><br />Experimental Lighting
       </>
     ),
     chips: ["Experimental Art", "Design"],
