@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Menu, X, ArrowLeft, ArrowRight } from 'lucide-react';
+import { Analytics } from '@vercel/analytics/react';
 
 // --- Shared Reusable Components ---
 
@@ -1226,6 +1227,7 @@ export default function App() {
           </div>
         </div>
       </div>
+      <Analytics />
     </div>
   );
 }
