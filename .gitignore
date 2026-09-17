@@ -6,9 +6,6 @@ dist/
 dist-ssr/
 *.local
 
-# Platform fixes
-package-lock.json
-
 # Environment variables
 .env
 .env.local
