@@ -1,5 +1,6 @@
 import type { Plugin, ViteDevServer } from 'vite';
 import type { IncomingMessage, ServerResponse } from 'node:http';
+import { devAuthOk } from './vite-plugin-admin-auth';
 
 /**
  * Dev-only endpoint that uploads an image to the GitHub image-storage repo and
@@ -106,6 +107,11 @@ export function githubImageUpload(): Plugin {
 
         if (req.method !== 'POST') {
           json(res, 405, { error: 'Method not allowed' });
+          return;
+        }
+
+        if (!devAuthOk(req)) {
+          json(res, 401, { error: 'Not signed in, or the session expired.' });
           return;
         }
 

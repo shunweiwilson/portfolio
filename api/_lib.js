@@ -9,6 +9,8 @@
  *   ADMIN_PASSWORD - password the #add tool must send to perform any write
  */
 
+import crypto from 'node:crypto';
+
 const API = 'https://api.github.com';
 
 export const OWNER = 'shunweiwilson';
@@ -31,9 +33,47 @@ export const ghHeaders = () => ({
   'User-Agent': 'portfolio-add-project-tool',
 });
 
+/** Constant-time string compare, so a wrong password cannot be timed out character by character. */
+export const safeEqual = (a, b) => {
+  const bufA = Buffer.from(String(a));
+  const bufB = Buffer.from(String(b));
+  if (bufA.length !== bufB.length) {
+    // Still compare something of equal length to keep the timing flat.
+    crypto.timingSafeEqual(bufA, bufA);
+    return false;
+  }
+  return crypto.timingSafeEqual(bufA, bufB);
+};
+
+const SESSION_HOURS = 12;
+
+const sign = (payload, secret) =>
+  crypto.createHmac('sha256', `session:${secret}`).update(payload).digest('base64url');
+
+/**
+ * Issues an opaque "<expiry>.<signature>" token. The signing key is derived from
+ * the password, so rotating the password revokes every outstanding session.
+ */
+export const createSession = (secret) => {
+  const exp = String(Date.now() + SESSION_HOURS * 60 * 60 * 1000);
+  return `${exp}.${sign(exp, secret)}`;
+};
+
+export const verifySession = (value, secret) => {
+  const [exp, signature] = String(value).split('.');
+  if (!exp || !signature) return false;
+  if (!safeEqual(signature, sign(exp, secret))) return false;
+  return Number(exp) > Date.now();
+};
+
+export const SESSION_HOURS_VALUE = SESSION_HOURS;
+
 /**
  * Gates every write. Fails closed: if ADMIN_PASSWORD is not configured, nothing
  * can be written, rather than leaving the endpoint open to the world.
+ *
+ * Accepts either a session token from /api/auth (normal path) or the raw
+ * password header (useful for scripts and curl).
  */
 export const checkAuth = (req, res) => {
   const expected = process.env.ADMIN_PASSWORD || '';
@@ -43,9 +83,15 @@ export const checkAuth = (req, res) => {
     });
     return false;
   }
-  const supplied = req.headers['x-admin-password'] || '';
-  if (supplied !== expected) {
-    json(res, 401, { error: 'Wrong password.' });
+
+  const sessionToken = req.headers['x-admin-token'] || '';
+  const suppliedPassword = req.headers['x-admin-password'] || '';
+  const ok = sessionToken
+    ? verifySession(sessionToken, expected)
+    : suppliedPassword && safeEqual(suppliedPassword, expected);
+
+  if (!ok) {
+    json(res, 401, { error: 'Not signed in, or the session expired.' });
     return false;
   }
   if (!token()) {

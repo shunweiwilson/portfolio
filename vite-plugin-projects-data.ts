@@ -2,6 +2,7 @@ import type { Plugin, ViteDevServer } from 'vite';
 import type { IncomingMessage, ServerResponse } from 'node:http';
 import { readFile, writeFile } from 'node:fs/promises';
 import path from 'node:path';
+import { adminPassword, devAuthOk } from './vite-plugin-admin-auth';
 
 /**
  * Dev-only endpoint that lets the #add tool read and rewrite the projects data file
@@ -84,11 +85,20 @@ export function projectsData(): Plugin {
       server.middlewares.use('/api/projects', async (req, res) => {
         try {
           if (req.method === 'GET') {
-            json(res, 200, { items: JSON.parse(await readFile(file, 'utf8')), live: false });
+            json(res, 200, {
+              items: JSON.parse(await readFile(file, 'utf8')),
+              live: false,
+              authRequired: Boolean(adminPassword()),
+            });
             return;
           }
 
           if (req.method === 'PUT') {
+            if (!devAuthOk(req)) {
+              json(res, 401, { error: 'Not signed in, or the session expired.' });
+              return;
+            }
+
             const parsed = JSON.parse(await readBody(req)) as unknown;
             if (!Array.isArray(parsed)) {
               json(res, 400, { error: 'Expected an array of projects.' });

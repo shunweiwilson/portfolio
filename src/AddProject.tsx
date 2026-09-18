@@ -8,6 +8,8 @@ import {
   EyeOff,
   GripVertical,
   Loader2,
+  Lock,
+  LogOut,
   Pencil,
   Plus,
   Save,
@@ -38,7 +40,7 @@ import initialProjects from './data/projects.json';
 
 const DRAFT_KEY = 'portfolio-project-draft-v2';
 const TOKEN_KEY = 'github-image-token-v1';
-const PASSWORD_KEY = 'portfolio-admin-password-v1';
+const SESSION_KEY = 'portfolio-admin-session-v1';
 const UPLOAD_ENDPOINT = '/api/upload-image';
 const DATA_ENDPOINT = '/api/projects';
 const FEATURED_COUNT = 4;
@@ -277,25 +279,99 @@ export default function AddProject() {
   const [variant, setVariant] = useState(Math.max(position - FEATURED_COUNT, 0) % 3);
   const topRef = useRef<HTMLDivElement>(null);
 
-  // Password for the live serverless endpoints. Unused in dev (localhost writes
-  // are unauthenticated), so the field only appears when the server asks for it.
-  const [password, setPassword] = useState(() => {
+  // --- Password gate ---
+  // Only a short-lived session token is kept in the browser; the password is
+  // sent once to /api/auth and never stored.
+  const [session, setSession] = useState(() => {
     try {
-      return window.localStorage.getItem(PASSWORD_KEY) ?? '';
+      return window.localStorage.getItem(SESSION_KEY) ?? '';
     } catch {
       return '';
     }
   });
-  const [needsPassword, setNeedsPassword] = useState(false);
+  const [authRequired, setAuthRequired] = useState(false);
+  const [authConfigured, setAuthConfigured] = useState(true);
+  const [unlocked, setUnlocked] = useState(false);
+  const [passwordInput, setPasswordInput] = useState('');
+  const [authError, setAuthError] = useState('');
+  const [authBusy, setAuthBusy] = useState(false);
+  const [authChecked, setAuthChecked] = useState(false);
   // True when saves go through the deployed API (a commit + redeploy) rather
   // than straight to a local file.
   const [isLive, setIsLive] = useState(false);
+
+  // Ask the server whether a password is needed, and whether the stored session
+  // is still valid. The answer is authoritative; the client never decides this.
+  useEffect(() => {
+    const stored = (() => {
+      try {
+        return window.localStorage.getItem(SESSION_KEY) ?? '';
+      } catch {
+        return '';
+      }
+    })();
+
+    fetch('/api/auth', { headers: stored ? { 'x-admin-token': stored } : undefined })
+      .then((res) => (res.ok ? res.json() : Promise.reject(new Error('unavailable'))))
+      .then((data: { required?: boolean; configured?: boolean; valid?: boolean }) => {
+        setAuthRequired(Boolean(data.required));
+        setAuthConfigured(data.configured !== false);
+        setUnlocked(!data.required || Boolean(data.valid));
+      })
+      .catch(() => {
+        // No auth endpoint at all (e.g. `vite preview`): nothing can be written
+        // anyway, so show the tool read-only rather than a pointless lock screen.
+        setAuthRequired(false);
+        setUnlocked(true);
+      })
+      .finally(() => setAuthChecked(true));
+  }, []);
+
+  const signIn = async () => {
+    setAuthBusy(true);
+    setAuthError('');
+    try {
+      const res = await fetch('/api/auth', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ password: passwordInput }),
+      });
+      const data = (await res.json().catch(() => ({}))) as { token?: string; error?: string };
+      if (!res.ok) {
+        setAuthError(data.error ?? `Sign in failed (${res.status}).`);
+        return;
+      }
+      const issued = data.token ?? '';
+      setSession(issued);
+      try {
+        window.localStorage.setItem(SESSION_KEY, issued);
+      } catch {
+        // Session just won't survive a reload.
+      }
+      setPasswordInput('');
+      setUnlocked(true);
+    } catch {
+      setAuthError('Could not reach the sign-in endpoint.');
+    } finally {
+      setAuthBusy(false);
+    }
+  };
+
+  const signOut = () => {
+    setSession('');
+    try {
+      window.localStorage.removeItem(SESSION_KEY);
+    } catch {
+      // Ignore storage failures.
+    }
+    setUnlocked(!authRequired);
+  };
 
   // Pull the current data; falls back to the copy bundled at build time.
   useEffect(() => {
     fetch(DATA_ENDPOINT)
       .then((res) => (res.ok ? res.json() : Promise.reject(new Error('unavailable'))))
-      .then((data: { items: ProjectItem[] | null; live?: boolean }) => {
+      .then((data: { items: ProjectItem[] | null; live?: boolean; authRequired?: boolean }) => {
         if (data.items) setItems(data.items);
         setIsLive(Boolean(data.live));
       })
@@ -310,19 +386,13 @@ export default function AddProject() {
     }
   }, [draft]);
 
-  useEffect(() => {
-    try {
-      window.localStorage.setItem(PASSWORD_KEY, password);
-    } catch {
-      // Ignore storage failures; the password just won't be remembered.
-    }
-  }, [password]);
-
   const set = (key: keyof Draft) => (value: string) =>
     setDraft((prev) => ({ ...prev, [key]: value }));
 
-  const authHeaders = () =>
-    password ? { 'Content-Type': 'application/json', 'x-admin-password': password } : { 'Content-Type': 'application/json' };
+  const authHeaders = (): Record<string, string> => ({
+    'Content-Type': 'application/json',
+    ...(session ? { 'x-admin-token': session } : {}),
+  });
 
   // --- Persistence ---
   const persist = async (next: ProjectItem[]) => {
@@ -338,12 +408,16 @@ export default function AddProject() {
       if (!res.ok) {
         const data = (await res.json().catch(() => ({}))) as { error?: string };
         setItems(previous); // Roll back so the list never lies about what is stored.
-        if (res.status === 401) setNeedsPassword(true);
+        if (res.status === 401) {
+          // Session expired mid-session: drop back to the lock screen.
+          signOut();
+          setUnlocked(false);
+          setAuthError('Your session expired — please sign in again.');
+        }
         setSave({ status: 'error', message: data.error ?? `Save failed (${res.status}).` });
         return false;
       }
       const data = (await res.json().catch(() => ({}))) as { commit?: string };
-      setNeedsPassword(false);
       setSave({ status: 'saved', commit: data.commit });
       setTimeout(() => setSave((s) => (s.status === 'saved' ? { status: 'idle' } : s)), 4000);
       return true;
@@ -642,6 +716,93 @@ export default function AddProject() {
     error: '',
   }[save.status];
 
+  const shellClass =
+    "min-h-screen bg-white text-[#111111] font-['Helvetica_Neue',-apple-system,BlinkMacSystemFont,'Segoe_UI',Roboto,sans-serif] antialiased";
+
+  // Avoid flashing the editor before the server has told us whether it is locked.
+  if (!authChecked) {
+    return (
+      <div className={`${shellClass} flex items-center justify-center`}>
+        <Loader2 size={20} className="animate-spin text-[#bbbbbb]" />
+      </div>
+    );
+  }
+
+  // Lock screen. The tool is never rendered until the server validates a session,
+  // and every write is independently checked server-side regardless.
+  if (authRequired && !unlocked) {
+    return (
+      <div className={`${shellClass} flex items-center justify-center px-6`}>
+        <div className="w-full max-w-[380px]">
+          <div className="w-12 h-12 rounded-full border border-[#111111] flex items-center justify-center mb-6">
+            <Lock size={18} strokeWidth={2} />
+          </div>
+          <h1 className="text-[clamp(1.8rem,4vw,2.4rem)] font-normal tracking-[-0.03em] leading-[1.2em] mb-3">
+            Project admin
+          </h1>
+
+          {authConfigured ? (
+            <>
+              <p className="text-sm text-[#666666] leading-[1.5em] mb-6">
+                Enter the admin password to manage projects. The session lasts 12 hours on
+                this device.
+              </p>
+              <form
+                onSubmit={(e) => {
+                  e.preventDefault();
+                  void signIn();
+                }}
+              >
+                <input
+                  type="password"
+                  autoFocus
+                  value={passwordInput}
+                  onChange={(e) => setPasswordInput(e.target.value)}
+                  placeholder="Password"
+                  className={`${inputClass} mb-4`}
+                />
+                {authError && (
+                  <p className="text-xs text-red-700 flex items-start gap-2 mb-4">
+                    <AlertCircle size={13} strokeWidth={2} className="mt-[2px] shrink-0" />
+                    {authError}
+                  </p>
+                )}
+                <button
+                  type="submit"
+                  disabled={authBusy || !passwordInput}
+                  className={`${pillClass} w-full justify-center bg-[#111111] text-white border-[#111111] hover:bg-[#333333]`}
+                >
+                  {authBusy ? (
+                    <>
+                      <Loader2 size={14} className="animate-spin" /> Checking…
+                    </>
+                  ) : (
+                    <>
+                      <Lock size={14} strokeWidth={2} /> Unlock
+                    </>
+                  )}
+                </button>
+              </form>
+            </>
+          ) : (
+            <p className="text-sm text-[#b45309] leading-[1.5em] mb-6">
+              Editing is disabled: this deployment has no <span className="font-mono">ADMIN_PASSWORD</span>{' '}
+              set, so the server refuses all writes.
+            </p>
+          )}
+
+          <a
+            href="#more"
+            className="inline-flex items-center gap-2 text-xs uppercase tracking-wide text-[#888888] hover:text-[#111111] transition-colors mt-8"
+          >
+            <ArrowLeft size={13} strokeWidth={2} />
+            Back to site
+          </a>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="min-h-screen bg-white text-[#111111] font-['Helvetica_Neue',-apple-system,BlinkMacSystemFont,'Segoe_UI',Roboto,sans-serif] antialiased">
       <div className="max-w-[1400px] mx-auto px-6 py-12">
@@ -677,6 +838,19 @@ export default function AddProject() {
               <ArrowLeft size={14} strokeWidth={2} />
               Back to site
             </a>
+            {authRequired && (
+              <button
+                type="button"
+                onClick={() => {
+                  signOut();
+                  setUnlocked(false);
+                }}
+                className={pillClass}
+              >
+                <LogOut size={14} strokeWidth={2} />
+                Sign out
+              </button>
+            )}
           </div>
         </div>
 
@@ -956,20 +1130,6 @@ export default function AddProject() {
           <div className="lg:col-span-3">
             <h2 className="text-[11px] uppercase tracking-wide font-medium mb-4">Save</h2>
 
-            {(isLive || needsPassword) && (
-              <Field
-                label="Admin password"
-                hint="Required to write from the deployed site. Checked on the server; stored only in this browser."
-              >
-                <input
-                  type="password"
-                  className={inputClass}
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  placeholder="••••••••"
-                />
-              </Field>
-            )}
             {!isComplete && (
               <p className="text-xs text-[#b45309] mb-4 leading-[1.4em]">
                 Fill in chips, headline, project name and an image to enable saving.
