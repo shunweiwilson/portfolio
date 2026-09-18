@@ -414,27 +414,6 @@
     }
   },
   {
-    "id": "6-locomotion-experimental-mobility",
-    "hidden": false,
-    "chips": [
-      "Experimental Art",
-      "Design"
-    ],
-    "img": "https://github.com/shunweiwilson/image-storage/blob/main/6_hero_3.png?raw=true",
-    "featured": {
-      "title": "6, Locomotion Experimental Mobility",
-      "desc": "Rethinking the wheel by studying the survival strategies of the insect world"
-    },
-    "explore": {
-      "title": "Rethinking the wheel by studying the survival strategies of the insect world",
-      "subtitle": "6, Locomotion",
-      "weight": "font-bold",
-      "lines": [
-        "Experimental Mobility"
-      ]
-    }
-  },
-  {
     "id": "huafan-university-maker-center",
     "hidden": false,
     "chips": [
@@ -452,6 +431,27 @@
       "weight": "font-bold",
       "lines": [
         "Huafan University Maker Space Interior Design"
+      ]
+    }
+  },
+  {
+    "id": "6-locomotion-experimental-mobility",
+    "hidden": false,
+    "chips": [
+      "Experimental Art",
+      "Design"
+    ],
+    "img": "https://github.com/shunweiwilson/image-storage/blob/main/6_hero_3.png?raw=true",
+    "featured": {
+      "title": "6, Locomotion Experimental Mobility",
+      "desc": "Rethinking the wheel by studying the survival strategies of the insect world"
+    },
+    "explore": {
+      "title": "Rethinking the wheel by studying the survival strategies of the insect world",
+      "subtitle": "6, Locomotion",
+      "weight": "font-bold",
+      "lines": [
+        "Experimental Mobility"
       ]
     }
   },
