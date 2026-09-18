@@ -148,7 +148,7 @@ function Hero() {
             </div>
             <div className="md:col-span-12">
               <p className="text-lg md:text-xl text-[#333333] leading-[1.3em]">
-                Wilson Wu, Multi-discipline Product Designer.<br/>
+                Wilson Wu, Multi-discipline Design Lead.<br/>
                 Crafting meaningful hardware and software experiences, currently @YouTube, Google<LoadingDots />
               </p>
             </div>
@@ -320,6 +320,35 @@ const explores: ExploreItem[] = visibleProjects.slice(FEATURED_COUNT).map((proje
   url: project.url,
 }));
 
+/**
+ * How many of the explore layouts to rotate through.
+ *   3 = the original set: image last (v0), image first (v1), image middle (v2)
+ *   2 = drop the image-middle layout, alternate last / first only
+ *
+ * Override per visit with ?variants=3 or ?variants=2 so both can be compared
+ * without a rebuild. Whatever is set here is what the live site uses.
+ */
+const VARIANT_COUNT = 2;
+
+/**
+ * Offsets the rotation by column index. Without it, a card's layout is decided
+ * purely by its position, so whenever the column count is a multiple of
+ * VARIANT_COUNT every card in a column gets the same layout and the masonry
+ * collapses into uniform stripes. Override with ?stagger=0 to see that effect.
+ */
+const STAGGER_BY_COLUMN = true;
+
+const readPreviewFlags = () => {
+  if (typeof window === 'undefined') return { variants: VARIANT_COUNT, stagger: STAGGER_BY_COLUMN };
+  const params = new URLSearchParams(window.location.search);
+  const requested = Number(params.get('variants'));
+  const stagger = params.get('stagger');
+  return {
+    variants: requested === 2 || requested === 3 ? requested : VARIANT_COUNT,
+    stagger: stagger === null ? STAGGER_BY_COLUMN : stagger !== '0',
+  };
+};
+
 /** Rebuilds the multi-line description node from the structured data. */
 const renderExploreDesc = (item: ExploreItem) => (
   <>
@@ -344,32 +373,21 @@ const extractPlaintext = (node: React.ReactNode): string => {
 };
 
 function Explore({ onProjectClick }: { onProjectClick: (data: PasswordPromptData) => void }) {
+  const { variants: variantCount, stagger } = readPreviewFlags();
   const [hoveredTitle, setHoveredTitle] = useState<string | null>(null);
   const [visibleCount, setVisibleCount] = useState(4);
-  const [cols, setCols] = useState(() => {
-    if (typeof window !== 'undefined') {
-      const width = window.innerWidth;
-      if (width >= 2560) return 6;
-      if (width >= 1920) return 5;
-      if (width >= 1536) return 4;
-      if (width >= 1280) return 4;
-      if (width >= 1024) return 3;
-      if (width >= 640) return 2;
-    }
+  const colsForWidth = (width: number) => {
+    if (width >= 1280) return 4;
+    if (width >= 1024) return 3;
+    if (width >= 640) return 2;
     return 1;
-  });
+  };
+  const [cols, setCols] = useState(() =>
+    typeof window !== 'undefined' ? colsForWidth(window.innerWidth) : 1,
+  );
 
   useEffect(() => {
-    const updateCols = () => {
-      const width = window.innerWidth;
-      if (width >= 2560) setCols(6);
-      else if (width >= 1920) setCols(5);
-      else if (width >= 1536) setCols(4);
-      else if (width >= 1280) setCols(4);
-      else if (width >= 1024) setCols(3);
-      else if (width >= 640) setCols(2);
-      else setCols(1);
-    };
+    const updateCols = () => setCols(colsForWidth(window.innerWidth));
     
     let timeoutId: ReturnType<typeof setTimeout>;
     const handleResize = () => {
@@ -410,8 +428,14 @@ function Explore({ onProjectClick }: { onProjectClick: (data: PasswordPromptData
             {columnBuckets.map((bucket, colIdx) => (
               <div key={colIdx} className="flex-1 flex flex-col w-full min-w-0">
                 {bucket.map((item) => {
-                  // Variant locked to its original native rank to keep perfect permutation!
-                  const variant = item.rankIndex % 3;
+                  // On 1–2 columns always use v0; on 3–4 columns step once per row and once per column.
+                  const rowInColumn = Math.floor(item.rankIndex / cols);
+                  const variant =
+                    cols <= 2
+                      ? 0
+                      : stagger
+                        ? (rowInColumn + colIdx) % variantCount
+                        : item.rankIndex % variantCount;
                   const desc = renderExploreDesc(item);
                   const linkProps = cardLinkProps(item.url, () =>
                     onProjectClick({ title: item.title, desc, img: item.img, rankIndex: item.rankIndex }),
