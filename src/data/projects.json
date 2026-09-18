@@ -1,0 +1,500 @@
+[
+  {
+    "id": "living-room-youtube-on-tv",
+    "hidden": false,
+    "chips": [
+      "User Experience Design",
+      "Media",
+      "Community",
+      "Platform",
+      "TV"
+    ],
+    "img": "https://github.com/shunweiwilson/image-storage/blob/main/YTLR_Hero_2.gif?raw=true",
+    "featured": {
+      "title": "Living Room: YouTube on TV",
+      "desc": "Design innovation for the largest screen at home"
+    },
+    "explore": {
+      "title": "Design innovation for the largest screen at home",
+      "subtitle": "Living Room: YouTube on TV",
+      "weight": "font-semibold",
+      "lines": []
+    }
+  },
+  {
+    "id": "verily-retinal-camera",
+    "hidden": false,
+    "chips": [
+      "Hardware+Software UX",
+      "Founding Designer",
+      "FDA Listed",
+      "AI",
+      "Healthcare"
+    ],
+    "img": "https://github.com/shunweiwilson/image-storage/blob/main/VRC_hero.png?raw=true",
+    "featured": {
+      "title": "Verily Retinal Camera",
+      "desc": "Prevent blindness by re-imagine retinal screening services"
+    },
+    "explore": {
+      "title": "Prevent blindness by re-imagine retinal screening services",
+      "subtitle": "Verily Retinal Camera",
+      "weight": "font-semibold",
+      "lines": []
+    }
+  },
+  {
+    "id": "quo-anonymous-std-ai-consultant",
+    "hidden": false,
+    "chips": [
+      "UX Design",
+      "Founding Designer",
+      "AI",
+      "Healthcare"
+    ],
+    "img": "https://github.com/shunweiwilson/image-storage/blob/main/Quo_hero_1.jpg?raw=true",
+    "featured": {
+      "title": "Quo: Anonymous STD AI Consultant",
+      "desc": "How can we levrage AI agent to make healthcare better for humans?"
+    },
+    "explore": {
+      "title": "How can we levrage AI agent to make healthcare better for humans?",
+      "subtitle": "Quo: Anonymous STD AI Consultant",
+      "weight": "font-semibold",
+      "lines": []
+    }
+  },
+  {
+    "id": "eldernext-muscle-training-wearables",
+    "hidden": false,
+    "chips": [
+      "Hardware+Software UX",
+      "Wearables",
+      "Fitness"
+    ],
+    "img": "https://github.com/shunweiwilson/image-storage/blob/main/Eldernext_Hero_3.jpg?raw=true",
+    "featured": {
+      "title": "Eldernext Muscle Training Wearables",
+      "desc": "Prevent the elders from the vicious circle of Sarcopenia."
+    },
+    "explore": {
+      "title": "Prevent the elders from the vicious circle of Sarcopenia.",
+      "subtitle": "Eldernext Muscle Training Wearables",
+      "weight": "font-semibold",
+      "lines": []
+    }
+  },
+  {
+    "id": "verily-study-watch",
+    "hidden": false,
+    "chips": [
+      "HW+SW UX",
+      "Wearables",
+      "Mobile",
+      "Healthcare"
+    ],
+    "img": "https://github.com/shunweiwilson/image-storage/blob/main/VW_hero.png?raw=true",
+    "featured": {
+      "title": "Verily Study Watch",
+      "desc": "First-ever FDA approved clinical-grade watch to monitor atrial fibrillation in the US"
+    },
+    "explore": {
+      "title": "First-ever FDA approved clinical-grade watch to monitor atrial fibrillation in the US",
+      "subtitle": "Verily",
+      "weight": "font-semibold",
+      "lines": [
+        "Study Watch"
+      ]
+    }
+  },
+  {
+    "id": "eli-lily-automated-insulin-delivery-syst",
+    "hidden": false,
+    "chips": [
+      "System Design",
+      "Design Strategy"
+    ],
+    "img": "https://github.com/shunweiwilson/image-storage/blob/main/lilly_hero_1.png?raw=true",
+    "featured": {
+      "title": "Eli Lily Automated Insulin Delivery System",
+      "desc": "Use system-modeling to address complex challenges"
+    },
+    "explore": {
+      "title": "Use system-modeling to address complex challenges",
+      "subtitle": "Eli Lily",
+      "weight": "font-semibold",
+      "lines": [
+        "Automated Insulin Delivery System"
+      ]
+    }
+  },
+  {
+    "id": "lumi-by-pampers-google-p-g",
+    "hidden": false,
+    "chips": [
+      "HW+SW UX",
+      "AI",
+      "Mobile",
+      "Consumer"
+    ],
+    "img": "https://github.com/shunweiwilson/image-storage/blob/main/Lumi_Hero.png?raw=true",
+    "featured": {
+      "title": "Lumi by Pampers Google+P&G",
+      "desc": "AI-powered personalized baby sleep-coaching devices solution"
+    },
+    "explore": {
+      "title": "AI-powered personalized baby sleep-coaching devices solution",
+      "subtitle": "Lumi by Pampers",
+      "weight": "font-semibold",
+      "lines": [
+        "Google+P&G",
+        "Baby Monitor & AI Sleep Coaching"
+      ]
+    }
+  },
+  {
+    "id": "google-network-planner",
+    "hidden": false,
+    "chips": [
+      "UX Design",
+      "Web"
+    ],
+    "img": "https://github.com/shunweiwilson/image-storage/blob/main/google_networkplanner_hero_1.png?raw=true",
+    "featured": {
+      "title": "Google Network Planner",
+      "desc": "Accurate, fast, easy-to-use network planning over a web browser"
+    },
+    "explore": {
+      "title": "Accurate, fast, easy-to-use network planning over a web browser",
+      "subtitle": "Google",
+      "weight": "font-semibold",
+      "lines": [
+        "Network Planner",
+        "Web-based Network Planning Tool"
+      ]
+    }
+  },
+  {
+    "id": "fold-fire-extinguisher",
+    "hidden": false,
+    "chips": [
+      "Industrial Design",
+      "Home"
+    ],
+    "img": "https://github.com/shunweiwilson/image-storage/blob/main/Fold_hero.jpg?raw=true",
+    "featured": {
+      "title": "FOLD Fire Extinguisher",
+      "desc": "Bridging the gap between domestic aesthetics and emergency preparedness"
+    },
+    "explore": {
+      "title": "Bridging the gap between domestic aesthetics and emergency preparedness",
+      "subtitle": "FOLD",
+      "weight": "font-bold",
+      "lines": [
+        "Fire Extinguisher"
+      ]
+    }
+  },
+  {
+    "id": "capture-2025-rental-camera-system-on-moo",
+    "hidden": false,
+    "chips": [
+      "Industrial Design",
+      "Speculative Design"
+    ],
+    "img": "https://github.com/shunweiwilson/image-storage/blob/main/Capture_hero.jpg?raw=true",
+    "featured": {
+      "title": "Capture 2025 Rental Camera System on Moon",
+      "desc": "Designing the lens through which we will remember our first lunar vacations"
+    },
+    "explore": {
+      "title": "Designing the lens through which we will remember our first lunar vacations",
+      "subtitle": "Capture 2025",
+      "weight": "font-bold",
+      "lines": [
+        "Rental Camera System on Moon"
+      ]
+    }
+  },
+  {
+    "id": "m-ing-foldable-ming-style-armchair",
+    "hidden": false,
+    "chips": [
+      "Industrial Design",
+      "Furniture"
+    ],
+    "img": "https://github.com/shunweiwilson/image-storage/blob/main/Ming_hero.png?raw=true",
+    "featured": {
+      "title": "M-ing Foldable Ming Style Armchair",
+      "desc": "Fold four centuries of Ming dynasty heritage into modern urban living"
+    },
+    "explore": {
+      "title": "Fold four centuries of Ming dynasty heritage into modern urban living",
+      "subtitle": "M-ing",
+      "weight": "font-semibold",
+      "lines": [
+        "Foldable Ming Style Armchair"
+      ]
+    }
+  },
+  {
+    "id": "trend-micro-official-website-visual-refr",
+    "hidden": false,
+    "chips": [
+      "UX Design",
+      "Visual Design",
+      "Web"
+    ],
+    "img": "https://github.com/shunweiwilson/image-storage/blob/main/TMCOM_Hero.jpg?raw=true",
+    "featured": {
+      "title": "Trend Micro Official Website Visual Refreshment",
+      "desc": "The next generation of cyber security"
+    },
+    "explore": {
+      "title": "The next generation of cyber security",
+      "subtitle": "Trend Micro",
+      "weight": "font-semibold",
+      "lines": [
+        "Official Website Visual Refreshment"
+      ]
+    }
+  },
+  {
+    "id": "scid-ux-lab-automobile-augmented-reality",
+    "hidden": false,
+    "chips": [
+      "Research",
+      "Eye-tracking",
+      "AR"
+    ],
+    "img": "https://github.com/shunweiwilson/image-storage/blob/main/Eye_track_hero.png?raw=true",
+    "featured": {
+      "title": "SCID UX Lab Automobile Augmented Reality Research",
+      "desc": "Engineering a safer drive through precision eye-tracking research"
+    },
+    "explore": {
+      "title": "Engineering a safer drive through precision eye-tracking research",
+      "subtitle": "SCID UX Lab",
+      "weight": "font-bold",
+      "lines": [
+        "Automobile Augmented Reality Research"
+      ]
+    }
+  },
+  {
+    "id": "debut-crowdfunding-platform-for-niche-fa",
+    "hidden": false,
+    "chips": [
+      "UX Design",
+      "Art Direction",
+      "Mobile",
+      "Web"
+    ],
+    "img": "https://raw.githubusercontent.com/shunweiwilson/image-storage/refs/heads/main/Debut_hero.jpg",
+    "featured": {
+      "title": "Debut Crowdfunding platform for niche fashion",
+      "desc": "Unleash the next generation of niche fashion through community-driven crowdfunding"
+    },
+    "explore": {
+      "title": "Unleash the next generation of niche fashion through community-driven crowdfunding",
+      "subtitle": "Debut",
+      "weight": "font-bold",
+      "lines": [
+        "Crowdfunding platform for niche fashion"
+      ]
+    }
+  },
+  {
+    "id": "the-new-school-of-san-francisco-equity-s",
+    "hidden": false,
+    "chips": [
+      "Service Design",
+      "Research",
+      "Education"
+    ],
+    "img": "https://github.com/shunweiwilson/image-storage/blob/main/NSSF_hero.jpg?raw=true",
+    "featured": {
+      "title": "The New School of San Francisco Equity School Calendar and Remote Learning",
+      "desc": "Alleviate the academic summers drop-off by redesign school schedule"
+    },
+    "explore": {
+      "title": "Alleviate the academic summers drop-off by redesign school schedule",
+      "subtitle": "The New School of San Francisco",
+      "weight": "font-bold",
+      "lines": [
+        "Equity School Calendar and Remote Learning"
+      ]
+    }
+  },
+  {
+    "id": "trend-micro-mac-os-user-interface-design",
+    "hidden": false,
+    "chips": [
+      "UX Design",
+      "Design System",
+      "MacOS"
+    ],
+    "img": "https://github.com/shunweiwilson/image-storage/blob/main/TMUI_hero.png?raw=true",
+    "featured": {
+      "title": "Trend Micro Mac OS User Interface Design system",
+      "desc": "Speed up the process of UX developing"
+    },
+    "explore": {
+      "title": "Speed up the process of UX developing",
+      "subtitle": "Trend Micro",
+      "weight": "font-semibold",
+      "lines": [
+        "Mac OS User Interface Design system"
+      ]
+    }
+  },
+  {
+    "id": "fye-fact-check-ai-agent",
+    "hidden": false,
+    "chips": [
+      "UX Design",
+      "Research",
+      "AI"
+    ],
+    "img": "https://github.com/shunweiwilson/image-storage/blob/main/Fye_hero.jpg?raw=true",
+    "featured": {
+      "title": "Fye Fact Check AI-Agent",
+      "desc": "Empowering older adults to navigate the noise of the digital information bubble"
+    },
+    "explore": {
+      "title": "Empowering older adults to navigate the noise of the digital information bubble",
+      "subtitle": "Fye",
+      "weight": "font-bold",
+      "lines": [
+        "Fact Check AI-Agent"
+      ]
+    }
+  },
+  {
+    "id": "shou-gan-2015-scid-design-exhibition-art",
+    "hidden": false,
+    "chips": [
+      "Art Direction",
+      "Exhibition Design",
+      "Curation"
+    ],
+    "img": "https://raw.githubusercontent.com/shunweiwilson/image-storage/refs/heads/main/SG_hero_1.avif",
+    "featured": {
+      "title": "Shou-gan “收乾” 2015 SCID Design Exhibition Art Direction",
+      "desc": "“收乾\": The art of distilling chaotic thoughts into harmonious design"
+    },
+    "explore": {
+      "title": "“收乾\": The art of distilling chaotic thoughts into harmonious design",
+      "subtitle": "Shou-gan “收乾” 2015",
+      "weight": "font-bold",
+      "lines": [
+        "SCID Design Exhibition Art Direction"
+      ]
+    }
+  },
+  {
+    "id": "the-stage-virtual-designer-exhibition-ev",
+    "hidden": false,
+    "chips": [
+      "UX Design",
+      "VR/AR"
+    ],
+    "img": "https://github.com/shunweiwilson/image-storage/blob/main/Stage_Hero.png?raw=true",
+    "featured": {
+      "title": "The Stage Virtual Designer Exhibition/Event",
+      "desc": "Curate a boundless virtual design event that connects designers with industry"
+    },
+    "explore": {
+      "title": "Curate a boundless virtual design event that connects designers with industry",
+      "subtitle": "The Stage",
+      "weight": "font-bold",
+      "lines": [
+        "Virtual Designer Exhibition/Event"
+      ]
+    }
+  },
+  {
+    "id": "6-locomotion-experimental-mobility",
+    "hidden": false,
+    "chips": [
+      "Experimental Art",
+      "Design"
+    ],
+    "img": "https://github.com/shunweiwilson/image-storage/blob/main/6_hero_3.png?raw=true",
+    "featured": {
+      "title": "6, Locomotion Experimental Mobility",
+      "desc": "Rethinking the wheel by studying the survival strategies of the insect world"
+    },
+    "explore": {
+      "title": "Rethinking the wheel by studying the survival strategies of the insect world",
+      "subtitle": "6, Locomotion",
+      "weight": "font-bold",
+      "lines": [
+        "Experimental Mobility"
+      ]
+    }
+  },
+  {
+    "id": "huafan-university-maker-center",
+    "hidden": false,
+    "chips": [
+      "Spatial Design",
+      "color scheme design"
+    ],
+    "img": "https://github.com/shunweiwilson/image-storage/blob/main/IMG_5609_2.jpg?raw=true",
+    "featured": {
+      "title": "Huafan University Maker Center Interior Design",
+      "desc": "Design the collective spark where minds meet and make"
+    },
+    "explore": {
+      "title": "Design the collective spark where minds meet and make",
+      "subtitle": "Thereupon (ěr-shi)",
+      "weight": "font-bold",
+      "lines": [
+        "Huafan University Maker Space Interior Design"
+      ]
+    }
+  },
+  {
+    "id": "pleasure-art-sculpture",
+    "hidden": false,
+    "chips": [
+      "Experimental Art",
+      "Design"
+    ],
+    "img": "https://github.com/shunweiwilson/image-storage/blob/main/Pleasure_hero_01.jpg?raw=true",
+    "featured": {
+      "title": "Pleasure Art Sculpture",
+      "desc": "It’s my pleasure"
+    },
+    "explore": {
+      "title": "It’s my pleasure",
+      "subtitle": "Pleasure",
+      "weight": "font-bold",
+      "lines": [
+        "Art Sculpture"
+      ]
+    }
+  },
+  {
+    "id": "mickle-experimental-lighting",
+    "hidden": false,
+    "chips": [
+      "Experimental Art",
+      "Design"
+    ],
+    "img": "https://github.com/shunweiwilson/image-storage/blob/main/Mickle_hero.jpg?raw=true",
+    "featured": {
+      "title": "Mickle Experimental Lighting",
+      "desc": "Every little makes a mickle"
+    },
+    "explore": {
+      "title": "Every little makes a mickle",
+      "subtitle": "Mickle",
+      "weight": "font-bold",
+      "lines": [
+        "Experimental Lighting"
+      ]
+    }
+  }
+]

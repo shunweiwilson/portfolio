@@ -1,5 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Menu, X, ArrowLeft, ArrowRight } from 'lucide-react';
+import AddProject from './AddProject';
+import projectsData from './data/projects.json';
 
 // --- Shared Reusable Components ---
 
@@ -157,36 +159,36 @@ function Hero() {
   );
 }
 
-const projectsData = [
-  {
-    id: 1,
-    title: "Living Room: YouTube on TV",
-    desc: "Design innovation for the largest screen at home",
-    chips: ["User Experience Design", "Media", "Community", "Platform", "TV"],
-    img: "https://github.com/shunweiwilson/image-storage/blob/main/YTLR_Hero_2.gif?raw=true"
-  },
-  {
-    id: 2,
-    title: "Verily Retinal Camera",
-    desc: "Prevent blindness by re-imagine retinal screening services",
-    chips: ["Hardware+Software UX", "Founding Designer", "FDA Listed", "AI", "Healthcare"],
-    img: "https://github.com/shunweiwilson/image-storage/blob/main/VRC_hero.png?raw=true"
-  },
-  {
-    id: 3,
-    title: "Quo: Anonymous STD AI Consultant",
-    desc: "How can we levrage AI agent to make healthcare better for humans?",
-    chips: ["UX Design", "Founding Designer", "AI", "Healthcare"],
-    img: "https://github.com/shunweiwilson/image-storage/blob/main/Quo_hero_1.jpg?raw=true"
-  },
-  {
-    id: 4,
-    title: "Eldernext Muscle Training Wearables",
-    desc: "Prevent the elders from the vicious circle of Sarcopenia.",
-    chips: ["Hardware+Software UX", "Wearables", "Fitness"],
-    img: "https://github.com/shunweiwilson/image-storage/blob/main/Eldernext_Hero_3.jpg?raw=true"
-  }
-];
+export const FEATURED_COUNT = 4;
+
+export interface ProjectItem {
+  id: string;
+  /** Hidden cards stay in the data file but are not rendered anywhere on the site. */
+  hidden?: boolean;
+  chips: string[];
+  img: string;
+  /** Wording used when the card sits in the "Featured projects" grid. */
+  featured: { title: string; desc: string };
+  /** Wording used when the card sits in the "Explore beyond" masonry. */
+  explore: { title: string; subtitle: string; weight: string; lines: string[] };
+}
+
+// Single source of truth for both sections; the hidden #add tool reads and writes it.
+// Position decides the section: the first FEATURED_COUNT *visible* cards are featured,
+// the rest are explore cards. Each card carries both wordings, so moving one across
+// that boundary never rewrites its text.
+const allProjects: ProjectItem[] = projectsData as ProjectItem[];
+
+// Hidden cards are skipped before the split so the featured grid always has a full set.
+const visibleProjects = allProjects.filter((project) => !project.hidden);
+
+const featuredProjects = visibleProjects.slice(0, FEATURED_COUNT).map((project) => ({
+  id: project.id,
+  title: project.featured.title,
+  desc: project.featured.desc,
+  chips: project.chips,
+  img: project.img,
+}));
 
 export interface PasswordPromptData {
   title: string;
@@ -214,7 +216,7 @@ function Projects({ onProjectClick }: { onProjectClick: (data: PasswordPromptDat
             className="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-12 lg:gap-y-16 items-start"
             data-debug-gap="Grid Inner Gap" 
           >
-            {projectsData.map((project, idx) => (
+            {featuredProjects.map((project, idx) => (
               <div 
                 key={project.id} 
                 className="group flex flex-col"
@@ -268,188 +270,36 @@ function Projects({ onProjectClick }: { onProjectClick: (data: PasswordPromptDat
   );
 }
 
-const explores = [
-  {
-    title: "First-ever FDA approved clinical-grade watch to monitor atrial fibrillation in the US",
-    desc: (
-      <>
-        <span className="font-semibold">Verily</span><br />Study Watch
-      </>
-    ),
-    chips: ["HW+SW UX", "Wearables", "Mobile", "Healthcare"],
-    img: "https://github.com/shunweiwilson/image-storage/blob/main/VW_hero.png?raw=true",
-  },
-  {
-    title: "Use system-modeling to address complex challenges",
-    desc: (
-      <>
-        <span className="font-semibold">Eli Lily</span><br />Automated Insulin Delivery System
-      </>
-    ),
-    chips: ["System Design", "Design Strategy"],
-    img: "https://github.com/shunweiwilson/image-storage/blob/main/lilly_hero_1.png?raw=true",
-  },
-  {
-    title: "AI-powered personalized baby sleep-coaching devices solution",
-    desc: (
-      <>
-        <span className="font-semibold">Lumi by Pampers</span><br />Google+P&amp;G<br />Baby Monitor &amp; AI Sleep Coaching
-      </>
-    ),
-    chips: ["HW+SW UX", "AI", "Mobile", "Consumer"],
-    img: "https://github.com/shunweiwilson/image-storage/blob/main/Lumi_Hero.png?raw=true",
-  },
-  {
-    title: "Accurate, fast, easy-to-use network planning over a web browser",
-    desc: (
-      <>
-        <span className="font-semibold">Google</span><br />Network Planner<br />Web-based Network Planning Tool
-      </>
-    ),
-    chips: ["UX Design", "Web"],
-    img: "https://github.com/shunweiwilson/image-storage/blob/main/google_networkplanner_hero_1.png?raw=true",
-  },
-  {
-    title: "Bridging the gap between domestic aesthetics and emergency preparedness",
-    desc: (
-      <>
-        <span className="font-bold">FOLD</span><br />Fire Extinguisher
-      </>
-    ),
-    chips: ["Industrial Design", "Home"],
-    img: "https://github.com/shunweiwilson/image-storage/blob/main/Fold_hero.jpg?raw=true",
-  },
-  {
-    title: "Designing the lens through which we will remember our first lunar vacations",
-    desc: (
-      <>
-        <span className="font-bold">Capture 2025</span><br />Rental Camera System on Moon
-      </>
-    ),
-    chips: ["Industrial Design", "Speculative Design"],
-    img: "https://github.com/shunweiwilson/image-storage/blob/main/Capture_hero.jpg?raw=true",
-  },
-  {
-    title: "Fold four centuries of Ming dynasty heritage into modern urban living",
-    desc: (
-      <>
-        <span className="font-semibold">M-ing</span><br />Foldable Ming Style Armchair
-      </>
-    ),
-    chips: ["Industrial Design", "Furniture"],
-    img: "https://github.com/shunweiwilson/image-storage/blob/main/Ming_hero.png?raw=true",
-  },
-  {
-    title: "The next generation of cyber security",
-    desc: (
-      <>
-        <span className="font-semibold">Trend Micro</span><br />Official Website Visual Refreshment
-      </>
-    ),
-    chips: ["UX Design", "Visual Design", "Web"],
-    img: "https://github.com/shunweiwilson/image-storage/blob/main/TMCOM_Hero.jpg?raw=true",
-  },
-  {
-    title: "Engineering a safer drive through precision eye-tracking research",
-    desc: (
-      <>
-        <span className="font-bold">SCID UX Lab</span><br />Automobile Augmented Reality Research
-      </>
-    ),
-    chips: ["Research", "Eye-tracking", "AR"],
-    img: "https://github.com/shunweiwilson/image-storage/blob/main/Eye_track_hero.png?raw=true",
-  },
-  {
-    title: "Unleash the next generation of niche fashion through community-driven crowdfunding",
-    desc: (
-      <>
-        <span className="font-bold">Debut</span><br />Crowdfunding platform for niche fashion
-      </>
-    ),
-    chips: ["UX Design", "Art Direction", "Mobile", "Web"],
-    img: "https://raw.githubusercontent.com/shunweiwilson/image-storage/refs/heads/main/Debut_hero.jpg",
-  },
-  {
-    title: "Alleviate the academic summers drop-off by redesign school schedule",
-    desc: (
-      <>
-        <span className="font-bold">The New School of San Francisco</span><br />Equity School Calendar and Remote Learning
-      </>
-    ),
-    chips: ["Service Design", "Research", "Education"],
-    img: "https://github.com/shunweiwilson/image-storage/blob/main/NSSF_hero.jpg?raw=true",
-  },
-  {
-    title: "Speed up the process of UX developing",
-    desc: (
-      <>
-        <span className="font-semibold">Trend Micro</span><br />Mac OS User Interface Design system
-      </>
-    ),
-    chips: ["UX Design", "Design System", "MacOS"],
-    img: "https://github.com/shunweiwilson/image-storage/blob/main/TMUI_hero.png?raw=true",
-  },
-  {
-    title: "Empowering older adults to navigate the noise of the digital information bubble",
-    desc: (
-      <>
-        <span className="font-bold">Fye</span><br />Fact Check AI-Agent
-      </>
-    ),
-    chips: ["UX Design", "Research", "AI"],
-    img: "https://github.com/shunweiwilson/image-storage/blob/main/Fye_hero.jpg?raw=true",
-  },
-  {
-    title: "“收乾\": The art of distilling chaotic thoughts into harmonious design",
-    desc: (
-      <>
-        <span className="font-bold">Shou-gan “收乾” 2015</span><br />SCID Design Exhibition Art Direction
-      </>
-    ),
-    chips: ["Art Direction", "Exhibition Design", "Curation"],
-    img: "https://raw.githubusercontent.com/shunweiwilson/image-storage/refs/heads/main/SG_hero_1.avif",
-  },
-  {
-    title: "Curate a boundless virtual design event that connects designers with industry",
-    desc: (
-      <>
-        <span className="font-bold">The Stage</span><br />Virtual Designer Exhibition/Event
-      </>
-    ),
-    chips: ["UX Design", "VR/AR"],
-    img: "https://github.com/shunweiwilson/image-storage/blob/main/Stage_Hero.png?raw=true",
-  },
-  {
-    title: "Rethinking the wheel by studying the survival strategies of the insect world",
-    desc: (
-      <>
-        <span className="font-bold">6, Locomotion</span><br />Experimental Mobility
-      </>
-    ),
-    chips: ["Experimental Art", "Design"],
-    img: "https://github.com/shunweiwilson/image-storage/blob/main/6_hero_3.png?raw=true",
-  },
-  {
-    title: "It’s my pleasure",
-    desc: (
-      <>
-        <span className="font-bold">Pleasure</span><br />Art Sculpture
-      </>
-    ),
-    chips: ["Experimental Art", "Design"],
-    img: "https://github.com/shunweiwilson/image-storage/blob/main/Pleasure_hero_01.jpg?raw=true",
-  },
-  {
-    title: "Every little makes a mickle",
-    desc: (
-      <>
-        <span className="font-bold">Mickle</span><br />Experimental Lighting
-      </>
-    ),
-    chips: ["Experimental Art", "Design"],
-    img: "https://github.com/shunweiwilson/image-storage/blob/main/Mickle_hero.jpg?raw=true",
-  }
-];
+export interface ExploreItem {
+  title: string;
+  /** Bold lead-in of the description (usually the project or client name). */
+  subtitle: string;
+  weight: string;
+  /** Remaining description lines, rendered one per line after the subtitle. */
+  lines: string[];
+  chips: string[];
+  img: string;
+}
+
+// Source of truth for this section. The hidden #add tool reads and writes this file.
+const explores: ExploreItem[] = visibleProjects.slice(FEATURED_COUNT).map((project) => ({
+  ...project.explore,
+  chips: project.chips,
+  img: project.img,
+}));
+
+/** Rebuilds the multi-line description node from the structured data. */
+const renderExploreDesc = (item: ExploreItem) => (
+  <>
+    <span className={item.weight}>{item.subtitle}</span>
+    {item.lines.map((line, i) => (
+      <React.Fragment key={i}>
+        <br />
+        {line}
+      </React.Fragment>
+    ))}
+  </>
+);
 
 const extractPlaintext = (node: React.ReactNode): string => {
   if (typeof node === 'string' || typeof node === 'number') return String(node);
@@ -530,6 +380,7 @@ function Explore({ onProjectClick }: { onProjectClick: (data: PasswordPromptData
                 {bucket.map((item) => {
                   // Variant locked to its original native rank to keep perfect permutation!
                   const variant = item.rankIndex % 3;
+                  const desc = renderExploreDesc(item);
               
               const TagsBlock = (
                 <div className="flex flex-wrap items-center gap-1 mb-4">
@@ -546,7 +397,7 @@ function Explore({ onProjectClick }: { onProjectClick: (data: PasswordPromptData
 
               const TitleBlock = (
                 <h3 className="text-[clamp(1.3rem,2vw,1.6rem)] font-normal tracking-[-0.03em] leading-[1.2em] mb-3">
-                  <a href="#" onClick={(e) => { e.preventDefault(); onProjectClick({ title: item.title, desc: item.desc, img: item.img, rankIndex: item.rankIndex }); }} className="inline bg-gradient-to-r from-yellow-300 to-yellow-300 bg-no-repeat bg-[position:0_95%] bg-[length:0%_30%] group-hover:bg-[length:100%_30%] transition-[background-size] duration-500 ease-out">
+                  <a href="#" onClick={(e) => { e.preventDefault(); onProjectClick({ title: item.title, desc, img: item.img, rankIndex: item.rankIndex }); }} className="inline bg-gradient-to-r from-yellow-300 to-yellow-300 bg-no-repeat bg-[position:0_95%] bg-[length:0%_30%] group-hover:bg-[length:100%_30%] transition-[background-size] duration-500 ease-out">
                     {item.title}
                   </a>
                 </h3>
@@ -554,12 +405,12 @@ function Explore({ onProjectClick }: { onProjectClick: (data: PasswordPromptData
 
               const DescBlock = (
                 <p className="text-sm md:text-base text-[#333333] leading-[1.3em] mb-4">
-                  {item.desc}
+                  {desc}
                 </p>
               );
 
               const ImageBlock = item.img ? (
-                <a href="#" onClick={(e) => { e.preventDefault(); onProjectClick({ title: item.title, desc: item.desc, img: item.img, rankIndex: item.rankIndex }); }} className="block w-full overflow-hidden mb-4 rounded-[16px] border border-[#111111] bg-[#f2f2f2]">
+                <a href="#" onClick={(e) => { e.preventDefault(); onProjectClick({ title: item.title, desc, img: item.img, rankIndex: item.rankIndex }); }} className="block w-full overflow-hidden mb-4 rounded-[16px] border border-[#111111] bg-[#f2f2f2]">
                   <img src={item.img} className="w-full h-auto object-cover transform group-hover:scale-[1.03] transition-transform duration-700 ease-out" alt={item.title} />
                 </a>
               ) : null;
@@ -1090,6 +941,7 @@ export default function App() {
   const [isDebug, setIsDebug] = useState(false);
   const [isMeasuring, setIsMeasuring] = useState(false);
   const [passwordPromptData, setPasswordPromptData] = useState<PasswordPromptData | null>(null);
+  const [hash, setHash] = useState(() => (typeof window !== 'undefined' ? window.location.hash : ''));
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -1100,6 +952,17 @@ export default function App() {
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, []);
+
+  // Hidden authoring route: append #add to the URL to open the "Explore beyond" tool.
+  useEffect(() => {
+    const handleHashChange = () => setHash(window.location.hash);
+    window.addEventListener('hashchange', handleHashChange);
+    return () => window.removeEventListener('hashchange', handleHashChange);
+  }, []);
+
+  if (hash === '#add') {
+    return <AddProject />;
+  }
 
   return (
     // Top-level wrapper applying system typography constraints
