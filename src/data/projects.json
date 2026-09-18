@@ -183,6 +183,28 @@
     }
   },
   {
+    "id": "capture-2025-rental-camera-system-on-moo",
+    "hidden": false,
+    "url": "",
+    "chips": [
+      "Industrial Design",
+      "Speculative Design"
+    ],
+    "img": "https://github.com/shunweiwilson/image-storage/blob/main/Capture_hero.jpg?raw=true",
+    "featured": {
+      "title": "Capture 2025 Rental Camera System on Moon",
+      "desc": "Designing the lens through which we will remember our first lunar vacations"
+    },
+    "explore": {
+      "title": "Designing the lens through which we will remember our first lunar vacations",
+      "subtitle": "Capture 2025",
+      "weight": "font-bold",
+      "lines": [
+        "Rental Camera System on Moon"
+      ]
+    }
+  },
+  {
     "id": "google-network-planner",
     "hidden": false,
     "url": "",
@@ -315,28 +337,6 @@
       "weight": "font-semibold",
       "lines": [
         "Mac OS User Interface Design system"
-      ]
-    }
-  },
-  {
-    "id": "capture-2025-rental-camera-system-on-moo",
-    "hidden": false,
-    "url": "",
-    "chips": [
-      "Industrial Design",
-      "Speculative Design"
-    ],
-    "img": "https://github.com/shunweiwilson/image-storage/blob/main/Capture_hero.jpg?raw=true",
-    "featured": {
-      "title": "Capture 2025 Rental Camera System on Moon",
-      "desc": "Designing the lens through which we will remember our first lunar vacations"
-    },
-    "explore": {
-      "title": "Designing the lens through which we will remember our first lunar vacations",
-      "subtitle": "Capture 2025",
-      "weight": "font-bold",
-      "lines": [
-        "Rental Camera System on Moon"
       ]
     }
   },
