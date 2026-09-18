@@ -414,6 +414,27 @@
     }
   },
   {
+    "id": "pleasure-art-sculpture",
+    "hidden": false,
+    "chips": [
+      "Experimental Art",
+      "Design"
+    ],
+    "img": "https://github.com/shunweiwilson/image-storage/blob/main/Pleasure_hero_01.jpg?raw=true",
+    "featured": {
+      "title": "Pleasure Art Sculpture",
+      "desc": "It’s my pleasure"
+    },
+    "explore": {
+      "title": "It’s my pleasure",
+      "subtitle": "Pleasure",
+      "weight": "font-bold",
+      "lines": [
+        "Art Sculpture"
+      ]
+    }
+  },
+  {
     "id": "huafan-university-maker-center",
     "hidden": false,
     "chips": [
@@ -473,27 +494,6 @@
       "weight": "font-bold",
       "lines": [
         "Experimental Mobility"
-      ]
-    }
-  },
-  {
-    "id": "pleasure-art-sculpture",
-    "hidden": false,
-    "chips": [
-      "Experimental Art",
-      "Design"
-    ],
-    "img": "https://github.com/shunweiwilson/image-storage/blob/main/Pleasure_hero_01.jpg?raw=true",
-    "featured": {
-      "title": "Pleasure Art Sculpture",
-      "desc": "It’s my pleasure"
-    },
-    "explore": {
-      "title": "It’s my pleasure",
-      "subtitle": "Pleasure",
-      "weight": "font-bold",
-      "lines": [
-        "Art Sculpture"
       ]
     }
   }
