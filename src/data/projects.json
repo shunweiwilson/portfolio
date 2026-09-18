@@ -435,6 +435,27 @@
     }
   },
   {
+    "id": "mickle-experimental-lighting",
+    "hidden": false,
+    "chips": [
+      "Experimental Art",
+      "Design"
+    ],
+    "img": "https://github.com/shunweiwilson/image-storage/blob/main/Mickle_hero.jpg?raw=true",
+    "featured": {
+      "title": "Mickle Experimental Lighting",
+      "desc": "Every little makes a mickle"
+    },
+    "explore": {
+      "title": "Every little makes a mickle",
+      "subtitle": "Mickle",
+      "weight": "font-bold",
+      "lines": [
+        "Experimental Lighting"
+      ]
+    }
+  },
+  {
     "id": "6-locomotion-experimental-mobility",
     "hidden": false,
     "chips": [
@@ -473,27 +494,6 @@
       "weight": "font-bold",
       "lines": [
         "Art Sculpture"
-      ]
-    }
-  },
-  {
-    "id": "mickle-experimental-lighting",
-    "hidden": false,
-    "chips": [
-      "Experimental Art",
-      "Design"
-    ],
-    "img": "https://github.com/shunweiwilson/image-storage/blob/main/Mickle_hero.jpg?raw=true",
-    "featured": {
-      "title": "Mickle Experimental Lighting",
-      "desc": "Every little makes a mickle"
-    },
-    "explore": {
-      "title": "Every little makes a mickle",
-      "subtitle": "Mickle",
-      "weight": "font-bold",
-      "lines": [
-        "Experimental Lighting"
       ]
     }
   }
