@@ -38,8 +38,9 @@ import initialProjects from './data/projects.json';
 
 const DRAFT_KEY = 'portfolio-project-draft-v2';
 const TOKEN_KEY = 'github-image-token-v1';
-const UPLOAD_ENDPOINT = '/__api/github-upload';
-const DATA_ENDPOINT = '/__api/projects';
+const PASSWORD_KEY = 'portfolio-admin-password-v1';
+const UPLOAD_ENDPOINT = '/api/upload-image';
+const DATA_ENDPOINT = '/api/projects';
 const FEATURED_COUNT = 4;
 
 export interface ProjectItem {
@@ -68,7 +69,7 @@ type UploadState =
 type SaveState =
   | { status: 'idle' }
   | { status: 'saving' }
-  | { status: 'saved' }
+  | { status: 'saved'; commit?: string }
   | { status: 'readonly' }
   | { status: 'error'; message: string };
 
@@ -276,11 +277,28 @@ export default function AddProject() {
   const [variant, setVariant] = useState(Math.max(position - FEATURED_COUNT, 0) % 3);
   const topRef = useRef<HTMLDivElement>(null);
 
-  // Pull the current file contents; falls back to the bundled copy in production.
+  // Password for the live serverless endpoints. Unused in dev (localhost writes
+  // are unauthenticated), so the field only appears when the server asks for it.
+  const [password, setPassword] = useState(() => {
+    try {
+      return window.localStorage.getItem(PASSWORD_KEY) ?? '';
+    } catch {
+      return '';
+    }
+  });
+  const [needsPassword, setNeedsPassword] = useState(false);
+  // True when saves go through the deployed API (a commit + redeploy) rather
+  // than straight to a local file.
+  const [isLive, setIsLive] = useState(false);
+
+  // Pull the current data; falls back to the copy bundled at build time.
   useEffect(() => {
     fetch(DATA_ENDPOINT)
       .then((res) => (res.ok ? res.json() : Promise.reject(new Error('unavailable'))))
-      .then((data: ProjectItem[]) => setItems(data))
+      .then((data: { items: ProjectItem[] | null; live?: boolean }) => {
+        if (data.items) setItems(data.items);
+        setIsLive(Boolean(data.live));
+      })
       .catch(() => setSave({ status: 'readonly' }));
   }, []);
 
@@ -292,8 +310,19 @@ export default function AddProject() {
     }
   }, [draft]);
 
+  useEffect(() => {
+    try {
+      window.localStorage.setItem(PASSWORD_KEY, password);
+    } catch {
+      // Ignore storage failures; the password just won't be remembered.
+    }
+  }, [password]);
+
   const set = (key: keyof Draft) => (value: string) =>
     setDraft((prev) => ({ ...prev, [key]: value }));
+
+  const authHeaders = () =>
+    password ? { 'Content-Type': 'application/json', 'x-admin-password': password } : { 'Content-Type': 'application/json' };
 
   // --- Persistence ---
   const persist = async (next: ProjectItem[]) => {
@@ -303,23 +332,26 @@ export default function AddProject() {
     try {
       const res = await fetch(DATA_ENDPOINT, {
         method: 'PUT',
-        headers: { 'Content-Type': 'application/json' },
+        headers: authHeaders(),
         body: JSON.stringify(next),
       });
       if (!res.ok) {
         const data = (await res.json().catch(() => ({}))) as { error?: string };
-        setItems(previous); // Roll back so the list never lies about what is on disk.
+        setItems(previous); // Roll back so the list never lies about what is stored.
+        if (res.status === 401) setNeedsPassword(true);
         setSave({ status: 'error', message: data.error ?? `Save failed (${res.status}).` });
         return false;
       }
-      setSave({ status: 'saved' });
-      setTimeout(() => setSave((s) => (s.status === 'saved' ? { status: 'idle' } : s)), 2000);
+      const data = (await res.json().catch(() => ({}))) as { commit?: string };
+      setNeedsPassword(false);
+      setSave({ status: 'saved', commit: data.commit });
+      setTimeout(() => setSave((s) => (s.status === 'saved' ? { status: 'idle' } : s)), 4000);
       return true;
     } catch {
       setItems(previous);
       setSave({
         status: 'error',
-        message: 'Could not reach the dev server — edits are only possible under `npm run dev`.',
+        message: 'Could not reach the save endpoint. Run `npm run dev` locally, or check the deployment.',
       });
       return false;
     }
@@ -389,7 +421,7 @@ export default function AddProject() {
       const content = await fileToBase64(file);
       const res = await fetch(UPLOAD_ENDPOINT, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: authHeaders(),
         body: JSON.stringify({ filename: file.name, content, token: token || undefined }),
       });
       const data = (await res.json().catch(() => ({}))) as {
@@ -399,6 +431,7 @@ export default function AddProject() {
       };
 
       if (!res.ok || !data.url) {
+        if (res.status === 401) setNeedsPassword(true);
         setUpload({ status: 'error', message: data.error ?? `Upload failed (${res.status}).` });
         return;
       }
@@ -409,7 +442,7 @@ export default function AddProject() {
       setUpload({
         status: 'error',
         message:
-          'Could not reach the upload endpoint. It only runs under `npm run dev` — is the dev server up?',
+          'Could not reach the upload endpoint. Run `npm run dev` locally, or check the deployment.',
       });
     }
   };
@@ -601,9 +634,11 @@ export default function AddProject() {
 
   const saveLabel = {
     idle: '',
-    saving: 'Saving…',
-    saved: 'Saved to projects.json',
-    readonly: 'Read-only — start `npm run dev` to edit',
+    saving: isLive ? 'Committing to GitHub…' : 'Saving…',
+    saved: isLive
+      ? `Committed${save.status === 'saved' && save.commit ? ` (${save.commit})` : ''} — Vercel is redeploying, live in ~1 min`
+      : 'Saved to projects.json',
+    readonly: 'Read-only — start `npm run dev`, or set ADMIN_PASSWORD on the deployment',
     error: '',
   }[save.status];
 
@@ -920,6 +955,21 @@ export default function AddProject() {
           {/* --- Actions --- */}
           <div className="lg:col-span-3">
             <h2 className="text-[11px] uppercase tracking-wide font-medium mb-4">Save</h2>
+
+            {(isLive || needsPassword) && (
+              <Field
+                label="Admin password"
+                hint="Required to write from the deployed site. Checked on the server; stored only in this browser."
+              >
+                <input
+                  type="password"
+                  className={inputClass}
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  placeholder="••••••••"
+                />
+              </Field>
+            )}
             {!isComplete && (
               <p className="text-xs text-[#b45309] mb-4 leading-[1.4em]">
                 Fill in chips, headline, project name and an image to enable saving.

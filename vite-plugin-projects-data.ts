@@ -11,8 +11,8 @@ import path from 'node:path';
  * Position in the array decides the section: the first FEATURED_COUNT entries render
  * in "Featured projects", the rest in "Explore beyond".
  *
- *   GET /__api/projects -> ProjectItem[]
- *   PUT /__api/projects -> { ok: true, count }   (body: ProjectItem[])
+ *   GET /api/projects -> ProjectItem[]
+ *   PUT /api/projects -> { ok: true, count }   (body: ProjectItem[])
  */
 
 const DATA_FILE = 'src/data/projects.json';
@@ -81,10 +81,10 @@ export function projectsData(): Plugin {
     configureServer(server: ViteDevServer) {
       const file = path.resolve(server.config.root, DATA_FILE);
 
-      server.middlewares.use('/__api/projects', async (req, res) => {
+      server.middlewares.use('/api/projects', async (req, res) => {
         try {
           if (req.method === 'GET') {
-            json(res, 200, JSON.parse(await readFile(file, 'utf8')));
+            json(res, 200, { items: JSON.parse(await readFile(file, 'utf8')), live: false });
             return;
           }
 

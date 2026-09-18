@@ -11,8 +11,8 @@ import type { IncomingMessage, ServerResponse } from 'node:http';
  * in which case it is only sent to this local dev server.
  *
  * Endpoints:
- *   GET  /__api/github-upload  -> { configured, owner, repo, branch }
- *   POST /__api/github-upload  -> { url, path, filename }
+ *   GET  /api/upload-image  -> { configured, owner, repo, branch }
+ *   POST /api/upload-image  -> { url, path, filename }
  */
 
 const OWNER = 'shunweiwilson';
@@ -91,7 +91,7 @@ export function githubImageUpload(): Plugin {
     name: 'github-image-upload',
     apply: 'serve',
     configureServer(server: ViteDevServer) {
-      server.middlewares.use('/__api/github-upload', async (req, res) => {
+      server.middlewares.use('/api/upload-image', async (req, res) => {
         const envToken = process.env.GITHUB_TOKEN || process.env.GH_TOKEN || '';
 
         if (req.method === 'GET') {
