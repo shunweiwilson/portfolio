@@ -272,29 +272,6 @@
     }
   },
   {
-    "id": "scid-ux-lab-automobile-augmented-reality",
-    "hidden": false,
-    "url": "",
-    "chips": [
-      "Research",
-      "Eye-tracking",
-      "AR"
-    ],
-    "img": "https://github.com/shunweiwilson/image-storage/blob/main/Eye_track_hero.png?raw=true",
-    "featured": {
-      "title": "SCID UX Lab Automobile Augmented Reality Research",
-      "desc": "Engineering a safer drive through precision eye-tracking research"
-    },
-    "explore": {
-      "title": "Engineering a safer drive through precision eye-tracking research",
-      "subtitle": "SCID UX Lab",
-      "weight": "font-bold",
-      "lines": [
-        "Automobile Augmented Reality Research"
-      ]
-    }
-  },
-  {
     "id": "preview",
     "hidden": false,
     "url": "",
@@ -315,6 +292,29 @@
       "weight": "font-bold",
       "lines": [
         "The ultimate entertainment explorer"
+      ]
+    }
+  },
+  {
+    "id": "scid-ux-lab-automobile-augmented-reality",
+    "hidden": false,
+    "url": "",
+    "chips": [
+      "Research",
+      "Eye-tracking",
+      "AR"
+    ],
+    "img": "https://github.com/shunweiwilson/image-storage/blob/main/Eye_track_hero.png?raw=true",
+    "featured": {
+      "title": "SCID UX Lab Automobile Augmented Reality Research",
+      "desc": "Engineering a safer drive through precision eye-tracking research"
+    },
+    "explore": {
+      "title": "Engineering a safer drive through precision eye-tracking research",
+      "subtitle": "SCID UX Lab",
+      "weight": "font-bold",
+      "lines": [
+        "Automobile Augmented Reality Research"
       ]
     }
   },
