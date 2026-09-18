@@ -302,7 +302,8 @@
     "chips": [
       "Research",
       "Eye-tracking",
-      "AR"
+      "AR",
+      "Automobile"
     ],
     "img": "https://github.com/shunweiwilson/image-storage/blob/main/Eye_track_hero.png?raw=true",
     "featured": {
@@ -310,8 +311,8 @@
       "desc": "Engineering a safer drive through precision eye-tracking research"
     },
     "explore": {
-      "title": "Engineering a safer drive through precision eye-tracking research",
-      "subtitle": "SCID UX Lab",
+      "title": "Evaluate optimal head-up display placement for driving safety using eye tracking",
+      "subtitle": "Auto-HUD | SCID UX Lab",
       "weight": "font-bold",
       "lines": [
         "Automobile Augmented Reality Research"
