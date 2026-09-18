@@ -228,6 +228,30 @@
     }
   },
   {
+    "id": "brainstorming-2016",
+    "hidden": false,
+    "url": "",
+    "chips": [
+      "art direction",
+      "service design",
+      "design workshop",
+      "education"
+    ],
+    "img": "https://github.com/shunweiwilson/image-storage/blob/main/poster_mockup_MD.jpg?raw=true",
+    "featured": {
+      "title": "BrainSTORMing 2016 SCID Summer Design Workshop Art Direction",
+      "desc": "Trust your crazy ideas to guide humanity forward"
+    },
+    "explore": {
+      "title": "Trust your crazy ideas to guide humanity forward",
+      "subtitle": "BrainSTORMing 2016",
+      "weight": "font-bold",
+      "lines": [
+        "SCID Summer Design Workshop Art Direction"
+      ]
+    }
+  },
+  {
     "id": "the-stage-virtual-designer-exhibition-ev",
     "hidden": false,
     "url": "",
@@ -269,30 +293,6 @@
       "weight": "font-semibold",
       "lines": [
         "Mac OS User Interface Design system"
-      ]
-    }
-  },
-  {
-    "id": "brainstorming-2016",
-    "hidden": false,
-    "url": "",
-    "chips": [
-      "art direction",
-      "service design",
-      "design workshop",
-      "education"
-    ],
-    "img": "https://github.com/shunweiwilson/image-storage/blob/main/poster_mockup_MD.jpg?raw=true",
-    "featured": {
-      "title": "BrainSTORMing 2016 SCID Summer Design Workshop Art Direction",
-      "desc": "Trust your crazy ideas to guide humanity forward"
-    },
-    "explore": {
-      "title": "Trust your crazy ideas to guide humanity forward",
-      "subtitle": "BrainSTORMing 2016",
-      "weight": "font-bold",
-      "lines": [
-        "SCID Summer Design Workshop Art Direction"
       ]
     }
   },
