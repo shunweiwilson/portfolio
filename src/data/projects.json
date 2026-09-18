@@ -206,6 +206,28 @@
     }
   },
   {
+    "id": "m-ing-foldable-ming-style-armchair",
+    "hidden": false,
+    "url": "",
+    "chips": [
+      "Industrial Design",
+      "Furniture"
+    ],
+    "img": "https://github.com/shunweiwilson/image-storage/blob/main/Ming_hero.png?raw=true",
+    "featured": {
+      "title": "M-ing Foldable Ming Style Armchair",
+      "desc": "Fold four centuries of Ming dynasty heritage into modern urban living"
+    },
+    "explore": {
+      "title": "Fold four centuries of Ming dynasty heritage into modern urban living",
+      "subtitle": "M-ing",
+      "weight": "font-semibold",
+      "lines": [
+        "Foldable Ming Style Armchair"
+      ]
+    }
+  },
+  {
     "id": "fold-fire-extinguisher",
     "hidden": false,
     "url": "",
@@ -293,28 +315,6 @@
       "weight": "font-semibold",
       "lines": [
         "Mac OS User Interface Design system"
-      ]
-    }
-  },
-  {
-    "id": "m-ing-foldable-ming-style-armchair",
-    "hidden": false,
-    "url": "",
-    "chips": [
-      "Industrial Design",
-      "Furniture"
-    ],
-    "img": "https://github.com/shunweiwilson/image-storage/blob/main/Ming_hero.png?raw=true",
-    "featured": {
-      "title": "M-ing Foldable Ming Style Armchair",
-      "desc": "Fold four centuries of Ming dynasty heritage into modern urban living"
-    },
-    "explore": {
-      "title": "Fold four centuries of Ming dynasty heritage into modern urban living",
-      "subtitle": "M-ing",
-      "weight": "font-semibold",
-      "lines": [
-        "Foldable Ming Style Armchair"
       ]
     }
   },
