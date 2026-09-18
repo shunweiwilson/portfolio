@@ -131,8 +131,7 @@ function Hero() {
               poster="https://github.com/shunweiwilson/image-storage/blob/main/Wilson_Discuss_Hero.png?raw=true"
               className="w-full h-full object-cover rounded-[16px] border border-[#111111]"
             >
-              {/* Add your video URL below in the src attribute */}
-              <source src="https://video.wixstatic.com/video/807af0_43303b0c5dca454bb00cc7e28d919d48/1080p/mp4/file.mp4" type="video/mp4" />
+              <source src="https://pub-245e4a1de6a644bc8111a30ee79a941e.r2.dev/Test_mute_26_compress.mp4" type="video/mp4" />
               Your browser does not support the video tag.
             </video>
           </div>
