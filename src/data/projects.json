@@ -85,27 +85,6 @@
     }
   },
   {
-    "id": "huafan-university-maker-center",
-    "hidden": false,
-    "chips": [
-      "Spatial Design",
-      "color scheme design"
-    ],
-    "img": "https://github.com/shunweiwilson/image-storage/blob/main/IMG_5609_2.jpg?raw=true",
-    "featured": {
-      "title": "Huafan University Maker Center Interior Design",
-      "desc": "Design the collective spark where minds meet and make"
-    },
-    "explore": {
-      "title": "Design the collective spark where minds meet and make",
-      "subtitle": "Thereupon (ěr-shi)",
-      "weight": "font-bold",
-      "lines": [
-        "Huafan University Maker Space Interior Design"
-      ]
-    }
-  },
-  {
     "id": "verily-study-watch",
     "hidden": false,
     "chips": [
@@ -431,6 +410,27 @@
       "weight": "font-bold",
       "lines": [
         "Virtual Designer Exhibition/Event"
+      ]
+    }
+  },
+  {
+    "id": "huafan-university-maker-center",
+    "hidden": false,
+    "chips": [
+      "Spatial Design",
+      "color scheme design"
+    ],
+    "img": "https://github.com/shunweiwilson/image-storage/blob/main/IMG_5609_2.jpg?raw=true",
+    "featured": {
+      "title": "Huafan University Maker Center Interior Design",
+      "desc": "Design the collective spark where minds meet and make"
+    },
+    "explore": {
+      "title": "Design the collective spark where minds meet and make",
+      "subtitle": "Thereupon (ěr-shi)",
+      "weight": "font-bold",
+      "lines": [
+        "Huafan University Maker Space Interior Design"
       ]
     }
   },
