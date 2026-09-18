@@ -228,6 +228,28 @@
     }
   },
   {
+    "id": "the-stage-virtual-designer-exhibition-ev",
+    "hidden": false,
+    "url": "",
+    "chips": [
+      "UX Design",
+      "VR/AR"
+    ],
+    "img": "https://github.com/shunweiwilson/image-storage/blob/main/Stage_Hero.png?raw=true",
+    "featured": {
+      "title": "The Stage Virtual Designer Exhibition/Event",
+      "desc": "Curate a boundless virtual design event that connects designers with industry"
+    },
+    "explore": {
+      "title": "Curate a boundless virtual design event that connects designers with industry",
+      "subtitle": "The Stage",
+      "weight": "font-bold",
+      "lines": [
+        "Virtual Designer Exhibition/Event"
+      ]
+    }
+  },
+  {
     "id": "trend-micro-mac-os-user-interface-design",
     "hidden": false,
     "url": "",
@@ -456,28 +478,6 @@
       "weight": "font-bold",
       "lines": [
         "SCID Summer Design Workshop Art Direction"
-      ]
-    }
-  },
-  {
-    "id": "the-stage-virtual-designer-exhibition-ev",
-    "hidden": false,
-    "url": "",
-    "chips": [
-      "UX Design",
-      "VR/AR"
-    ],
-    "img": "https://github.com/shunweiwilson/image-storage/blob/main/Stage_Hero.png?raw=true",
-    "featured": {
-      "title": "The Stage Virtual Designer Exhibition/Event",
-      "desc": "Curate a boundless virtual design event that connects designers with industry"
-    },
-    "explore": {
-      "title": "Curate a boundless virtual design event that connects designers with industry",
-      "subtitle": "The Stage",
-      "weight": "font-bold",
-      "lines": [
-        "Virtual Designer Exhibition/Event"
       ]
     }
   },
