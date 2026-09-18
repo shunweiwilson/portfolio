@@ -319,30 +319,6 @@
     }
   },
   {
-    "id": "automobile-augmented-reality",
-    "hidden": false,
-    "url": "",
-    "chips": [
-      "Research",
-      "eye tracking",
-      "Automobile",
-      "AR"
-    ],
-    "img": "https://github.com/shunweiwilson/image-storage/blob/main/56l-1.png?raw=true",
-    "featured": {
-      "title": "Automobile Augmented Reality Best location for Automotive-HUD Research",
-      "desc": "Evaluate optimal head-up display placement for driving safety using eye tracking"
-    },
-    "explore": {
-      "title": "Evaluate optimal head-up display placement for driving safety using eye tracking",
-      "subtitle": "Automobile Augmented Reality",
-      "weight": "font-bold",
-      "lines": [
-        "Best location for Automotive-HUD Research"
-      ]
-    }
-  },
-  {
     "id": "debut-crowdfunding-platform-for-niche-fa",
     "hidden": false,
     "url": "",
