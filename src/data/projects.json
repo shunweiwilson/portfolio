@@ -272,6 +272,29 @@
     }
   },
   {
+    "id": "trend-micro-mac-os-user-interface-design",
+    "hidden": false,
+    "url": "",
+    "chips": [
+      "UX Design",
+      "Design System",
+      "MacOS"
+    ],
+    "img": "https://github.com/shunweiwilson/image-storage/blob/main/TMUI_hero.png?raw=true",
+    "featured": {
+      "title": "Trend Micro Mac OS User Interface Design system",
+      "desc": "Speed up the process of UX developing"
+    },
+    "explore": {
+      "title": "Speed up the process of UX developing",
+      "subtitle": "Trend Micro",
+      "weight": "font-semibold",
+      "lines": [
+        "Mac OS User Interface Design system"
+      ]
+    }
+  },
+  {
     "id": "brainstorming-2016",
     "hidden": false,
     "url": "",
@@ -314,29 +337,6 @@
       "weight": "font-bold",
       "lines": [
         "Virtual Designer Exhibition/Event"
-      ]
-    }
-  },
-  {
-    "id": "trend-micro-mac-os-user-interface-design",
-    "hidden": false,
-    "url": "",
-    "chips": [
-      "UX Design",
-      "Design System",
-      "MacOS"
-    ],
-    "img": "https://github.com/shunweiwilson/image-storage/blob/main/TMUI_hero.png?raw=true",
-    "featured": {
-      "title": "Trend Micro Mac OS User Interface Design system",
-      "desc": "Speed up the process of UX developing"
-    },
-    "explore": {
-      "title": "Speed up the process of UX developing",
-      "subtitle": "Trend Micro",
-      "weight": "font-semibold",
-      "lines": [
-        "Mac OS User Interface Design system"
       ]
     }
   },
