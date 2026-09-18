@@ -273,28 +273,6 @@
     }
   },
   {
-    "id": "capture-2025-rental-camera-system-on-moo",
-    "hidden": false,
-    "url": "",
-    "chips": [
-      "Industrial Design",
-      "Speculative Design"
-    ],
-    "img": "https://github.com/shunweiwilson/image-storage/blob/main/Capture_hero.jpg?raw=true",
-    "featured": {
-      "title": "Capture 2025 Rental Camera System on Moon",
-      "desc": "Designing the lens through which we will remember our first lunar vacations"
-    },
-    "explore": {
-      "title": "Designing the lens through which we will remember our first lunar vacations",
-      "subtitle": "Capture 2025",
-      "weight": "font-bold",
-      "lines": [
-        "Rental Camera System on Moon"
-      ]
-    }
-  },
-  {
     "id": "m-ing-foldable-ming-style-armchair",
     "hidden": false,
     "url": "",
@@ -313,6 +291,28 @@
       "weight": "font-semibold",
       "lines": [
         "Foldable Ming Style Armchair"
+      ]
+    }
+  },
+  {
+    "id": "capture-2025-rental-camera-system-on-moo",
+    "hidden": false,
+    "url": "",
+    "chips": [
+      "Industrial Design",
+      "Speculative Design"
+    ],
+    "img": "https://github.com/shunweiwilson/image-storage/blob/main/Capture_hero.jpg?raw=true",
+    "featured": {
+      "title": "Capture 2025 Rental Camera System on Moon",
+      "desc": "Designing the lens through which we will remember our first lunar vacations"
+    },
+    "explore": {
+      "title": "Designing the lens through which we will remember our first lunar vacations",
+      "subtitle": "Capture 2025",
+      "weight": "font-bold",
+      "lines": [
+        "Rental Camera System on Moon"
       ]
     }
   },
