@@ -1,7 +1,7 @@
 import { SESSION_HOURS_VALUE, createSession, json, readBody, safeEqual, verifySession } from './_lib.js';
 
 /**
- * Login endpoint for the #add tool's password gate.
+ * Login endpoint for the #edit tool's password gate.
  *
  *   GET  /api/auth                       -> { required, configured, valid }
  *   POST /api/auth  { password }         -> { ok, token, expiresInHours }

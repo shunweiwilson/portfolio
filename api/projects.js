@@ -25,6 +25,15 @@ const asString = (value) => (typeof value === 'string' ? value.trim() : '');
 const asStringArray = (value) => (Array.isArray(value) ? value.map(asString).filter(Boolean) : []);
 const asRecord = (value) => (value && typeof value === 'object' ? value : {});
 
+/**
+ * Project links end up as an href on the public site, so only http(s) is kept.
+ * Anything else (javascript:, data:, a bare word) is dropped to an empty string.
+ */
+const asUrl = (value) => {
+  const url = asString(value);
+  return /^https?:\/\//i.test(url) ? url : '';
+};
+
 /** Mirrors the dev plugin's sanitizer so both paths write identical shapes. */
 const sanitizeItem = (raw, index) => {
   const item = asRecord(raw);
@@ -37,6 +46,7 @@ const sanitizeItem = (raw, index) => {
   return {
     id: asString(item.id) || `project-${index + 1}`,
     hidden: item.hidden === true,
+    url: asUrl(item.url),
     chips: asStringArray(item.chips),
     img: asString(item.img),
     featured: { title: featuredTitle, desc: asString(featured.desc) },
@@ -88,7 +98,7 @@ export default async function handler(req, res) {
         CONTENT_REPO,
         DATA_PATH,
         Buffer.from(content, 'utf8').toString('base64'),
-        `Update projects (${items.length} items) via #add tool`,
+        `Update projects (${items.length} items) via #edit tool`,
         current?.sha,
       );
 

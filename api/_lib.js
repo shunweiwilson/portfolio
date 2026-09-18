@@ -6,7 +6,7 @@
  * Required environment variables (set in the Vercel project, never committed):
  *   GITHUB_TOKEN   - fine-grained token with Contents: Read and write on BOTH
  *                    shunweiwilson/portfolio and shunweiwilson/image-storage
- *   ADMIN_PASSWORD - password the #add tool must send to perform any write
+ *   ADMIN_PASSWORD - password the #edit tool must send to perform any write
  */
 
 import crypto from 'node:crypto';

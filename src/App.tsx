@@ -165,6 +165,11 @@ export interface ProjectItem {
   id: string;
   /** Hidden cards stay in the data file but are not rendered anywhere on the site. */
   hidden?: boolean;
+  /**
+   * Optional external link, set in the #edit tool. When present the card links
+   * straight out to it instead of opening the "password protected" modal.
+   */
+  url?: string;
   chips: string[];
   img: string;
   /** Wording used when the card sits in the "Featured projects" grid. */
@@ -173,7 +178,7 @@ export interface ProjectItem {
   explore: { title: string; subtitle: string; weight: string; lines: string[] };
 }
 
-// Single source of truth for both sections; the hidden #add tool reads and writes it.
+// Single source of truth for both sections; the hidden #edit tool reads and writes it.
 // Position decides the section: the first FEATURED_COUNT *visible* cards are featured,
 // the rest are explore cards. Each card carries both wordings, so moving one across
 // that boundary never rewrites its text.
@@ -188,7 +193,28 @@ const featuredProjects = visibleProjects.slice(0, FEATURED_COUNT).map((project) 
   desc: project.featured.desc,
   chips: project.chips,
   img: project.img,
+  url: project.url,
 }));
+
+/**
+ * Props for a card's clickable areas. A card with a link behaves like a real
+ * link (new tab, middle-click, "copy link address" all work); without one it
+ * falls back to the password modal. Non-http schemes are ignored so a bad value
+ * in the data file can never become a javascript: href.
+ */
+const cardLinkProps = (
+  url: string | undefined,
+  openModal: () => void,
+): React.ComponentProps<'a'> =>
+  url && /^https?:\/\//i.test(url)
+    ? { href: url, target: '_blank', rel: 'noopener noreferrer' }
+    : {
+        href: '#',
+        onClick: (e: React.MouseEvent) => {
+          e.preventDefault();
+          openModal();
+        },
+      };
 
 export interface PasswordPromptData {
   title: string;
@@ -216,14 +242,17 @@ function Projects({ onProjectClick }: { onProjectClick: (data: PasswordPromptDat
             className="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-12 lg:gap-y-16 items-start"
             data-debug-gap="Grid Inner Gap" 
           >
-            {featuredProjects.map((project, idx) => (
+            {featuredProjects.map((project, idx) => {
+              const linkProps = cardLinkProps(project.url, () =>
+                onProjectClick({ title: project.title, desc: project.desc, img: project.img, rankIndex: idx, useTitleForModal: true }),
+              );
+              return (
               <div 
                 key={project.id} 
                 className="group flex flex-col"
               >
                 <a 
-                  href="#" 
-                  onClick={(e) => { e.preventDefault(); onProjectClick({ title: project.title, desc: project.desc, img: project.img, rankIndex: idx, useTitleForModal: true }); }} 
+                  {...linkProps}
                   className="block overflow-hidden w-full aspect-[4/3] sm:aspect-[16/10] md:aspect-[4/3] xl:aspect-[16/10] mb-6 rounded-[16px] border border-[#111111]" 
                   data-debug-mb="Image to Title Margin"
                 >
@@ -236,8 +265,7 @@ function Projects({ onProjectClick }: { onProjectClick: (data: PasswordPromptDat
                 <div className="w-full">
                   <h3 className="text-[clamp(1.8rem,4vw,3rem)] font-normal tracking-[-0.03em] leading-[1.2em]">
                     <a 
-                      href="#" 
-                      onClick={(e) => { e.preventDefault(); onProjectClick({ title: project.title, desc: project.desc, img: project.img, rankIndex: idx, useTitleForModal: true }); }} 
+                      {...linkProps}
                       className="inline bg-gradient-to-r from-yellow-300 to-yellow-300 bg-no-repeat bg-[position:0_95%] bg-[length:0%_30%] group-hover:bg-[length:100%_30%] transition-[background-size] duration-500 ease-out"
                     >
                       {project.title}
@@ -262,7 +290,8 @@ function Projects({ onProjectClick }: { onProjectClick: (data: PasswordPromptDat
                   )}
                 </div>
               </div>
-            ))}
+              );
+            })}
           </div>
         </FadeUp>
       </div>
@@ -279,13 +308,16 @@ export interface ExploreItem {
   lines: string[];
   chips: string[];
   img: string;
+  /** Optional external link; see cardLinkProps. */
+  url?: string;
 }
 
-// Source of truth for this section. The hidden #add tool reads and writes this file.
+// Source of truth for this section. The hidden #edit tool reads and writes this file.
 const explores: ExploreItem[] = visibleProjects.slice(FEATURED_COUNT).map((project) => ({
   ...project.explore,
   chips: project.chips,
   img: project.img,
+  url: project.url,
 }));
 
 /** Rebuilds the multi-line description node from the structured data. */
@@ -381,6 +413,9 @@ function Explore({ onProjectClick }: { onProjectClick: (data: PasswordPromptData
                   // Variant locked to its original native rank to keep perfect permutation!
                   const variant = item.rankIndex % 3;
                   const desc = renderExploreDesc(item);
+                  const linkProps = cardLinkProps(item.url, () =>
+                    onProjectClick({ title: item.title, desc, img: item.img, rankIndex: item.rankIndex }),
+                  );
               
               const TagsBlock = (
                 <div className="flex flex-wrap items-center gap-1 mb-4">
@@ -397,7 +432,7 @@ function Explore({ onProjectClick }: { onProjectClick: (data: PasswordPromptData
 
               const TitleBlock = (
                 <h3 className="text-[clamp(1.3rem,2vw,1.6rem)] font-normal tracking-[-0.03em] leading-[1.2em] mb-3">
-                  <a href="#" onClick={(e) => { e.preventDefault(); onProjectClick({ title: item.title, desc, img: item.img, rankIndex: item.rankIndex }); }} className="inline bg-gradient-to-r from-yellow-300 to-yellow-300 bg-no-repeat bg-[position:0_95%] bg-[length:0%_30%] group-hover:bg-[length:100%_30%] transition-[background-size] duration-500 ease-out">
+                  <a {...linkProps} className="inline bg-gradient-to-r from-yellow-300 to-yellow-300 bg-no-repeat bg-[position:0_95%] bg-[length:0%_30%] group-hover:bg-[length:100%_30%] transition-[background-size] duration-500 ease-out">
                     {item.title}
                   </a>
                 </h3>
@@ -410,7 +445,7 @@ function Explore({ onProjectClick }: { onProjectClick: (data: PasswordPromptData
               );
 
               const ImageBlock = item.img ? (
-                <a href="#" onClick={(e) => { e.preventDefault(); onProjectClick({ title: item.title, desc, img: item.img, rankIndex: item.rankIndex }); }} className="block w-full overflow-hidden mb-4 rounded-[16px] border border-[#111111] bg-[#f2f2f2]">
+                <a {...linkProps} className="block w-full overflow-hidden mb-4 rounded-[16px] border border-[#111111] bg-[#f2f2f2]">
                   <img src={item.img} className="w-full h-auto object-cover transform group-hover:scale-[1.03] transition-transform duration-700 ease-out" alt={item.title} />
                 </a>
               ) : null;
@@ -953,14 +988,15 @@ export default function App() {
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, []);
 
-  // Hidden authoring route: append #add to the URL to open the "Explore beyond" tool.
+  // Hidden authoring route: append #edit to the URL to open the project tool.
+  // #add is the old name, kept working so existing bookmarks still open it.
   useEffect(() => {
     const handleHashChange = () => setHash(window.location.hash);
     window.addEventListener('hashchange', handleHashChange);
     return () => window.removeEventListener('hashchange', handleHashChange);
   }, []);
 
-  if (hash === '#add') {
+  if (hash === '#edit' || hash === '#add') {
     return <AddProject />;
   }
 

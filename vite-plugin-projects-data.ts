@@ -5,7 +5,7 @@ import path from 'node:path';
 import { adminPassword, devAuthOk } from './vite-plugin-admin-auth';
 
 /**
- * Dev-only endpoint that lets the #add tool read and rewrite the projects data file
+ * Dev-only endpoint that lets the #edit tool read and rewrite the projects data file
  * (src/data/projects.json). Writing the file triggers Vite HMR, so the live site
  * updates as soon as a project is added, edited, reordered or deleted.
  *
@@ -21,6 +21,7 @@ const DATA_FILE = 'src/data/projects.json';
 interface ProjectItem {
   id: string;
   hidden: boolean;
+  url: string;
   chips: string[];
   img: string;
   featured: { title: string; desc: string };
@@ -49,6 +50,15 @@ const asStringArray = (value: unknown): string[] =>
 const asRecord = (value: unknown): Record<string, unknown> =>
   value && typeof value === 'object' ? (value as Record<string, unknown>) : {};
 
+/**
+ * Project links end up as an href on the public site, so only http(s) is kept.
+ * Anything else (javascript:, data:, a bare word) is dropped to an empty string.
+ */
+const asUrl = (value: unknown): string => {
+  const url = asString(value);
+  return /^https?:\/\//i.test(url) ? url : '';
+};
+
 /** Normalizes untrusted input so a malformed request can never corrupt the data file. */
 const sanitizeItem = (raw: unknown, index: number): ProjectItem | null => {
   const item = asRecord(raw);
@@ -63,6 +73,7 @@ const sanitizeItem = (raw: unknown, index: number): ProjectItem | null => {
   return {
     id: asString(item.id) || `project-${index + 1}`,
     hidden: item.hidden === true,
+    url: asUrl(item.url),
     chips: asStringArray(item.chips),
     img: asString(item.img),
     featured: { title: featuredTitle, desc: asString(featured.desc) },

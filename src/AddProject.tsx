@@ -6,6 +6,7 @@ import {
   Copy,
   Eye,
   EyeOff,
+  ExternalLink,
   GripVertical,
   Loader2,
   Lock,
@@ -23,7 +24,7 @@ import initialProjects from './data/projects.json';
 /**
  * Hidden authoring tool for the portfolio's project sections.
  *
- * Visit the site with the #add hash (e.g. http://localhost:5173/#add) to open it.
+ * Visit the site with the #edit hash (e.g. http://localhost:5173/#edit) to open it.
  * Add a project (dropped images upload straight to the GitHub image-storage repo),
  * or use the list underneath to reorder by dragging, edit and delete. Everything is
  * written to src/data/projects.json, which both sections of the site render from.
@@ -49,6 +50,11 @@ export interface ProjectItem {
   id: string;
   /** Hidden cards stay in the list here but are not rendered on the site. */
   hidden?: boolean;
+  /**
+   * Optional external link. When set, clicking the card on the site opens this
+   * in a new tab instead of showing the password modal.
+   */
+  url?: string;
   chips: string[];
   img: string;
   featured: { title: string; desc: string };
@@ -79,6 +85,7 @@ interface Draft {
   id: string;
   chips: string;
   img: string;
+  url: string;
   featuredTitle: string;
   featuredDesc: string;
   exploreTitle: string;
@@ -92,6 +99,7 @@ const EMPTY_DRAFT: Draft = {
   id: '',
   chips: '',
   img: '',
+  url: '',
   featuredTitle: '',
   featuredDesc: '',
   exploreTitle: '',
@@ -109,6 +117,19 @@ const normalizeImageUrl = (raw: string): string => {
     return `${url}${url.includes('?') ? '&' : '?'}raw=true`;
   }
   return url;
+};
+
+/**
+ * Cleans up a typed project link. A bare domain gets https:// added; anything
+ * carrying another scheme (javascript:, data:) is dropped rather than stored,
+ * because this value ends up in an href on the public site.
+ */
+const normalizeLinkUrl = (raw: string): string => {
+  const url = raw.trim();
+  if (!url) return '';
+  if (/^https?:\/\//i.test(url)) return url;
+  if (/^[a-z][a-z0-9+.-]*:/i.test(url)) return '';
+  return `https://${url}`;
 };
 
 const parseChips = (raw: string): string[] =>
@@ -130,6 +151,7 @@ const draftToItem = (draft: Draft): ProjectItem => {
     id: draft.id,
     chips: parseChips(draft.chips),
     img: normalizeImageUrl(draft.img),
+    url: normalizeLinkUrl(draft.url),
     featured: {
       // Fall back to the explore wording so a promoted card is never blank.
       title:
@@ -150,6 +172,7 @@ const itemToDraft = (item: ProjectItem): Draft => ({
   id: item.id,
   chips: item.chips.join(', '),
   img: item.img,
+  url: item.url ?? '',
   featuredTitle: item.featured.title,
   featuredDesc: item.featured.desc,
   exploreTitle: item.explore.title,
@@ -169,6 +192,7 @@ const buildHandoff = (draft: Draft): string => {
     `explore subtitle: ${item.explore.subtitle}`,
     `explore lines: ${item.explore.lines.join(' / ')}`,
     `image: ${item.img}`,
+    `link: ${item.url || '(none — password modal)'}`,
   ].join('\n');
 };
 
@@ -599,6 +623,8 @@ export default function AddProject() {
 
   const chips = parseChips(draft.chips);
   const img = normalizeImageUrl(draft.img);
+  // What the link field will actually store; empty when the input is unusable.
+  const linkPreview = normalizeLinkUrl(draft.url);
   const handoff = useMemo(() => buildHandoff(draft), [draft]);
   const isComplete = Boolean(
     draft.exploreTitle && draft.exploreSubtitle && img && chips.length,
@@ -989,6 +1015,30 @@ export default function AddProject() {
               />
             </Field>
 
+            <Field
+              label="Project link (optional)"
+              hint="Leave blank and clicking the card keeps the current behaviour — the “password protected” modal. Paste a link and the card becomes a real link instead: clicking the image or the title opens it in a new tab. Change or remove it any time; nothing else about the card changes."
+            >
+              <input
+                className={inputClass}
+                value={draft.url}
+                onChange={(e) => set('url')(e.target.value)}
+                placeholder="https://www.behance.net/gallery/… or leave empty"
+              />
+              {linkPreview && (
+                <span className="mt-2 inline-flex items-center gap-2 text-xs text-[#666666]">
+                  <ExternalLink size={12} strokeWidth={2} className="shrink-0" />
+                  Opens <span className="font-mono break-all">{linkPreview}</span> in a new tab
+                </span>
+              )}
+              {draft.url.trim() && !linkPreview && (
+                <span className="mt-2 inline-flex items-start gap-2 text-xs text-red-700">
+                  <AlertCircle size={12} strokeWidth={2} className="mt-[2px] shrink-0" />
+                  Only http:// and https:// links are allowed — this one will be ignored.
+                </span>
+              )}
+            </Field>
+
             <GroupHeading note="Used while the card sits in the Explore beyond masonry.">
               Explore wording
             </GroupHeading>
@@ -1271,6 +1321,19 @@ export default function AddProject() {
                         {isFeatured ? item.featured.desc : item.explore.lines.join(' · ')}
                       </p>
                       <p className="text-xs text-[#aaaaaa] truncate">{item.explore.title}</p>
+                      {item.url && (
+                        <a
+                          href={item.url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          onClick={(e) => e.stopPropagation()}
+                          title={item.url}
+                          className="mt-1 inline-flex items-center gap-1 max-w-full px-2 py-[0.05rem] text-[9px] uppercase tracking-wide font-medium border border-[#111111] rounded-full hover:bg-[#111111] hover:text-white transition-colors"
+                        >
+                          <ExternalLink size={10} strokeWidth={2} className="shrink-0" />
+                          <span className="truncate">{item.url.replace(/^https?:\/\//, '')}</span>
+                        </a>
+                      )}
                     </div>
 
                     <div

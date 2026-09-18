@@ -4,7 +4,7 @@ import { devAuthOk } from './vite-plugin-admin-auth';
 
 /**
  * Dev-only endpoint that uploads an image to the GitHub image-storage repo and
- * returns the embeddable URL, so the #add authoring tool can accept a drag-and-drop
+ * returns the embeddable URL, so the #edit authoring tool can accept a drag-and-drop
  * file instead of a manually uploaded/pasted link.
  *
  * The token is read server-side (never bundled into the client). Provide it via
