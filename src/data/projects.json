@@ -295,6 +295,30 @@
     }
   },
   {
+    "id": "preview",
+    "hidden": false,
+    "url": "",
+    "chips": [
+      "UX Design",
+      "mobile",
+      "entertainment",
+      "consumer"
+    ],
+    "img": "https://github.com/shunweiwilson/image-storage/blob/main/Mockup_Hero.jpg?raw=true",
+    "featured": {
+      "title": "PreView The ultimate entertainment explorer",
+      "desc": "Navigate young adults from overwhelming options on streaming platforms."
+    },
+    "explore": {
+      "title": "Navigate young adults from overwhelming options on streaming platforms.",
+      "subtitle": "PreView",
+      "weight": "font-bold",
+      "lines": [
+        "The ultimate entertainment explorer"
+      ]
+    }
+  },
+  {
     "id": "debut-crowdfunding-platform-for-niche-fa",
     "hidden": false,
     "url": "",
@@ -565,30 +589,6 @@
       "weight": "font-bold",
       "lines": [
         "SCID Summer Design Workshop Art Direction"
-      ]
-    }
-  },
-  {
-    "id": "preview",
-    "hidden": false,
-    "url": "",
-    "chips": [
-      "UX Design",
-      "mobile",
-      "entertainment",
-      "consumer"
-    ],
-    "img": "https://github.com/shunweiwilson/image-storage/blob/main/Mockup_Hero.jpg?raw=true",
-    "featured": {
-      "title": "PreView The ultimate entertainment explorer",
-      "desc": "Navigate young adults from overwhelming options on streaming platforms."
-    },
-    "explore": {
-      "title": "Navigate young adults from overwhelming options on streaming platforms.",
-      "subtitle": "PreView",
-      "weight": "font-bold",
-      "lines": [
-        "The ultimate entertainment explorer"
       ]
     }
   }
